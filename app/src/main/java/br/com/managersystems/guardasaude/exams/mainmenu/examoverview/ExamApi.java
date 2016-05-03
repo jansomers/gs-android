@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
+import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamImage;
 import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
@@ -14,6 +15,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ExamApi {
@@ -41,5 +43,13 @@ public interface ExamApi {
             @Query("token") String token,
             @Query("exid") String exId,
             @Query("edid") String exDocId
+    );
+
+    @POST("mobile/associateNewExam")
+    Call<AssociatedExamResponse> associateNewExam(
+            @Query("user") String username,
+            @Query("token") String token,
+            @Query("exid") String exId,
+            @Query("epasscode") String ePassCode
     );
 }

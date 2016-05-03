@@ -36,4 +36,5 @@ public class ExamTabActivity extends FragmentActivity{
     public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
+
 }

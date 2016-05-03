@@ -46,8 +46,8 @@ public class NewExamDialogFragment extends DialogFragment {
     }
 
     private void findNewExam(View view) {
-        EditText username = (EditText)view.findViewById(R.id.new_exam_username);
-        EditText protocol = (EditText)view.findViewById(R.id.new_exam_protocol);
-        listener.onNewExamInformationRetrieved(username.getText().toString(),protocol.getText().toString());
+        EditText identification = (EditText)view.findViewById(R.id.new_exam_identification);
+        EditText accessCode = (EditText)view.findViewById(R.id.new_exam_accesscode);
+        listener.onNewExamInformationRetrieved(identification.getText().toString(),accessCode.getText().toString());
     }
 }
