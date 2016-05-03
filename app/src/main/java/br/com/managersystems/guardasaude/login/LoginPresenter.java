@@ -1,9 +1,15 @@
 package br.com.managersystems.guardasaude.login;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
@@ -11,17 +17,14 @@ import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.ui.activities.LoginActivity;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 
-/**
- * Created by Jan on 14/04/2016.
- */
 public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener {
 
     ILoginView loginActivity;
+    Activity logoutActivity;
     SharedPreferences sp;
     LoginInteractor loginInteractor;
     DomainInteractor domainInteractor;
     Base64Interactor base64Interactor;
-    SharedPreferences.Editor editor;
 
     public LoginPresenter(LoginActivity loginActivity, SharedPreferences sp) {
         this.loginActivity = loginActivity;
@@ -31,22 +34,21 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
         base64Interactor = new Base64Interactor();
     }
 
+    public LoginPresenter(Activity logoutActivity, SharedPreferences sp) {
+        this.logoutActivity = logoutActivity;
+        loginInteractor = new LoginInteractor();
+        this.sp = sp;
+    }
+
+
     @Override
-    public void authorizeLogin(String email, String password) {
+    public void authorizeLogin(String username, String password) {
         Log.d(this.getClass().getSimpleName(), "Presenter received loginRequest -- Forwarding to Encoder");
-        String[] encodedLogin = encodeLogin(email, password);
         Log.d(this.getClass().getSimpleName(), "Presenter received encoded login -- Forwarding to Validation");
-        Log.d(this.getClass().getSimpleName(), "Encoded login: " + encodedLogin[0] + "// password: " + encodedLogin[1]);
-        loginInteractor.handleRequestLoginAttempt(this, encodedLogin[0], encodedLogin[1]);
-
-
+        loginInteractor.handleRequestLoginAttempt(this, base64Interactor.encodeStringToBase64(username), base64Interactor.encodeStringToBase64(password));
     }
 
 
-    @Override
-    public String[] encodeLogin(String email, String password) {
-        return new String[]{base64Interactor.encodeStringToBase64(email), base64Interactor.encodeStringToBase64(password)};
-    }
 
     @Override
     public void retrieveDomains() {
@@ -55,14 +57,55 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     }
 
     @Override
-    public void saveInfo(boolean patient) {
-        loginInteractor.saveUserInfo(this, sp.edit(),patient);
+    public void requestSaveInfo(boolean patient) {
+        loginInteractor.saveUserInfo(this, sp.edit(), patient);
     }
 
     @Override
-    public void onHandleRequestLoginAttemptSuccess(OnLoginFinishedListener listener, AuthorisationResult authorisationResult, String email64, String password64) {
-        loginInteractor.handleAuthorisationResult(listener,authorisationResult,email64,password64);
+    public boolean validateToken(String expires) {
+        //dd/MM/yyyy(HH:mm:ss)
+        DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        try {
+            Log.d(this.getClass().getSimpleName(), "expires: " + format.parse(expires));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d(this.getClass().getSimpleName(), "date: " + new Date().toString());
+        if (expires.isEmpty()) {
+            Log.d(this.getClass().getSimpleName(), "No expiredate found, initializing login activity");
+            return false;
+        }
+        try {
+            if (format.parse(expires).before(new Date())) {
+                Log.d(this.getClass().getSimpleName(), "Expire date exceeded, initializing login activity");
+                return false;
+            }
+        } catch (ParseException e) {
+            //TODO implement exception
+        }
+        try {
+            if (format.parse(expires).after(new Date())) {
+                Log.d(this.getClass().getSimpleName(), "Token not expired, continuing");
+                return true;
+            }
+        } catch (ParseException e) {
+            //TODO implement exception
+        }
+        Log.d(this.getClass().getSimpleName(), "HOW DID THE METHOD GET HERE UURGH?");
+        return false;
     }
+
+    @Override
+    public void logout() {
+        loginInteractor.deleteUserInfo(this, sp.edit());
+    }
+
+
+    @Override
+    public void onHandleRequestLoginAttemptSuccess(OnLoginFinishedListener listener, AuthorisationResult authorisationResult, String username64) {
+        loginInteractor.handleAuthorisationResult(listener, authorisationResult, username64);
+    }
+
 
     @Override
     public void onHandleRequestLoginAttemptFailure() {
@@ -72,13 +115,20 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
 
     @Override
     public void onAuthorizeFailure(String code) {
+
         loginActivity.loginFailed(code);
 
     }
 
     @Override
-    public void complete() {
+    public void onSavedInfo() {
+        //Do nothing
+    }
 
+    @Override
+    public void onDeletedInfo() {
+        Intent intent = new Intent(logoutActivity, LoginActivity.class);
+        logoutActivity.startActivity(intent);
     }
 
     @Override
@@ -92,7 +142,6 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
             loginActivity.showRoleOptionDialog(roles);
         }
         else {
-            /*loginInteractor.saveUserInfo(editor);*/
             if (roles.get(0).equals(UserRoleEnum.ROLE_HEALTH_PROFESSIONAL.toString())) {
                 Log.d(this.getClass().getSimpleName(), "Health Professional Identified! Forwarding to view!");
                 loginActivity.loginSuccess(false);

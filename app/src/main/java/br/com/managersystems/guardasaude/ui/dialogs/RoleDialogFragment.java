@@ -7,5 +7,5 @@ import android.app.DialogFragment;
  */
 public class RoleDialogFragment extends DialogFragment {
 
-    ChooseRoleListener listener;
+    OnRoleChosen listener;
 }

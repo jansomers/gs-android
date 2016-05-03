@@ -10,7 +10,7 @@
     <string name="Notifications">Notifications</string>
     <string name="Messages">Messages</string>
     <string name="login_succes">Success</string>
-    <string name="login_failed">Login failed!</string>
+    <string name="login_failed">Login unsuccessful</string>
     <string name="login_manager">Manager Identified!</string>
     <string name="choose_domain">Choose domain</string>
     <string name="find">Find</string>
@@ -40,9 +40,9 @@
     <string name="comments">Comments</string>
     <string name="Image_Overview">IMAGE OVERVIEW</string>
     <string name="show_comments">SHOW COMMENTS</string>
-    <string name="server_error">Error: Server not responding</string>
+    <string name="server_error">Server Error. Try again or contact gs</string>
     <string name="choose_role">Choose Role</string>
-    <string name="empty_creds">Field(s) cannot be empty!</string>
+    <string name="empty_creds">Username and password cannot be empty</string>
     <string name="ExamStatus">Exam Status</string>
     <string name="SortBy">Sort By</string>
     <string name="sort">Sort</string>
@@ -77,4 +77,6 @@
     <string name="finished">finished</string>
     <string name="exam_overview_failed">Failed to load exams…</string>
     <string name="noImages">No images available…</string>
+    <string name="auth_failed">Wrong password or username entered</string>
+    <string name="logout">Logout</string>
 </resources>

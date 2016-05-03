@@ -5,9 +5,25 @@ package br.com.managersystems.guardasaude.login;
  */
 public interface ILoginPresenter {
 
-    void authorizeLogin(String email, String password);
-    String[] encodeLogin(String email, String password);
+    /**
+     * Passes the credentials encoded to the logininteractor
+     * @param username String that represents the username.
+     * @param password String that represents the password.
+     */
+    void authorizeLogin(String username, String password);
+
+    /**
+     * TODO To be implemented
+     */
     void retrieveDomains();
 
-    void saveInfo(boolean patient);
+    /**
+     * Forwards the request to save the information.
+     * @param patient Boolean that represents if the profile is a patient or professional.
+     */
+    void requestSaveInfo(boolean patient);
+
+    boolean validateToken(String expires);
+
+    void logout();
 }

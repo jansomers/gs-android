@@ -8,7 +8,35 @@ import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
  * Created by Jan on 15/04/2016.
  */
 public interface ILoginInteractor {
-    void handleRequestLoginAttempt(OnLoginFinishedListener listener, String email64, String password64);
-    void handleAuthorisationResult(OnLoginFinishedListener listener, AuthorisationResult authorisationResult, String email64, String password64);
+
+    /**
+     * Handles the request to login and alerts the login presenter (who's listening):
+     *    The request can fail if the response holds no information or if the call was unsuccessful.
+     *    If the request is successful, the result is passed onto the the listener.
+     * @param listener The OnloginFinishedListener that is expecting a notification when the call has finished.
+     * @param username64 String that represents the base64 encoded username.
+     * @param password64 String that represents the base64 encoded password.
+     */
+    void handleRequestLoginAttempt(OnLoginFinishedListener listener, String username64, String password64);
+
+    /**
+     * Authorizes the user and alerts the login presenter (who's listening):
+     *      The authorization fails if the authorisation result's field success equals false.
+     *      If the authorization is successful the base user is saved and a mobile token is generated and passed to the presenter.
+     *
+     * @param listener The OnLoginFinishedListener that is expecting a notification when the call has finished.
+     * @param authorisationResult AuthorisationResult that is received from the request.
+     * @param username64 String that represents the base64 encoded username.
+     */
+    void handleAuthorisationResult(OnLoginFinishedListener listener, AuthorisationResult authorisationResult, String username64);
+
+    /**
+     * Saves the token, user and role in the shared preferences.
+     * @param listener  The OnLoginFinishedListener.
+     * @param editor The Editor which allows you to edit the shared preferences.
+     * @param patient Boolean which indicates if the role that should be saved is patient or professional.
+     */
     void saveUserInfo(OnLoginFinishedListener listener, SharedPreferences.Editor editor, boolean patient);
+
+    void deleteUserInfo(OnLoginFinishedListener listener, SharedPreferences.Editor edit);
 }
