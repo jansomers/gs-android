@@ -12,15 +12,13 @@ public class MobileToken {
     private static BaseUser baseUser;
     private static String token;
     private static  String role;
-    private Date startDate;
     //dd/MM/yyyy(HH:mm:ss)
     private static Date endDate;
 
-    public MobileToken(BaseUser baseUser, String token) {
+    public MobileToken(BaseUser baseUser, String token, Date date) {
         this.baseUser = baseUser;
         this.token = token;
-        startDate = new Date();
-        endDate = DateUtil.addDays(startDate, 7);
+        setEndDate(date);
 
     }
 
@@ -32,8 +30,8 @@ public class MobileToken {
         return token;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public static void setEndDate(Date startDate) {
+        MobileToken.endDate = DateUtil.addDays(startDate, 7);
     }
 
     public static Date getEndDate() {

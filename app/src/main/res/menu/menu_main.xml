@@ -15,4 +15,10 @@
         android:title="@string/SortBy"
         appcompat:showAsAction="always"/>
 
+    <item
+        android:icon="@drawable/ic_person_24dp"
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        appcompat:showAsAction="withText"/>
+
 </menu>

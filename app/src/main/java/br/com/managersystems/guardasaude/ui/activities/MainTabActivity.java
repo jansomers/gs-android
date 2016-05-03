@@ -11,6 +11,7 @@ import android.view.Menu;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.mainmenu.TabsPagerAdapter;
+import br.com.managersystems.guardasaude.login.LoginPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -23,6 +24,7 @@ public class MainTabActivity extends AppCompatActivity {
 
     private SharedPreferences sp;
     private String[] tabtitles;
+    private LoginPresenter loginPresenter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public class MainTabActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         tabtitles = new String[]{(String) getResources().getText(R.string.Exams), (String) getResources().getText(R.string.Notifications), (String) getResources().getText(R.string.Messages)};
         getSharedPref();
-        viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp));
+        viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles,sp));
     }
 
     @Override
@@ -47,5 +49,12 @@ public class MainTabActivity extends AppCompatActivity {
     public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        // Don't go back
+    }
+
+
 }
 

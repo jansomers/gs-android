@@ -1,9 +1,6 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
 
-import android.app.SearchManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,6 +29,7 @@ import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOvervie
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamOverview;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.NewExamListener;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.SortDialogListener;
+import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.ui.activities.ExamTabActivity;
 import br.com.managersystems.guardasaude.ui.dialogs.NewExamDialogFragment;
 import br.com.managersystems.guardasaude.ui.dialogs.SortByDialogFragment;
@@ -50,11 +47,16 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     FloatingActionButton fab;
 
 
-    private ExamOverviewPresenter presenter;
+    private ExamOverviewPresenter overviewPresenter;
+    private LoginPresenter loginPresenter;
     private ExamAdapter adapter;
     private SharedPreferences sp;
-    private List<Exam> examList = Collections.emptyList();
+    private List<Exam> examList = Collections.EMPTY_LIST;
     SearchView.OnQueryTextListener listener;
+
+    public ExamOverviewFragment() {
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,15 +69,15 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
         View view = inflater.inflate(R.layout.fragment_examoverview, container, false);
         ButterKnife.bind(this, view);
-
-        presenter = new ExamOverviewPresenter(this, sp);
-        presenter.getExamList();
-
+        loginPresenter = new LoginPresenter(this.getActivity(), sp);
+        overviewPresenter = new ExamOverviewPresenter(this, sp);
+        overviewPresenter.getExamList();
         adapter = new ExamAdapter(getActivity(), this.examList, this);
 
         setHasOptionsMenu(true);
         return view;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -93,9 +95,13 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
             case R.id.action_sortby:
                 showSortByDialog();
                 return true;
+            case R.id.action_logout:
+                loginPresenter.logout();
             default: return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     @OnClick(R.id.fab)
     public void getNewExam() {
@@ -112,15 +118,18 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void sortExamListBy(String orderBy,String sortBy){
-        presenter.getSortedExamList(sortBy,orderBy);
+        overviewPresenter.getSortedExamList(sortBy, orderBy);
     }
 
     @Override
     public void onSuccess(ArrayList<Exam> exams) {
         this.examList = exams;
-        adapter.addAllExams(this.examList);
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter.addAllExams(this.examList);
+
     }
 
 
@@ -139,6 +148,11 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Override
     public void setSharedPreferences(SharedPreferences sharedPreferences) {
         this.sp = sharedPreferences;
+    }
+
+    @Override
+    public void setLoginPresenter(LoginPresenter loginPresenter) {
+        this.loginPresenter = loginPresenter;
     }
 
     @Override
@@ -176,5 +190,10 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Override
     public void findNewExam(String username, String protocol) {
         //TODO add a new exam
+    }
+
+    @Override
+    public void onStop() {
+        super.onDestroy();
     }
 }
