@@ -41,10 +41,6 @@ public class ImagesFragment extends Fragment implements IImagesView {
 
         imagesPresenter.retrieveExam(getActivity().getIntent());
 
-        adapter = new GridViewImageAdapter(activity, imagesPresenter.getImagesForExam(), imagesPresenter.getColumnWidth());
-
-        gridView.setAdapter(adapter);
-
         return view;
     }
 
@@ -57,5 +53,10 @@ public class ImagesFragment extends Fragment implements IImagesView {
     public void noImagesFound(){
         TextView failText = (TextView)view.findViewById(R.id.imagesFail);
         failText.setText(R.string.noImages);
+    }
+
+    public void examReceivedSucces() {
+        adapter = new GridViewImageAdapter(activity, imagesPresenter.getImagesForExam(), imagesPresenter.getColumnWidth());
+        gridView.setAdapter(adapter);
     }
 }

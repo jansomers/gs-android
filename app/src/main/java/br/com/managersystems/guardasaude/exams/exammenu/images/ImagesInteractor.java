@@ -65,7 +65,16 @@ public class ImagesInteractor implements IImagesInteractor{
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                listener.onImageSuccess(response.body());
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        //Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                        listener.onImageSuccess(response.body());
+                    } else {
+                        // TODO
+                    }
+                } else {
+                    // TODO
+                }
             }
 
             @Override

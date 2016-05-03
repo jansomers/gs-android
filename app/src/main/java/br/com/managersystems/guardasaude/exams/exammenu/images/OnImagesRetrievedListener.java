@@ -14,8 +14,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public interface OnImagesRetrievedListener {
-    void onFailure();
+    void onExamFailure();
+    void onImageFailure();
     void onExamReceived(Exam exam);
-
     void onImageSuccess(ResponseBody response);
 }

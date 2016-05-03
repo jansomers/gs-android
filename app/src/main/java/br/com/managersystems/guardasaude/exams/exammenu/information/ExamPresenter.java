@@ -23,7 +23,6 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     public void retrieveInformation(Intent intent) {
         Log.d(getClass().getSimpleName(), "Received intent from view... Forwarding to interactor");
         examInteractor.getExam(intent);
-
     }
 
 

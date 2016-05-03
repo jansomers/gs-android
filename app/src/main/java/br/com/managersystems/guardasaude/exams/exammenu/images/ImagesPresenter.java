@@ -138,17 +138,24 @@ public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListen
         }
     }
 
+
     @Override
-    public void onFailure() {
+    public void onExamFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
-        Toast.makeText(imagesFragment.getContext(),"fkjfdsklqfklsd",Toast.LENGTH_LONG).show();
-            //TODO Show error
+        //TODO SHOW ERROR
+    }
+
+    @Override
+    public void onImageFailure() {
+        Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
+        //TODO SHOW ERROR
     }
 
     @Override
     public void onExamReceived(Exam exam) {
         this.exam = exam;
         retrieveImages();
+        imagesFragment.examReceivedSucces();
     }
 
     @Override
