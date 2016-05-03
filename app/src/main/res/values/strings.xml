@@ -73,4 +73,8 @@
     <string name="test_single_role_user">doctor2</string>
     <string name="test_single_role_password">Admin1</string>
     <string name="gs_role_option_pro">Professional</string>
+    <string name="ready">ready</string>
+    <string name="finished">finished</string>
+    <string name="exam_overview_failed">Failed to load exams…</string>
+    <string name="noImages">No images available…</string>
 </resources>

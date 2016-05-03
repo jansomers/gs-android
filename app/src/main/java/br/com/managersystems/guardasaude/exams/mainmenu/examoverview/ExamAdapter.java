@@ -22,12 +22,17 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
     List<Exam> examList;
     Context context;
     ExamOverviewFragment examOverview;
+    private final String finished;
+    private final String ready;
+
 
     public ExamAdapter(Context context,List<Exam> examList,ExamOverviewFragment examOverview) {
         inflater = LayoutInflater.from(context);
         this.examList = examList;
         this.context = context;
         this.examOverview = examOverview;
+        finished =context.getString(R.string.finished);
+        ready = context.getString(R.string.ready);
     }
 
     @Override
@@ -44,11 +49,14 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         holder.clinicName.setText(current.getClinicName());
         holder.executionDate.setText(removeHoursFromDate(current.getExecutionDate()));
         holder.statusText.setText(current.getStatus());
-        if(current.getStatus().equalsIgnoreCase("Finished")){
+
+        //Set status icon
+        if(current.getStatus().equalsIgnoreCase(finished) ||current.getStatus().equalsIgnoreCase(ready)){
             holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp));
         }else{
             holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(),R.drawable.ic_clock));
         }
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

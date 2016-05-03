@@ -29,7 +29,6 @@ public class ReportPresenter implements IReportPresenter, OnReportRetrievedListe
     public void onFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. Forwarding to view");
         reportFragment.showError();
-
     }
 
     @Override

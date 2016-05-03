@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
+    @Bind(R.id.failText)
+    TextView failText;
 
     private ExamOverviewPresenter presenter;
     private ExamAdapter adapter;
@@ -98,7 +101,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @OnClick(R.id.fab)
-    public void getNewExam() {
+    public void showNexExamDialog() {
         NewExamDialogFragment newExamDialogFragment = new NewExamDialogFragment();
         newExamDialogFragment.setTargetFragment(this,0);
         newExamDialogFragment.show(getFragmentManager(), "NewExamDialog");
@@ -126,7 +129,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void onFailure() {
-        Toast.makeText(getContext(), "FAIL", Toast.LENGTH_LONG).show();
+        failText.setText(R.string.exam_overview_failed);
     }
 
     @Override
@@ -154,8 +157,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
                     final String patientName = examList.get(i).getPatient().toLowerCase();
                     final String examId = examList.get(i).getIdentification();
-                    //TODO add clinicName
-                    if (patientName.contains(query) || examId.contains(query)) {
+                    final String clinicName = examList.get(i).getClinicName();
+                    if (patientName.contains(query) || examId.contains(query) || clinicName.contains(query)) {
                         filteredList.add(examList.get(i));
                     }
                 }
@@ -174,7 +177,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
 
     @Override
-    public void findNewExam(String username, String protocol) {
+    public void onNewExamInformationRetrieved(String username, String protocol) {
         //TODO add a new exam
     }
 }

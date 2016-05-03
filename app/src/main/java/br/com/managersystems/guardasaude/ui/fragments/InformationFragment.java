@@ -57,7 +57,9 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     ExamPresenter presenter;
     boolean commentsHidden;
-    //final Exam DUMMY_EXAM = new Exam(167511113, "TMC56257", "RM ARTICULAR(PORATICULACAO)", "ATIDOR SILVA CORDOSO DOS SANTOS", "12/01/2016 12:10", "Finished", "JOHN SMITH", "CRMPR/98765", "JOSE CANDIDO VALENTE MALAGUIDO", "CRM SC/17989", "/mobile/getExamReport?user=doctor&exid=TMC56257", null);
+      //final Exam DUMMY_EXAM = new Exam(167511113, "TMC56257", "RM ARTICULAR(PORATICULACAO)", "ATIDOR SILVA CORDOSO DOS SANTOS", "12/01/2016 12:10", "Finished", "JOHN SMITH", "CRMPR/98765", "JOSE CANDIDO VALENTE MALAGUIDO", "CRM SC/17989", "/mobile/getExamReport?user=doctor&exid=TMC56257", null);
+
+
 
 
     @Override
@@ -91,7 +93,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         imagesBtn.setVisibility(View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
-        examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(),exam.getStatus().equals("Finished") ? R.drawable.ic_check_circle_36dp : R.drawable.ic_clock));
+        examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready)) ? R.drawable.ic_check_circle_36dp : R.drawable.ic_clock));
         examPatientTextView.setText(StringUtils.anyCaseToNameCase(exam.getPatient()));
         examClinicTextView.setText(StringUtils.anyCaseToNameCase(exam.getClinicName()));
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);

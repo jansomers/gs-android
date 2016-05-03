@@ -18,6 +18,7 @@ public class FullScreenImagePresenter implements IFullScreenImagePresenter {
     @Override
     public ArrayList<Bitmap> getExamImages() {
         final ArrayList<Bitmap> images = new ArrayList<>();
+        //TODO get images for exam
         TypedArray imagesRes = fullScreenImageActivity.getResources().obtainTypedArray(R.array.image_ids);
 
         for (int i = 0; i < imagesRes.length(); i++) {

@@ -39,7 +39,6 @@ public class ReportFragment extends Fragment implements IExamReportView {
     private void init() {
         Log.d(getClass().getSimpleName(),"Initiating Report: retrieving exam");
         presenter.retrieveExam(getActivity().getIntent());
-
     }
 
     @Override

@@ -31,7 +31,7 @@ public class NewExamDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.find, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        findnewExam(view);
+                        findNewExam(view);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -45,9 +45,9 @@ public class NewExamDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    private void findnewExam(View view) {
+    private void findNewExam(View view) {
         EditText username = (EditText)view.findViewById(R.id.new_exam_username);
         EditText protocol = (EditText)view.findViewById(R.id.new_exam_protocol);
-        listener.findNewExam(username.getText().toString(),protocol.getText().toString());
+        listener.onNewExamInformationRetrieved(username.getText().toString(),protocol.getText().toString());
     }
 }

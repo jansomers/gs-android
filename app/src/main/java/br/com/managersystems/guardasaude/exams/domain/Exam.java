@@ -23,14 +23,14 @@ public class Exam implements Parcelable {
     private String referringPhysicianName;
     private String referringPhysicianProID;
     private String reportLink;
-    private List<Object> images = new ArrayList<Object>();
+    private ArrayList<ExamImage> images = new ArrayList<ExamImage>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
 
     public Exam() {
     }
 
-    public Exam(int id, String identification, String serviceName,String clinicName, String patient, String executionDate, String status, String reportingPhysicianName, String reportingPhysicianProID, String referringPhysicianName, String referringPhysicianProID, String reportLink, List<Object> images, Map<String, Object> additionalProperties) {
+    public Exam(int id, String identification, String serviceName,String clinicName, String patient, String executionDate, String status, String reportingPhysicianName, String reportingPhysicianProID, String referringPhysicianName, String referringPhysicianProID, String reportLink, ArrayList<ExamImage> images, Map<String, Object> additionalProperties) {
         this.id = id;
         this.identification = identification;
         this.serviceName = serviceName;
@@ -47,6 +47,7 @@ public class Exam implements Parcelable {
         this.additionalProperties = additionalProperties;
     }
 
+
     public Exam(Parcel in){
         this.id = in.readInt();
         this.identification = in.readString();
@@ -60,6 +61,7 @@ public class Exam implements Parcelable {
         this.referringPhysicianName = in.readString();
         this.referringPhysicianProID = in.readString();
         this.reportLink = in.readString();
+        this.images = in.createTypedArrayList(ExamImage.CREATOR);
     }
 
     public int getId() {
@@ -222,14 +224,14 @@ public class Exam implements Parcelable {
     /**
      * @return The images
      */
-    public List<Object> getImages() {
+    public ArrayList<ExamImage> getImages() {
         return images;
     }
 
     /**
      * @param images The images
      */
-    public void setImages(List<Object> images) {
+    public void setImages(ArrayList<ExamImage> images) {
         this.images = images;
     }
 
@@ -260,7 +262,9 @@ public class Exam implements Parcelable {
         dest.writeString(this.referringPhysicianName);
         dest.writeString(this.referringPhysicianProID);
         dest.writeString(this.reportLink);
+        dest.writeTypedList(this.images);
     }
+
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Exam createFromParcel(Parcel in) {
             return new Exam(in);

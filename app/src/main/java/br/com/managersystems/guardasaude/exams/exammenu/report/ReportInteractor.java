@@ -25,7 +25,6 @@ public class ReportInteractor implements IReportInteractor {
     public ReportInteractor(OnReportRetrievedListener reportListener) {
         this.reportListener = reportListener;
         examApi = initiateRetrofit();
-
     }
 
     private ExamApi initiateRetrofit() {
