@@ -4,6 +4,7 @@ package br.com.managersystems.guardasaude.exams.exammenu.images;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,6 +12,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -26,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ImagesInteractor implements IImagesInteractor{
     private final String BASE_URL = "https://guardasaude.com.br/";
-    ExamApi examApi;
+      ExamApi examApi;
     OnImagesRetrievedListener listener;
 
     public ImagesInteractor(OnImagesRetrievedListener listener) {
@@ -51,7 +54,7 @@ public class ImagesInteractor implements IImagesInteractor{
         Exam exam = intent.getParcelableExtra("exam");
         if (exam.getIdentification().isEmpty()) {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");
-            listener.onFailure();
+            listener.onExamFailure();
         } else {
             Log.d(getClass().getSimpleName(), "Exam was retrieved succesfully... notifying listener!");
             listener.onExamReceived(exam);
@@ -81,7 +84,7 @@ public class ImagesInteractor implements IImagesInteractor{
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 //TODO ONFAILURE
                 //listener.onImageFailure();
-               listener.onFailure();
+               listener.onImageFailure();
             }
         });
     }

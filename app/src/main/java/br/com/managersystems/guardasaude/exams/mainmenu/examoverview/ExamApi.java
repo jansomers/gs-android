@@ -17,6 +17,7 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface ExamApi {
 
@@ -52,4 +53,5 @@ public interface ExamApi {
             @Query("exid") String exId,
             @Query("epasscode") String ePassCode
     );
+
 }
