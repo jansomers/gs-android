@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_local_hospital_16dp"
+                    android:drawableStart="@drawable/ic_local_hospital_16dp_textcolorlight"
                     android:textAlignment="textStart"
                     android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView"
                      />
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_person_16dp"
+                    android:drawableStart="@drawable/ic_person_16dp_textcolorlight"
                     android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView"
                     android:textAlignment="textStart"
                      />
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_today_16dp"
+                    android:drawableStart="@drawable/ic_today_16dp_textcolorlight"
                     android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView"
                     android:gravity="center"
                     />
@@ -103,7 +103,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_chevron_right_16dp" />
+                    android:src="@drawable/ic_chevron_right_16dp_primary" />
             </LinearLayout>
 
         </LinearLayout>

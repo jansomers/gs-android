@@ -9,4 +9,5 @@ import android.content.SharedPreferences;
 public interface IExamPresenter {
     void retrieveInformation(Intent intent);
     void retrieveComments(CharSequence exid, SharedPreferences sp);
+    void saveComment(CharSequence s, CharSequence exid, SharedPreferences sp);
 }

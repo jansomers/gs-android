@@ -1,22 +1,23 @@
 <resources>
-    <string name="app_name">Guardasaude</string>
-    <string name="app_name_login">guarda saúde</string>
-    <string name="Username">Username</string>
-    <string name="Password">Password</string>
-    <string name="Login">Login</string>
-    <string name="Authenticating">Authenticating...</string>
-    <string name="Exams">Exams</string>
-    <string name="Filter">Filter</string>
-    <string name="Notifications">Notifications</string>
-    <string name="Messages">Messages</string>
-    <string name="login_succes">Success</string>
+    <!-- Application -->
+    <string name="gs_app_name">Guardasaude</string>
+    <string name="gs_app_name_login">guarda saúde</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="authenticating_message">Authenticating...</string>
+    <string name="exams">Exams</string>
+    <string name="filter">Filter</string>
+    <string name="notifications">Notifications</string>
+    <string name="messages">Messages</string>
+    <string name="login_success">Success</string>
     <string name="login_failed">Login unsuccessful</string>
     <string name="login_manager">Manager Identified!</string>
     <string name="choose_domain">Choose domain</string>
     <string name="find">Find</string>
     <string name="cancel">Cancel</string>
-    <string name="findnew">Find new exam</string>
-    <string name="Protocol">Protocol</string>
+    <string name="find_new_exam">Find new exam</string>
+    <string name="protocol">Protocol</string>
     <string name="Information">Information</string>
     <string name="Report">Report</string>
     <string name="Images">Images</string>
@@ -57,7 +58,7 @@
     <string name="comment_example">Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.</string>
     <string name="information_error">NOT FOUND</string>
     <string name="information_error_response">Try again or contact an administrator</string>
-    <string name="username">Username</string>
+
     <string name="patient">Patient</string>
     <string name="report">Report</string>
     <string name="reporting">Reporting Physician</string>
@@ -81,4 +82,5 @@
     <string name="logout">Logout</string>
     <string name="examIdentification">Exam Identification</string>
     <string name="accessCode">Access Code</string>
+    <string name="gs_exam_write_comment_hint">Start writing a comment...</string>
 </resources>

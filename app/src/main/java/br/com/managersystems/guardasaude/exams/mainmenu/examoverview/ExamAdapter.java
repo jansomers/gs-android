@@ -37,7 +37,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
 
     @Override
     public ExamViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.custom_examlistitem, parent, false);
+        View view = inflater.inflate(R.layout.list_item_exam, parent, false);
         return new ExamViewHolder(view);
     }
 
@@ -52,9 +52,9 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
 
         //Set status icon
         if(current.getStatus().equalsIgnoreCase(finished) ||current.getStatus().equalsIgnoreCase(ready)){
-            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp));
+            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp_accent));
         }else{
-            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(),R.drawable.ic_clock));
+            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(),R.drawable.ic_clock_primary));
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

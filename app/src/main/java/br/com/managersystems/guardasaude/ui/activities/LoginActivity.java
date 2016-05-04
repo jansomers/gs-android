@@ -157,8 +157,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //builder.setTitle(getResources().getText(R.string.choose_domain));
-        builder.setCustomTitle(getLayoutInflater().inflate(R.layout.domain_dialog_title, null));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dialog_standard_item, domains);
+        builder.setCustomTitle(getLayoutInflater().inflate(R.layout.dialog_domain_title, null));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dialog_role_custom_checked_textview, domains);
 
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
             }
         });
         AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_dialog_window);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.background_dialog_window_white);
 
         dialog.show();
 
@@ -219,9 +219,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         hideProgressBar();
         showSuccessfulLogin();
         AlertDialog.Builder roleOptionBuilder = new AlertDialog.Builder(this);
-        roleOptionBuilder.setCustomTitle(getLayoutInflater().inflate(R.layout.role_dialog_title, null));
+        roleOptionBuilder.setCustomTitle(getLayoutInflater().inflate(R.layout.dialog_role_title, null));
         String[] rolesArray = roles.toArray(new String[roles.size()]);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dialog_standard_item, rolesArray);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dialog_role_custom_checked_textview, rolesArray);
         roleOptionBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -231,7 +231,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
             }
         });
         AlertDialog roleOptionDialog = roleOptionBuilder.create();
-        roleOptionDialog.getWindow().setBackgroundDrawableResource(R.drawable.white_dialog_window);
+        roleOptionDialog.getWindow().setBackgroundDrawableResource(R.drawable.background_dialog_window_white);
         roleOptionDialog.show();
     }
 
@@ -248,7 +248,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
      * @param string String that represents the error message.
      */
     private void showFailedLogin(String string) {
-        authenticatingFinishedImageView.setImageResource(R.drawable.ic_error_36dp);
+        authenticatingFinishedImageView.setImageResource(R.drawable.ic_error_36dp_error);
         authenticatingFinishedImageView.setVisibility(View.VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
         authenticatingFinishedImageView.startAnimation(animation);
@@ -269,7 +269,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
      */
     private void showAuthenticatingProgress() {
         authenticatingProgressBar.setVisibility(View.VISIBLE);
-        authenticatingProgressText.setText(getResources().getText(R.string.Authenticating));
+        authenticatingProgressText.setText(getResources().getText(R.string.authenticating_message));
         authenticatingProgressText.setTextColor(ContextCompat.getColor(this, R.color.colorAccent300));
         authenticatingProgressText.setVisibility(View.VISIBLE);
         authenticatingFinishedImageView.setVisibility(View.GONE);
@@ -287,8 +287,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
      * Shows a successful login on the screen.
      */
     private void showSuccessfulLogin() {
-        authenticatingFinishedImageView.setImageResource(R.drawable.ic_check_circle_36dp);
-        authenticatingProgressText.setText(getResources().getText(R.string.login_succes));
+        authenticatingFinishedImageView.setImageResource(R.drawable.ic_check_circle_36dp_accent);
+        authenticatingProgressText.setText(getResources().getText(R.string.login_success));
 
         authenticatingFinishedImageView.setVisibility(View.VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);

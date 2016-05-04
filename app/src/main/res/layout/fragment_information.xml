@@ -66,7 +66,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="5dp"
-                android:src="@drawable/ic_check_circle_36dp" />
+                android:src="@drawable/ic_check_circle_36dp_accent" />
 
 
         </RelativeLayout>
@@ -101,7 +101,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_local_hospital_24dp" />
+                            android:src="@drawable/ic_local_hospital_24dp_primarylight" />
 
                         <TextView
                             android:id="@+id/gs_exam_information_clinic_id"
@@ -125,7 +125,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_person_24dp" />
+                            android:src="@drawable/ic_person_24dp_primarylight" />
 
                         <TextView
                             android:id="@+id/gs_exam_information_patient"
@@ -165,7 +165,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_today_24dp" />
+                            android:src="@drawable/ic_today_24dp_primarylight" />
 
                         <TextView
                             android:id="@+id/gs_exam_information_exam_date"
@@ -189,7 +189,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_report_account" />
+                            android:src="@drawable/ic_report_account_24dp_primarylight" />
 
                         <TextView
                             android:id="@+id/gs_exam_information_exam_reporting_phys"
@@ -228,7 +228,7 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="16dp"
                     android:background="@android:color/transparent"
-                    android:drawableRight="@drawable/ic_expand_more_24dp"
+                    android:drawableRight="@drawable/ic_expand_more_24dp_primary"
                     android:text="@string/comments"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorPrimary" />
@@ -240,7 +240,7 @@
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
                     android:background="@android:color/transparent"
-                    android:drawableRight="@drawable/ic_chevron_right_24dp"
+                    android:drawableRight="@drawable/ic_chevron_right_24dp_primary"
                     android:text="@string/Images"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorPrimary" />
@@ -250,12 +250,10 @@
         </RelativeLayout>
 
         <include
-            layout="@layout/comment_section"
+            layout="@layout/fragment_information_section_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout"
-            android:layout_alignEnd="@+id/linearLayout"
-            android:layout_alignStart="@+id/linearLayout" />
+             />
     </LinearLayout>
 
 

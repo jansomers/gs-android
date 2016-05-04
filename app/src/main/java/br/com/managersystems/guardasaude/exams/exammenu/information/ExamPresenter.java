@@ -35,6 +35,11 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
         examInteractor.getCommentsForExam(exid, sp);
     }
 
+    @Override
+    public void saveComment(CharSequence s, CharSequence exid, SharedPreferences sp) {
+        examInteractor.postNewComment(s, exid, sp);
+    }
+
 
     @Override
     public void onFailure() {
@@ -60,5 +65,23 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     public void onCommentsRetrievedSuccesfully(List<Comment> comments) {
         Log.d(this.getClass().getSimpleName(), "Received comments succesfully... Notifying view!");
         informationFragment.enableComments(comments);
+    }
+
+    @Override
+    public void onPostCommentCallFailed() {
+        Log.d(this.getClass().getSimpleName(), "Received comment post call failure... Alerting view!");
+        informationFragment.showCommentPostError();
+    }
+
+    @Override
+    public void onCommentPostedFailure() {
+        Log.d(this.getClass().getSimpleName(), "Received comment post call failure... Alerting view!");
+        informationFragment.showCommentPostError();
+    }
+
+    @Override
+    public void onCommentPostedSuccess() {
+        Log.d(this.getClass().getSimpleName(), "Received comment post call success!... Notifying view!");
+        informationFragment.showNewComment();
     }
 }

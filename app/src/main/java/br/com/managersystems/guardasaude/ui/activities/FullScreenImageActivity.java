@@ -18,7 +18,7 @@ public class FullScreenImageActivity extends Activity {
     @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.fullscreen_view);
+            setContentView(R.layout.activity_fullscreenimage);
 
             viewPager = (ViewPager) findViewById(R.id.pager);
 

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import br.com.managersystems.guardasaude.exams.domain.CommentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.exams.domain.PostCommentResponse;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 import retrofit2.Call;
@@ -77,6 +78,37 @@ public class ExamInteractor implements  IExamInteractor {
 
                 }
             });
+        }
+    }
+
+    @Override
+    public void postNewComment(CharSequence exid, CharSequence comment, SharedPreferences sp) {
+        if (examApi == null) initiateRetrofit();
+        String user = base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
+        String token = sp.getString("token", "");
+        String encodedMessage = base64Interactor.encodeStringToBase64(comment.toString());
+        if (comment.toString().isEmpty() || exid.toString().isEmpty() || user.isEmpty() || token.isEmpty()) {
+            examListener.onPostCommentCallFailed();
+        }
+        else {
+            Call<PostCommentResponse> call = examApi.postComment(user,token,exid.toString(),encodedMessage);
+            call.enqueue(new Callback<PostCommentResponse>() {
+                @Override
+                public void onResponse(Call<PostCommentResponse> call, Response<PostCommentResponse> response) {
+                    if (!(response.body().getResult().toLowerCase().equals("success"))) {
+                        examListener.onCommentPostedFailure();
+                    }
+                    else {
+                        examListener.onCommentPostedSuccess();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PostCommentResponse> call, Throwable t) {
+                    examListener.onCommentPostedFailure();
+                }
+            });
+
         }
     }
 

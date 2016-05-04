@@ -17,4 +17,8 @@ public interface IExamInformationView {
 
     void disableComments();
     void enableComments(List<Comment> comments);
+
+    void showCommentPostError();
+
+    void showNewComment();
 }

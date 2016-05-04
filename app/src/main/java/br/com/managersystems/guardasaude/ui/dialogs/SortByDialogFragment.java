@@ -3,7 +3,6 @@ package br.com.managersystems.guardasaude.ui.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -13,12 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.managersystems.guardasaude.R;
-import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamAdapter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.SortDialogListener;
-import br.com.managersystems.guardasaude.ui.fragments.ExamOverviewFragment;
 
 public class SortByDialogFragment extends DialogFragment {
     private SortDialogListener listener;
@@ -34,7 +30,7 @@ public class SortByDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.dialog_sortby, null);
+        View view = inflater.inflate(R.layout.dialog_sort_exams, null);
 
         builder.setView(view).setPositiveButton(R.string.sort, new DialogInterface.OnClickListener() {
             @Override
