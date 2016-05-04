@@ -18,10 +18,10 @@
             app:hintTextAppearance="@style/TextAppearance.App.Authentication.Progress">
 
             <EditText
-                android:id="@+id/new_exam_username"
+                android:id="@+id/new_exam_identification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
+                android:hint="@string/examIdentification"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorTextColor" />
         </android.support.design.widget.TextInputLayout>
@@ -34,10 +34,10 @@
             app:hintTextAppearance="@style/TextAppearance.App.Authentication.Progress">
 
             <EditText
-                android:id="@+id/new_exam_protocol"
+                android:id="@+id/new_exam_accesscode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Protocol"
+                android:hint="@string/accessCode"
                 android:inputType="textPassword"
                 android:textColor="@color/colorTextColor" />
         </android.support.design.widget.TextInputLayout>

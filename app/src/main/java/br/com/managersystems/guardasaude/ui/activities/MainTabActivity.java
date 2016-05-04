@@ -21,9 +21,8 @@ public class MainTabActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-
+    
     Menu menu;
-
     private SharedPreferences sp;
     private String[] tabtitles;
     private LoginPresenter loginPresenter;

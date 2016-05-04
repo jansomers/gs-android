@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.exammenu.images.GridViewImageAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.images.IImagesView;
@@ -57,5 +55,10 @@ public class ImagesFragment extends Fragment implements IImagesView {
     public void noImagesFound(){
         TextView failText = (TextView)view.findViewById(R.id.imagesFail);
         failText.setText(R.string.noImages);
+    }
+
+    public void examReceivedSucces() {
+        adapter = new GridViewImageAdapter(activity, imagesPresenter.getImagesForExam(), imagesPresenter.getColumnWidth());
+        gridView.setAdapter(adapter);
     }
 }

@@ -79,4 +79,6 @@
     <string name="noImages">No images available…</string>
     <string name="auth_failed">Wrong password or username entered</string>
     <string name="logout">Logout</string>
+    <string name="examIdentification">Exam Identification</string>
+    <string name="accessCode">Access Code</string>
 </resources>

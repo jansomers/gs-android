@@ -1,12 +1,16 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -16,6 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamAdapter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOverviewPresenter;
@@ -55,7 +63,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private ExamAdapter adapter;
     private SharedPreferences sp;
     private List<Exam> examList = Collections.EMPTY_LIST;
-    SearchView.OnQueryTextListener listener;
+    private SearchView.OnQueryTextListener listener;
+    private SwipeRefreshLayout swipeRefresh;
 
     public ExamOverviewFragment() {
 
@@ -72,16 +81,27 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
         View view = inflater.inflate(R.layout.fragment_examoverview, container, false);
         ButterKnife.bind(this, view);
+        swipeRefresh = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
         loginPresenter = new LoginPresenter(this.getActivity(), sp);
         overviewPresenter = new ExamOverviewPresenter(this, sp);
         overviewPresenter.getExamList();
         adapter = new ExamAdapter(getActivity(), this.examList, this);
 
-        setHasOptionsMenu(true);
+        init();
         return view;
     }
 
+    private void init() {
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                overviewPresenter.getExamList();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
 
+        setHasOptionsMenu(true);
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         this.menu = menu;
@@ -97,8 +117,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+        public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_sortby:
                 showSortByDialog();
@@ -130,7 +149,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @Override
-    public void onSuccess(ArrayList<Exam> exams) {
+    public void onSuccessExamList(ArrayList<Exam> exams) {
         this.examList = exams;
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -140,10 +159,25 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     }
 
+    @Override
+    public void onFailureExamList() {
+        failText.setText(R.string.exam_overview_failed);
+    }
 
     @Override
-    public void onFailure() {
-        failText.setText(R.string.exam_overview_failed);
+    public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
+        if(associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")){
+            Toast.makeText(getContext(),"Exam associated",Toast.LENGTH_LONG).show();
+            overviewPresenter.getExamList();
+        }
+        else if(associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_cide")){
+            Toast.makeText(getContext(),"Wrong access code",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onFailureFindNewExam() {
+
     }
 
     @Override
@@ -177,7 +211,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
                     final String patientName = examList.get(i).getPatient().toLowerCase();
                     final String examId = examList.get(i).getIdentification();
                     final String clinicName = examList.get(i).getClinicName();
-                    if (patientName.contains(query) || examId.contains(query) || clinicName.contains(query)) {
+                    final String date = examList.get(i).getExecutionDate();
+                    if (patientName.contains(query) || examId.contains(query) || clinicName.contains(query)||date.contains(query)) {
                         filteredList.add(examList.get(i));
                     }
                 }
@@ -196,8 +231,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
 
     @Override
-    public void onNewExamInformationRetrieved(String username, String protocol) {
-        //TODO add a new exam
+    public void onNewExamInformationRetrieved(String identification, String accessCode) {
+        overviewPresenter.findNewExam(identification, accessCode);
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.util.Log;
 import android.util.TypedValue;
@@ -15,21 +14,14 @@ import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamImage;
-import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.ui.fragments.ImagesFragment;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListener {
     private ImagesFragment imagesFragment;
@@ -138,17 +130,31 @@ public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListen
         }
     }
 
+
+    @Override
+    public void onExamFailure() {
+        Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
+        //TODO SHOW ERROR
+
+    }
     @Override
     public void onFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
-        Toast.makeText(imagesFragment.getContext(),"fkjfdsklqfklsd",Toast.LENGTH_LONG).show();
-            //TODO Show error
+        Toast.makeText(imagesFragment.getContext(), "fkjfdsklqfklsd", Toast.LENGTH_LONG).show();
+        //TODO Show error
+    }
+
+    @Override
+    public void onImageFailure() {
+        Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
+        //TODO SHOW ERROR
     }
 
     @Override
     public void onExamReceived(Exam exam) {
         this.exam = exam;
-        retrieveImages();
+        retrieveImages();        
+        imagesFragment.examReceivedSucces();
     }
 
     @Override
