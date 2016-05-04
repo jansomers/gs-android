@@ -37,15 +37,20 @@ public class ExamListInteractor implements IExamListInteractor {
         call.enqueue(new Callback<ExamList>() {
             @Override
             public void onResponse(Call<ExamList> call, Response<ExamList> response) {
-                listener.onSuccess(response.body());
+                listener.onSuccessGetExamList(response.body());
             }
 
             @Override
             public void onFailure(Call<ExamList> call, Throwable t) {
-                listener.onFailure();
+                listener.onFailureGetExamList();
             }
         });
 
+
+    }
+
+    @Override
+    public void associateNewExam(OnCallExamListFinishedListener listener, String user, String token, String exid, String ePassCode) {
 
     }
 

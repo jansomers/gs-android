@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,12 +135,6 @@ public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListen
         Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
         //TODO SHOW ERROR
 
-    }
-    @Override
-    public void onFailure() {
-        Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
-        Toast.makeText(imagesFragment.getContext(), "fkjfdsklqfklsd", Toast.LENGTH_LONG).show();
-        //TODO Show error
     }
 
     @Override
