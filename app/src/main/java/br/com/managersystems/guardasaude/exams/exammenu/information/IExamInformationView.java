@@ -1,5 +1,8 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
+import java.util.List;
+
+import br.com.managersystems.guardasaude.exams.domain.Comment;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 /**
@@ -11,4 +14,7 @@ public interface IExamInformationView {
     void hideComments();
     void navigateToImages();
     void showInformationError();
+
+    void disableComments();
+    void enableComments(List<Comment> comments);
 }

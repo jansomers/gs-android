@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,6 +57,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Bind(R.id.failText)
     TextView failText;
 
+    Menu menu;
     private ExamOverviewPresenter overviewPresenter;
     private LoginPresenter loginPresenter;
     private ExamAdapter adapter;
@@ -100,20 +102,22 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
         setHasOptionsMenu(true);
     }
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)MenuItemCompat.getActionView(item);
-        initiateSearchViewListener();
-        searchView.setOnQueryTextListener(listener);
+        this.menu = menu;
+        showOverflowMenu(true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    private void showOverflowMenu(boolean show) {
+        if (menu == null) return;
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        initiateSearchViewListener();
+        searchView.setOnQueryTextListener(listener);
+        menu.setGroupVisible(R.id.overview_group, show);
+    }
+
+        public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_sortby:
                 showSortByDialog();

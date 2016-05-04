@@ -23,9 +23,11 @@ import java.util.List;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamImage;
+import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.ui.fragments.ImagesFragment;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListener {
     private ImagesFragment imagesFragment;
@@ -166,7 +168,7 @@ public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListen
     @Override
     public void onExamReceived(Exam exam) {
         this.exam = exam;
-        retrieveImages();
+        retrieveImages();        
         imagesFragment.examReceivedSucces();
     }
 

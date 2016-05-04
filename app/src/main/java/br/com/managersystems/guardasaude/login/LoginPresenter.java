@@ -40,15 +40,12 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
         this.sp = sp;
     }
 
-
     @Override
     public void authorizeLogin(String username, String password) {
         Log.d(this.getClass().getSimpleName(), "Presenter received loginRequest -- Forwarding to Encoder");
         Log.d(this.getClass().getSimpleName(), "Presenter received encoded login -- Forwarding to Validation");
         loginInteractor.handleRequestLoginAttempt(this, base64Interactor.encodeStringToBase64(username), base64Interactor.encodeStringToBase64(password));
     }
-
-
 
     @Override
     public void retrieveDomains() {
@@ -152,9 +149,6 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
             }
         }
     }
-
-
-
 
     @Override
     public void onDomainRetrieved(ArrayList<AccessDomain> domainList) {

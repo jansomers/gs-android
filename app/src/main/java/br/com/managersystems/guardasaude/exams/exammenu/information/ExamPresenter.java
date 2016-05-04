@@ -1,8 +1,12 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.List;
+
+import br.com.managersystems.guardasaude.exams.domain.Comment;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
 
@@ -23,8 +27,13 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     public void retrieveInformation(Intent intent) {
         Log.d(getClass().getSimpleName(), "Received intent from view... Forwarding to interactor");
         examInteractor.getExam(intent);
+
     }
 
+    @Override
+    public void retrieveComments(CharSequence exid, SharedPreferences sp) {
+        examInteractor.getCommentsForExam(exid, sp);
+    }
 
 
     @Override
@@ -39,5 +48,17 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
         Log.d(getClass().getSimpleName(), "Received interactor success... Notifying view!");
         informationFragment.showInformation(exam);
 
+    }
+
+    @Override
+    public void onUnableToMakeCommentsCall() {
+        Log.d(this.getClass().getSimpleName(), "Received unable comment call... Alerting view!");
+        informationFragment.disableComments();
+    }
+
+    @Override
+    public void onCommentsRetrievedSuccesfully(List<Comment> comments) {
+        Log.d(this.getClass().getSimpleName(), "Received comments succesfully... Notifying view!");
+        informationFragment.enableComments(comments);
     }
 }

@@ -2,6 +2,11 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 
 import android.content.SharedPreferences;
+import android.support.v7.widget.SearchView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.widget.Toast;
 
 import java.util.ArrayList;
