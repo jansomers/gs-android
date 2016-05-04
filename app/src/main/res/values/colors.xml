@@ -6,21 +6,25 @@
     <color name="colorAccent">#cddc39</color>
 
     <!-- Complementary colors -->
+    <color name="colorPrimary100">#B2DFDB</color>
+    <color name="colorPrimary300">#4DB6AC</color>
+    <color name="colorPrimary400">#26A69A</color>
     <color name="colorPrimaryDark700">#00796B</color>
     <color name="colorPrimaryLight">#4D009688</color>
     <color name="colorPrimaryLightBlue">#B2DFDB</color>
-    <color name="colorPrimary400">#26A69A</color>
-    <color name="colorPrimary300">#4DB6AC</color>
-    <color name="colorPrimary100">#B2DFDB</color>
     <color name="colorAccent100">#F0F4C3</color>
     <color name="colorAccent200">#E6EE9C</color>
     <color name="colorAccent300">#DCE775</color>
+
+    <!-- Additional colors -->
     <color name="colorError">#e53935</color>
     <color name="colorError300">#e57373</color>
 
     <!-- Text -->
     <color name="colorTextColor">#424242</color>
     <color name="colorTextColorLight">#9E9E9E</color>
+
+    <!--Backgrounds -->
     <color name="colorBackgroundLight">#e2e2e2</color>
     <color name="colorBackgroundDefault">#EEEEEE</color>
 </resources>

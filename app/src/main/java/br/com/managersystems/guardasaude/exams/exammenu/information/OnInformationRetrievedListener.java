@@ -15,4 +15,8 @@ public interface OnInformationRetrievedListener {
 
     void onUnableToMakeCommentsCall();
     void onCommentsRetrievedSuccesfully(List<Comment> comments);
+
+    void onPostCommentCallFailed();
+    void onCommentPostedFailure();
+    void onCommentPostedSuccess();
 }

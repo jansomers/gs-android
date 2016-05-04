@@ -9,6 +9,6 @@
     android:paddingRight="12dp"
     android:paddingBottom="12dp"
     android:paddingLeft="36dp"
-    android:drawableEnd="@drawable/ic_exit_to_app_24dp"
+    android:drawableEnd="@drawable/ic_exit_to_app_24dp_primary"
     android:background="@android:color/white"
     android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />

@@ -25,7 +25,7 @@ public class NewExamDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
 
-        final View view = inflater.inflate(R.layout.dialog_newxexam, null);
+        final View view = inflater.inflate(R.layout.dialog_add_exam, null);
 
         builder.setView(view)
                 .setPositiveButton(R.string.find, new DialogInterface.OnClickListener() {

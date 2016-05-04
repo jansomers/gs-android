@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:src="@drawable/gs_logo"
+            android:src="@drawable/logo_guardasaude"
             android:visibility="invisible"
             android:textSize="35sp" />
 
@@ -64,7 +64,7 @@
                 android:id="@+id/gs_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/Login"
+            android:text="@string/login"
             android:theme="@style/LoginButton" />
 
         <ProgressBar
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Authenticating"
+            android:text="@string/authenticating_message"
             android:textAppearance="@style/TextAppearance.App.Authentication.Progress" />
 
     </LinearLayout>

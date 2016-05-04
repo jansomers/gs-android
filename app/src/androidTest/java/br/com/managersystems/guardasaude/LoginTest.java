@@ -57,7 +57,7 @@ public class LoginTest {
         onView(withId(R.id.gs_login_username)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_multi_role_user).toString()));
         onView(withId(R.id.gs_login_password)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_wrong_password).toString()));
         onView(withId(R.id.gs_login_btn)).perform(ViewActions.click());
-        onView(withId(R.id.gs_login_progress_text)).check(ViewAssertions.matches(not(withText(R.string.login_succes))));
+        onView(withId(R.id.gs_login_progress_text)).check(ViewAssertions.matches(not(withText(R.string.login_success))));
         Log.d(getClass().getSimpleName(), progressText.getText().toString());
     }
 
@@ -69,7 +69,7 @@ public class LoginTest {
         onView(withId(R.id.gs_login_username)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_wrong_user).toString()));
         onView(withId(R.id.gs_login_password)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_multi_role_password).toString()));
         onView(withId(R.id.gs_login_btn)).perform(ViewActions.click());
-        onView(withId(R.id.gs_login_progress_text)).check(ViewAssertions.matches(not(withText(R.string.login_succes))));
+        onView(withId(R.id.gs_login_progress_text)).check(ViewAssertions.matches(not(withText(R.string.login_success))));
         Log.d(getClass().getSimpleName(), progressText.getText().toString());
 
 

@@ -10,4 +10,6 @@ public interface IExamInteractor {
     void getExam(Intent intent);
 
     void getCommentsForExam(CharSequence exid, SharedPreferences sp);
+
+    void postNewComment(CharSequence s, CharSequence exid, SharedPreferences sp);
 }

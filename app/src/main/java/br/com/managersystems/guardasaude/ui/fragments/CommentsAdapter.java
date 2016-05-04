@@ -18,15 +18,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     List<Comment> data = Collections.emptyList();
     Context context;
+    RecyclerView recyclerView;
 
-    public CommentsAdapter(List<Comment> data, Context context) {
+    public CommentsAdapter(List<Comment> data, Context context, RecyclerView recyclerView) {
         this.data = data;
         this.context = context;
+        this.recyclerView = recyclerView;
     }
 
     @Override
     public CommentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_comment, parent, false);
         CommentsViewHolder holder = new CommentsViewHolder(v);
         return holder;
     }
@@ -47,6 +49,23 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         data.addAll(comments);
         notifyDataSetChanged();
     }
+
+    public void onDataChanged(RecyclerView recyclerView) {
+        ViewGroup.LayoutParams layoutParams= recyclerView.getLayoutParams();
+        switch (getItemCount()) {
+            case (0) : layoutParams.height = 0;
+                break;
+            case (1) : layoutParams.height = 125;
+                break;
+            case (2) : layoutParams.height = 250;
+                break;
+            case (3) : layoutParams.height = 375;
+                break;
+            default: layoutParams.height = 500;
+        }
+        recyclerView.setLayoutParams(layoutParams);
+    }
+
 
     public void add(int position, Comment comment) {
         data.add(position, comment);
@@ -77,4 +96,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         }
     }
 
+
+    @Override
+    public void onViewRecycled(CommentsViewHolder holder) {
+        ViewGroup.LayoutParams layoutParams= recyclerView.getLayoutParams();
+        switch (getItemCount()) {
+            case (0) : layoutParams.height = 60;
+                break;
+            case (1) : layoutParams.height = 100;
+                break;
+            case (2) : layoutParams.height = 140;
+                break;
+            case (3) : layoutParams.height = 180;
+                break;
+            default: layoutParams.height = 220;
+        }
+        recyclerView.setLayoutParams(layoutParams);
+    }
 }
