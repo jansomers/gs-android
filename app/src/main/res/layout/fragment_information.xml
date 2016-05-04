@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_material_special_primary"
+    android:gravity="top">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@android:color/background_light"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:padding="6dp"
+        android:id="@+id/linearLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp">
+
+            <LinearLayout
+                android:id="@+id/gs_exam_header_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:textAlignment="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exam_literal"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                    android:textColor="@color/colorTextColorLight" />
+
+                <TextView
+                    android:id="@+id/gs_exam_information_exam_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/exam_id"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/gs_exam_information_exam_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gs_exam_header_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:text="@string/exam_type"
+                android:textAppearance="@android:style/TextAppearance.Material.Small" />
+
+            <ImageView
+                android:id="@+id/gs_exam_information_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_check_circle_36dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/hideable_information_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/clic_patient_rel_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_local_hospital_24dp" />
+
+                        <TextView
+                            android:id="@+id/gs_exam_information_clinic_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/exam_clinic"
+                            android:textAlignment="textStart"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_person_24dp" />
+
+                        <TextView
+                            android:id="@+id/gs_exam_information_patient"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/exam_patient"
+                            android:textAlignment="textStart"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/date_phys_rel_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/clic_patient_rel_layout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_today_24dp" />
+
+                        <TextView
+                            android:id="@+id/gs_exam_information_exam_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/date_literal"
+                            android:textAlignment="textStart"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_report_account" />
+
+                        <TextView
+                            android:id="@+id/gs_exam_information_exam_reporting_phys"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/exam_reporting_phys"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/comment_image_btns_rel_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/comments_btn"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:drawableRight="@drawable/ic_expand_more_24dp"
+                    android:text="@string/comments"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimary" />
+
+                <Button
+                    android:id="@+id/images_btn"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:drawableRight="@drawable/ic_chevron_right_24dp"
+                    android:text="@string/Images"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/comment_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignEnd="@+id/linearLayout"
+            android:layout_alignStart="@+id/linearLayout" />
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
