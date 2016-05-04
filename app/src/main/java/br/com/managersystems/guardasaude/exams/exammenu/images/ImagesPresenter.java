@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.util.Log;
 import android.util.TypedValue;
@@ -13,14 +14,20 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.GridView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamImage;
+import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.ui.fragments.ImagesFragment;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListener {
     private ImagesFragment imagesFragment;
@@ -121,12 +128,28 @@ public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListen
 
     @Override
     public void retrieveImages() {
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                try {
+                    InputStream is = (InputStream) new URL("http://www.keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg").getContent();
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    Log.d(getClass().getSimpleName(), "retrieveImages ");
+                } catch (Exception e) {
+                    Log.d(getClass().getSimpleName(), e.getMessage());
+                }
+            }
+        });
+
+        thread.start();
+        /*
         byte [] encryptedUser =  sp.getString("user",null).getBytes();
         String user= base64Interactor.decodeBase64ToString(encryptedUser);
         String token = sp.getString("token",null);
         for(ExamImage examImage: exam.getImages()) {
             interactor.getExamImage(user, token, examImage.getExamIdentification(), examImage.getImageIdentification());
-        }
+        }*/
     }
 
 
@@ -134,7 +157,6 @@ public class ImagesPresenter implements IImagesPresenter,OnImagesRetrievedListen
     public void onExamFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
         //TODO SHOW ERROR
-
     }
 
     @Override

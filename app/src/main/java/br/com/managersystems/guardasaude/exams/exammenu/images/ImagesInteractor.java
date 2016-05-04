@@ -2,9 +2,23 @@ package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -15,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ImagesInteractor implements IImagesInteractor{
     private final String BASE_URL = "https://guardasaude.com.br/";
-    ExamApi examApi;
+      ExamApi examApi;
     OnImagesRetrievedListener listener;
 
     public ImagesInteractor(OnImagesRetrievedListener listener) {
