@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +13,29 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import br.com.managersystems.guardasaude.R;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FullScreenImageAdapter extends PagerAdapter {
 
     private Activity activity;
-    private ArrayList<Bitmap> images;
+    private ArrayList<Uri> uris;
+    private ArrayList<Bitmap> images = new ArrayList<>();
     private LayoutInflater inflater;
 
     public FullScreenImageAdapter(Activity activity,
-                                  ArrayList<Bitmap> images) {
+                                  ArrayList<Uri> uris) throws IOException {
         this.activity = activity;
-        this.images = images;
+        this.uris = uris;
+        init();
+    }
+
+    private void init() throws IOException {
+        for (Uri uri:this.uris){
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(),uri);
+            images.add(bitmap);
+        }
     }
 
     @Override

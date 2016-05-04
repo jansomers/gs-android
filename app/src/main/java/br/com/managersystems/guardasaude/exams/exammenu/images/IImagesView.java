@@ -6,4 +6,6 @@ import android.content.SharedPreferences;
 public interface IImagesView {
     void setSharedPreferences(SharedPreferences sharedPreferences);
     void noImagesFound();
+    int getScreenWidth();
+    void initializeGridLayout();
 }

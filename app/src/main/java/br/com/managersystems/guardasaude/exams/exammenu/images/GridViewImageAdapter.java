@@ -1,15 +1,25 @@
 package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 import br.com.managersystems.guardasaude.ui.activities.FullScreenImageActivity;
 
@@ -24,6 +34,14 @@ public class GridViewImageAdapter extends BaseAdapter {
         this.activity = activity;
         this.examImages = examImages;
         this.imageWidth = imageWidth;
+       // initialiseFullscreenImages();
+    }
+
+    private void initialiseFullscreenImages() {
+        Intent i = new Intent(activity, FullScreenImageActivity.class);
+        i.putParcelableArrayListExtra("images", resizeBitmaps());
+        i.putExtra("onClicked",false);
+        activity.startActivity(i);
     }
 
     @Override
@@ -60,6 +78,68 @@ public class GridViewImageAdapter extends BaseAdapter {
         return imageView;
     }
 
+    public ArrayList<Uri> resizeBitmaps(){
+        ArrayList<Uri> uris = new ArrayList<>();
+
+        for (Bitmap bitmap:examImages){
+           uris.add(bitmapToUriConverter(bitmap));
+        }
+
+        return uris;
+    }
+
+    public Uri bitmapToUriConverter(Bitmap mBitmap) {
+        Uri uri = null;
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, 100, 100);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
+                    true);
+            File file = new File(activity.getFilesDir(), "Image"
+                    + new Random().nextInt() + ".jpeg");
+            FileOutputStream out = activity.openFileOutput(file.getName(),
+                    Context.MODE_WORLD_READABLE);
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            //get absolute path
+            String realPath = file.getAbsolutePath();
+            File f = new File(realPath);
+            uri = Uri.fromFile(f);
+
+        } catch (Exception e) {
+            Log.e("Your Error Message", e.getMessage());
+        }
+        return uri;
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
     class OnImageClickListener implements View.OnClickListener {
 
         int postion;
@@ -72,10 +152,10 @@ public class GridViewImageAdapter extends BaseAdapter {
         public void onClick(View v) {
             Intent i = new Intent(activity, FullScreenImageActivity.class);
             i.putExtra("position", postion);
+            i.putParcelableArrayListExtra("images", resizeBitmaps());
+            i.putExtra("onClicked",true);
             activity.startActivity(i);
         }
-
     }
-
 
 }

@@ -24,6 +24,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
     ExamOverviewFragment examOverview;
     private final String finished;
     private final String ready;
+    private final String available;
 
 
     public ExamAdapter(Context context,List<Exam> examList,ExamOverviewFragment examOverview) {
@@ -33,6 +34,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         this.examOverview = examOverview;
         finished =context.getString(R.string.finished);
         ready = context.getString(R.string.ready);
+        available = context.getString(R.string.available);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         holder.statusText.setText(current.getStatus());
 
         //Set status icon
-        if(current.getStatus().equalsIgnoreCase(finished) ||current.getStatus().equalsIgnoreCase(ready)){
+        if(current.getStatus().equalsIgnoreCase(finished) ||current.getStatus().equalsIgnoreCase(ready) ||current.getStatus().equalsIgnoreCase(available)){
             holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp));
         }else{
             holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(),R.drawable.ic_clock));

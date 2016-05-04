@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class ImagesInteractor implements IImagesInteractor{
     private final String BASE_URL = "https://guardasaude.com.br/";
       ExamApi examApi;
     OnImagesRetrievedListener listener;
+    private int imagesCounter=0;
 
     public ImagesInteractor(OnImagesRetrievedListener listener) {
         this.listener = listener;
@@ -61,31 +63,30 @@ public class ImagesInteractor implements IImagesInteractor{
         }
     }
 
-    @Override
-    public void getExamImage(String user, String token,String exId, String exDocId) {
-        if (examApi == null) initiateRetrofit();
-        Call<ResponseBody> call = examApi.getExamImage(user,token,exId,exDocId);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        //Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
-                        listener.onImageSuccess(response.body());
-                    } else {
-                        // TODO
-                    }
-                } else {
-                    // TODO
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                //TODO ONFAILURE
-                //listener.onImageFailure();
-               listener.onImageFailure();
-            }
-        });
+    @Override
+    public void getExamImage(final Exam exam,final String user,final String token,final String exId,final String exDocId) {
+        if (examApi == null) initiateRetrofit();
+        else {
+
+                Call<ExamImageResponse> call = examApi.getExamImage(user, token, exId, exDocId);
+                call.enqueue(new Callback<ExamImageResponse>() {
+                    @Override
+                    public void onResponse(Call<ExamImageResponse> call, Response<ExamImageResponse> response) {
+                        imagesCounter++;
+                        listener.onImageSuccess(response.body());
+                        if(imagesCounter==exam.getImages().size()){
+                            listener.onAllImagesSuccess();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ExamImageResponse> call, Throwable t) {
+                        listener.onImageFailure();
+
+                    }
+                });
+        }
+
     }
 }

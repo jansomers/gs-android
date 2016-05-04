@@ -6,12 +6,10 @@ import android.graphics.Bitmap;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import br.com.managersystems.guardasaude.exams.domain.Exam;
+
 public interface IImagesPresenter {
-    void InitializeGridLayout();
-    int getScreenWidth();
     ArrayList<Bitmap> getImagesForExam() throws IOException;
-    Bitmap scaleImage(Bitmap bitmap);
-    int getColumnWidth();
     void retrieveExam(Intent intent);
-    void retrieveImages();
+    void retrieveImages(Exam exam);
 }

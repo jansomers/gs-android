@@ -41,12 +41,13 @@ public interface ExamApi {
             @Query("exid") String exId);
 
     @GET("mobile/getExamImage")
-    Call<ResponseBody> getExamImage(
+    Call<ExamImageResponse> getExamImage(
             @Query("user") String username,
             @Query("token") String token,
             @Query("exid") String exId,
             @Query("edid") String exDocId
     );
+
     @GET("mobile/getExamComments")
     Call<CommentResponse> getComments(
             @Query("user")String username,

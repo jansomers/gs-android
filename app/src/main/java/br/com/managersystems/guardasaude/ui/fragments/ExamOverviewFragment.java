@@ -195,6 +195,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Override
     public void setLoginPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
+        this.loginPresenter = loginPresenter;
     }
 
     @Override
