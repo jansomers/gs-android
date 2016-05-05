@@ -55,16 +55,6 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
         }
 
         return imageItems;
-
-
-        /*
-        OLD DUMMY IMAGES
-        TypedArray imgs = imagesFragment.getResources().obtainTypedArray(R.array.image_ids);
-        for (int i = 0; i < imgs.length(); i++) {
-            Bitmap bitmap = BitmapFactory.decodeResource(imagesFragment.getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(scaleImage(bitmap));
-        }
-        */
     }
 
     @Override
@@ -86,13 +76,13 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
     @Override
     public void onExamFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
-        //TODO SHOW ERROR
+        imagesFragment.noImagesFound();
     }
 
     @Override
     public void onImageFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
-        //TODO SHOW ERROR
+        imagesFragment.noImagesFound();
     }
 
     @Override

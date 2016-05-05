@@ -4,81 +4,90 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:padding="12dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:id="@+id/sortAsc">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_expand_less_24dp_primary"
-            android:id="@+id/ascImg"
-            android:tint="@color/colorTextColor"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/asc"
-            android:id="@+id/asc"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sortDesc">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_expand_more_24dp_primary"
-            android:id="@+id/descImg"
-            android:tint="@color/colorTextColor"/>
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:id="@+id/patient_button"
+        android:clickable="true">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/radio_patient"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="@string/desc"
-            android:id="@+id/desc"/>
-            </LinearLayout>
+            android:text="@string/patient"
+            android:textSize="17sp"/>
+
+        <ImageView
+            android:id="@+id/radio_icon_patient"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="@string/sort_icon"
+
+            />
 
     </LinearLayout>
 
-    <RadioGroup
-        android:layout_width="fill_parent"
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:id="@+id/identification_button"
+        android:clickable="true">
 
-        <RadioButton
-            android:id="@+id/radio_patient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/patient" />
-
-        <RadioButton
+        <TextView
             android:id="@+id/radio_identification"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="@string/identification" />
+            android:text="@string/identification"
+            android:textSize="17sp"/>
 
-        <RadioButton
+        <ImageView
+            android:id="@+id/radio_icon_identification"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="@string/sort_icon"
+            />
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="12dp"
+        android:id="@+id/date_button"
+        android:clickable="true">
+
+        <TextView
             android:id="@+id/radio_executionDate"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/executionDate"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="17sp"/>
 
-        <!-- TODO ADD CLINIC -->
 
-    </RadioGroup>
+        <ImageView
+            android:id="@+id/radio_icon_executionDate"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="@string/sort_icon"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

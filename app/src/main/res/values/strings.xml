@@ -84,6 +84,8 @@
     <string name="examIdentification">Exam Identification</string>
     <string name="accessCode">Access Code</string>
     <string name="gs_exam_write_comment_hint">Start writing a comment...</string>
+    <string name="clinic">Clinic</string>
+    <string name="sort_icon">Sort Icon</string>
     <string name="forgot_pwd">Forgot your password?</string>
     <string name="write_email_below">Write your email below and click submit.</string>
     <string name="email_notification_msg">An email will be sent to your inbox to reset your password.</string>
