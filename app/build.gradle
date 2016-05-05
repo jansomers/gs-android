@@ -73,5 +73,6 @@ dependencies {
     // Set this dependency to build and run UI Automator tests
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
+    //Email validation
 
 }

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -50,19 +53,25 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Bind(R.id.gs_login_logo)
     ImageView gsLogo;
 
+    @Bind(R.id.btn_forgot_pwd)
+    Button forgotPwdBtn;
+
+    @Bind(R.id.gs_login_coordinator_layout)
+    CoordinatorLayout loginCoordinatorLayout;
+
 
     private LoginPresenter presenter;
 
     SharedPreferences sp;
 
+    private Snackbar snackSuccesfulPwdReq;
+    private Snackbar snackFailedPwdReq;
 
     /* ********************************************
     TODO 's :
-        - Don't show login after being logged in
-        - Don't allow to go back to login unless you're logging out
         - Implement managersystem.com.br domain choice
-        - Add Logout button
-        - Add Forgot password button.
+        - Implement anonymous exam viewer.
+
     ******************************************** */
 
     @Override
@@ -70,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         presenter = new LoginPresenter(this, sp);
 
@@ -79,18 +89,24 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(this.getClass().getSimpleName(), "Login condition" + (presenter.validateToken(sp.getString("expires", "")) && !sp.getString("role", "").isEmpty()));
-        if (presenter.validateToken(sp.getString("expires", "")) && !(sp.getString("role", "").isEmpty())) navigateToOverviewActivity();
-        else init();
+        init();
     }
 
     @Override
     public void init() {
         activateLogo();
+        initSnacks();
         if (BuildConfig.DEBUG) {
             setStartingCredentials("doctor2", "Admin1");
         }
         instantiateProgressBar();
+    }
+
+    private void initSnacks() {
+        snackSuccesfulPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackReqPwd), Snackbar.LENGTH_LONG);
+        snackSuccesfulPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        snackFailedPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackNoReqPwd), Snackbar.LENGTH_LONG);
+        snackFailedPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorError));
     }
 
     /**
@@ -123,6 +139,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
 
+    /**
+     * Handles the authorization when the login button is clicked.
+     * @param view
+     */
     @OnClick(R.id.gs_login_btn)
     public void loginClicked(View view) {
         Log.d("LoginActivity: ", "Login button was clicked");
@@ -172,6 +192,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     }
 
+    /**
+     * Shows the dialog to retrieve your password
+     */
+    @OnClick(R.id.btn_forgot_pwd)
+    public void forgotPwdBtnClicked() {
+        String username = gsUsernameEditText.getText().toString();
+        final ForgotPasswordDialog dialog = new ForgotPasswordDialog(this, snackSuccesfulPwdReq, snackFailedPwdReq);
+        dialog.setPwdText(username);
+        dialog.activateRequestBtn();
+        dialog.show();
+
+    }
 
     @Override
     public void loginSuccess(boolean patient) {
@@ -195,7 +227,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void loginFailed(String code) {
         Log.d(this.getClass().getSimpleName(), "Login failed! Reason: " + code);
         hideProgressBar();
-        if (code.equals("auth_failed")) showFailedLogin(getResources().getString(R.string.auth_failed));
+        if (code.equals("auth_failed"))
+            showFailedLogin(getResources().getString(R.string.auth_failed));
         else showFailedLogin(code);
     }
 
@@ -244,6 +277,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     /**
      * Shows a failed login attempt alert.
+     *
      * @param string String that represents the error message.
      */
     private void showFailedLogin(String string) {
@@ -288,7 +322,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     private void showSuccessfulLogin() {
         authenticatingFinishedImageView.setImageResource(R.drawable.ic_check_circle_36dp_accent);
         authenticatingProgressText.setText(getResources().getText(R.string.login_success));
-
         authenticatingFinishedImageView.setVisibility(View.VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
         authenticatingFinishedImageView.startAnimation(animation);

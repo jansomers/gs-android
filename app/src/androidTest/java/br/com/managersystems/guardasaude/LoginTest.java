@@ -21,8 +21,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginTest {
@@ -35,8 +35,13 @@ public class LoginTest {
     @Before
     public void init() {
         //Binding views for logging purposes
+        logout();
         progressText = (TextView) login.getActivity().findViewById(R.id.gs_login_progress_text);
     }
+
+    private void logout() {
+    }
+
     @Test
     public void shouldShowTextInputs(){
         onView(withId(R.id.gs_usernameWrapper)).check(ViewAssertions.matches(isDisplayed()));
@@ -91,25 +96,6 @@ public class LoginTest {
         onView(withId(R.id.gs_login_btn)).perform(ViewActions.click());
         onView(withId(R.id.gs_role_choose_title)).check(ViewAssertions.matches(isDisplayed()));
 
-    }
-
-    @Test
-    public void shouldShowExamOverviewAfterSuccesfulRoleSelection() {
-        //TODO Change Dialog to Seperate Class
-        //**** FAILING ON PURPOSE ****
-        try {
-            onView(withId(R.id.gs_role_choose_title)).check(ViewAssertions.matches(not(isDisplayed())));
-            fail();
-        } catch (NoMatchingViewException e) {
-            assert true;
-        }
-        onView(withId(R.id.gs_login_username)).perform(ViewActions.clearText());
-        onView(withId(R.id.gs_login_password)).perform(ViewActions.clearText());
-        onView(withId(R.id.gs_login_username)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_single_role_user).toString()));
-        onView(withId(R.id.gs_login_password)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_single_role_password).toString()));
-        onView(withId(R.id.gs_login_btn)).perform(ViewActions.click());
-        onView(withId(R.id.gs_role_choose_title)).check(ViewAssertions.matches(isDisplayed()));
-        fail();
     }
 
     @Test

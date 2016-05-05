@@ -27,6 +27,7 @@ import java.util.List;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Comment;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.exams.exammenu.information.CommentsAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.ExamPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.IExamInformationView;
 import br.com.managersystems.guardasaude.util.AnimationUtils;

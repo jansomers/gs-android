@@ -1,6 +1,7 @@
 package br.com.managersystems.guardasaude.ui.activities;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,12 +26,30 @@ public class MainTabActivity extends AppCompatActivity {
     Menu menu;
     private SharedPreferences sp;
     private String[] tabtitles;
+    private LoginPresenter loginPresenter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
+        setTitle("");
         ButterKnife.bind(this);
-        init();
+        sp = getSharedPref();
+        loginPresenter = new LoginPresenter(this, sp);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (loginPresenter.validateToken(sp.getString("expires", "")) && !(sp.getString("role", "").isEmpty())) init();
+        else navigateToLogin();
+    }
+
+    private void navigateToLogin() {
+        sp.edit().clear();
+        sp.edit().apply();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void init() {

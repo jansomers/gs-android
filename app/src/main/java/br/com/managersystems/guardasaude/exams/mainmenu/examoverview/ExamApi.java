@@ -7,7 +7,6 @@ import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
 import br.com.managersystems.guardasaude.exams.domain.PostCommentResponse;
 import br.com.managersystems.guardasaude.exams.domain.ReportResponse;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
