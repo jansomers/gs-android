@@ -1,6 +1,7 @@
 package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 import android.content.SharedPreferences;
+import android.support.v7.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,6 @@ public interface IExamOverview {
     void onFailureFindNewExam();
     void navigateToExamDetail(Exam exam);
     void setSharedPreferences(SharedPreferences sharedPreferences);
-    void initiateSearchViewListener();
+    SearchView.OnQueryTextListener getSearchViewListener();
     void setLoginPresenter(LoginPresenter loginPresenter);
 }

@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         presenter = new LoginPresenter(this, sp);
 
 
-
     }
 
     @Override

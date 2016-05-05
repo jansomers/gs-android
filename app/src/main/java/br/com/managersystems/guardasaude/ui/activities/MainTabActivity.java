@@ -25,7 +25,6 @@ public class MainTabActivity extends AppCompatActivity {
     Menu menu;
     private SharedPreferences sp;
     private String[] tabtitles;
-    private LoginPresenter loginPresenter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +35,8 @@ public class MainTabActivity extends AppCompatActivity {
 
     private void init() {
         setSupportActionBar(toolbar);
-        tabtitles = new String[]{(String) getResources().getText(R.string.exams), (String) getResources().getText(R.string.notifications), (String) getResources().getText(R.string.messages)};
-        getSharedPref();
+        setTabTitles();
+        setSharedPref();
         viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles, sp));
     }
 
@@ -54,15 +53,18 @@ public class MainTabActivity extends AppCompatActivity {
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
-    public void getSharedPref() {
+    public void setSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    private void setTabTitles() {
+        tabtitles = new String[]{(String) getResources().getText(R.string.exams), (String) getResources().getText(R.string.notifications), (String) getResources().getText(R.string.messages)};
     }
 
     @Override
     public void onBackPressed() {
         // Don't go back
     }
-
 
 }
 

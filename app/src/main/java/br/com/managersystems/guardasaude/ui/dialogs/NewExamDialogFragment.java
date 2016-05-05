@@ -2,6 +2,7 @@ package br.com.managersystems.guardasaude.ui.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,11 +20,11 @@ public class NewExamDialogFragment extends DialogFragment {
     public NewExamDialogFragment() {
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-
 
         final View view = inflater.inflate(R.layout.dialog_add_exam, null);
 

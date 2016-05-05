@@ -27,10 +27,19 @@ public class ExamTabActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
         ButterKnife.bind(this);
-        getSharedPref();
-        tabtitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
+        init();
+        setSharedPref();
+        setTabTitles();
         viewPager.setAdapter(new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp));
+    }
 
+    private void init() {
+        setSharedPref();
+        setTabTitles();
+    }
+
+    private void setTabTitles() {
+        tabtitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
     }
 
     @Override
@@ -46,7 +55,7 @@ public class ExamTabActivity extends FragmentActivity{
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
-    public void getSharedPref() {
+    public void setSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
 

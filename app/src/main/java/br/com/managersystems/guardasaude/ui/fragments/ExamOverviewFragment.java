@@ -1,9 +1,6 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
 
-import android.app.SearchManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,10 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,16 +52,17 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Bind(R.id.failText)
     TextView failText;
 
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefresh;
+
     Menu menu;
     private ExamOverviewPresenter overviewPresenter;
     private LoginPresenter loginPresenter;
     private ExamAdapter adapter;
     private SharedPreferences sp;
     private List<Exam> examList = Collections.EMPTY_LIST;
-    private SearchView.OnQueryTextListener listener;
-    private SwipeRefreshLayout swipeRefresh;
     private String sortBy = null;
-    private String orderBy=null;
+    private String orderBy = null;
 
     public ExamOverviewFragment() {
 
@@ -83,13 +79,16 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
         View view = inflater.inflate(R.layout.fragment_examoverview, container, false);
         ButterKnife.bind(this, view);
-        swipeRefresh = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+
         loginPresenter = new LoginPresenter(this.getActivity(), sp);
+
         overviewPresenter = new ExamOverviewPresenter(this, sp);
-        overviewPresenter.getSortedExamList(sortBy,orderBy);
+        overviewPresenter.getSortedExamList(sortBy, orderBy);
+
         adapter = new ExamAdapter(getActivity(), this.examList, this);
 
         init();
+
         return view;
     }
 
@@ -97,13 +96,14 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                overviewPresenter.getSortedExamList(sortBy,orderBy);
+                overviewPresenter.getSortedExamList(sortBy, orderBy);
                 swipeRefresh.setRefreshing(false);
             }
         });
 
         setHasOptionsMenu(true);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         this.menu = menu;
@@ -112,43 +112,42 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     private void showOverflowMenu(boolean show) {
         if (menu == null) return;
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        initiateSearchViewListener();
-        searchView.setOnQueryTextListener(listener);
+        MenuItem actionSearchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(actionSearchItem);
+        searchView.setOnQueryTextListener(getSearchViewListener());
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
-        public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_sortby:
                 showSortByDialog();
                 return true;
             case R.id.action_logout:
                 loginPresenter.logout();
-            default: return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
-
 
 
     @OnClick(R.id.fab)
     public void showNexExamDialog() {
         NewExamDialogFragment newExamDialogFragment = new NewExamDialogFragment();
-        newExamDialogFragment.setTargetFragment(this,0);
+        newExamDialogFragment.setTargetFragment(this, 0);
         newExamDialogFragment.show(getFragmentManager(), "NewExamDialog");
     }
 
-    public void showSortByDialog(){
+    public void showSortByDialog() {
         SortByDialogFragment sortByDialogFragment = new SortByDialogFragment();
-        sortByDialogFragment.setTargetFragment(this,0);
+        sortByDialogFragment.setTargetFragment(this, 0);
         sortByDialogFragment.show(getFragmentManager(), "dialog");
     }
 
     @Override
-    public void sortExamListBy(String orderBy,String sortBy){
-        this.sortBy=sortBy;
-        this.orderBy=orderBy;
+    public void sortExamListBy(String orderBy, String sortBy) {
+        this.sortBy = sortBy;
+        this.orderBy = orderBy;
         overviewPresenter.getSortedExamList(sortBy, orderBy);
     }
 
@@ -160,7 +159,6 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
         adapter.addAllExams(this.examList);
-
     }
 
     @Override
@@ -170,12 +168,11 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
-        if(associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")){
-            Toast.makeText(getContext(),"Exam associated",Toast.LENGTH_LONG).show();
-            overviewPresenter.getSortedExamList(sortBy,orderBy);
-        }
-        else if(associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_cide")){
-            Toast.makeText(getContext(),"Wrong access code",Toast.LENGTH_LONG).show();
+        if (associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")) {
+            Toast.makeText(getContext(), "Exam associated", Toast.LENGTH_LONG).show();
+            overviewPresenter.getSortedExamList(sortBy, orderBy);
+        } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_cide")) {
+            Toast.makeText(getContext(), "Wrong access code", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -199,12 +196,11 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Override
     public void setLoginPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
-        this.loginPresenter = loginPresenter;
     }
 
     @Override
-    public void initiateSearchViewListener() {
-        listener =  new SearchView.OnQueryTextListener() {
+    public SearchView.OnQueryTextListener getSearchViewListener() {
+        return new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String query) {
                 query = query.toLowerCase();
@@ -217,7 +213,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
                     final String examId = examList.get(i).getIdentification();
                     final String clinicName = examList.get(i).getClinicName();
                     final String date = examList.get(i).getExecutionDate();
-                    if (patientName.contains(query) || examId.contains(query) || clinicName.contains(query)||date.contains(query)) {
+                    if (patientName.contains(query) || examId.contains(query) || clinicName.contains(query) || date.contains(query)) {
                         filteredList.add(examList.get(i));
                     }
                 }
@@ -227,6 +223,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
                 return true;
 
             }
+
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
