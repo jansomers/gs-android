@@ -65,6 +65,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private List<Exam> examList = Collections.EMPTY_LIST;
     private SearchView.OnQueryTextListener listener;
     private SwipeRefreshLayout swipeRefresh;
+    private String sortBy = null;
+    private String orderBy=null;
 
     public ExamOverviewFragment() {
 
@@ -84,7 +86,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         swipeRefresh = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
         loginPresenter = new LoginPresenter(this.getActivity(), sp);
         overviewPresenter = new ExamOverviewPresenter(this, sp);
-        overviewPresenter.getExamList();
+        overviewPresenter.getSortedExamList(sortBy,orderBy);
         adapter = new ExamAdapter(getActivity(), this.examList, this);
 
         init();
@@ -95,7 +97,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                overviewPresenter.getExamList();
+                overviewPresenter.getSortedExamList(sortBy,orderBy);
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -145,6 +147,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void sortExamListBy(String orderBy,String sortBy){
+        this.sortBy=sortBy;
+        this.orderBy=orderBy;
         overviewPresenter.getSortedExamList(sortBy, orderBy);
     }
 
@@ -168,7 +172,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
         if(associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")){
             Toast.makeText(getContext(),"Exam associated",Toast.LENGTH_LONG).show();
-            overviewPresenter.getExamList();
+            overviewPresenter.getSortedExamList(sortBy,orderBy);
         }
         else if(associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_cide")){
             Toast.makeText(getContext(),"Wrong access code",Toast.LENGTH_LONG).show();

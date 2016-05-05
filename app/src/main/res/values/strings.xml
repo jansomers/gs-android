@@ -84,4 +84,6 @@
     <string name="examIdentification">Exam Identification</string>
     <string name="accessCode">Access Code</string>
     <string name="gs_exam_write_comment_hint">Start writing a comment...</string>
+    <string name="clinic">Clinic</string>
+    <string name="sort_icon">Sort Icon</string>
 </resources>

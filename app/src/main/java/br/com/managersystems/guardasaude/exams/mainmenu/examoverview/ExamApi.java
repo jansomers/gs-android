@@ -3,6 +3,7 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.CommentResponse;
+import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
 import br.com.managersystems.guardasaude.exams.domain.PostCommentResponse;
 import br.com.managersystems.guardasaude.exams.domain.ReportResponse;

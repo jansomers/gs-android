@@ -3,6 +3,7 @@ package br.com.managersystems.guardasaude.ui.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -15,11 +16,35 @@ import android.widget.TextView;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.SortDialogListener;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SortByDialogFragment extends DialogFragment {
+    @Bind(R.id.radio_icon_executionDate)
+    ImageView iconDate;
+
+    @Bind(R.id.radio_icon_identification)
+    ImageView iconIdentification;
+
+    @Bind(R.id.radio_icon_patient)
+    ImageView iconPatient;
+
+    @Bind(R.id.patient_button)
+    View radioPatient;
+
+    @Bind(R.id.identification_button)
+    View radioIdentification;
+
+    @Bind(R.id.date_button)
+    View radioDate;
+
     private SortDialogListener listener;
-    private String sortBy=null;
-    private String orderBy=null;
+    private String sortBy = null;
+    private String orderBy = null;
+    private int iconPatientCounter = 0;
+    private int iconDateCounter = 0;
+    private int iconIdentificationCounter = 0;
+
 
     public SortByDialogFragment() {
     }
@@ -32,14 +57,18 @@ public class SortByDialogFragment extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_sort_exams, null);
 
+        ButterKnife.bind(this, view);
+
         builder.setView(view).setPositiveButton(R.string.sort, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                resetCounters();
                 sortAndOrderList();
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                resetCounters();
                 SortByDialogFragment.this.getDialog().cancel();
             }
         });
@@ -47,76 +76,42 @@ public class SortByDialogFragment extends DialogFragment {
 
         listener = (SortDialogListener) getTargetFragment();
 
-        findRadioButtons(view);
-        findSortButtons(view);
+        init();
 
         return builder.create();
     }
 
-    private void sortAndOrderList() {
-        listener.sortExamListBy(orderBy, sortBy);
+    private void resetCounters() {
+        iconDateCounter=0;
+        iconIdentificationCounter=0;
+        iconPatientCounter=0;
     }
 
-    private void findSortButtons(final View view) {
-        View asc = view.findViewById(R.id.sortAsc);
-        asc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSortClicked(v,view);
-            }
-        });
-
-        View desc = view.findViewById(R.id.sortDesc);
-        desc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSortClicked(v,view);
-            }
-        });
+    private void init() {
+        setIconImages();
+        setRadioOnClickListeners();
     }
 
-    private void onSortClicked(View v,View view) {
-        TextView textasc = (TextView)view.findViewById(R.id.asc);
-        TextView textdesc = (TextView)view.findViewById(R.id.desc);
-        ImageView ascImg = (ImageView)view.findViewById(R.id.ascImg);
-        ImageView descImg = (ImageView)view.findViewById(R.id.descImg);
-
-        switch (v.getId()) {
-            case R.id.sortAsc:
-                this.sortBy="asc";
-                textasc.setTextColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
-                textdesc.setTextColor(ContextCompat.getColor(getContext(),R.color.colorTextColor));
-                ascImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent));
-                descImg.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorTextColor));
-
-                break;
-            case R.id.sortDesc:
-                this.sortBy="desc";
-                textdesc.setTextColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
-                textasc.setTextColor(ContextCompat.getColor(getContext(),R.color.colorTextColor));
-                descImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent));
-                ascImg.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorTextColor));
-                break;
-        }
+    private void setIconImages() {
+        iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
+        iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
+        iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
     }
 
-    public void findRadioButtons(View view) {
-        View patient = view.findViewById(R.id.radio_patient);
-        patient.setOnClickListener(new View.OnClickListener() {
+    public void setRadioOnClickListeners() {
+        radioPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
             }
         });
-        View executionDate = view.findViewById(R.id.radio_executionDate);
-        executionDate.setOnClickListener(new View.OnClickListener() {
+        radioDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
             }
         });
-        View report = view.findViewById(R.id.radio_identification);
-        report.setOnClickListener(new View.OnClickListener() {
+        radioIdentification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
@@ -125,21 +120,70 @@ public class SortByDialogFragment extends DialogFragment {
     }
 
     public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
-            case R.id.radio_patient:
-                if (checked)
-                    this.orderBy="patient";
+            case R.id.patient_button:
+                orderBy = "patient";
+
+                iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
+                iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
+                iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
+
+                if ((iconPatientCounter & 1) == 0) {
+                    iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
+                    sortBy = "asc";
+                } else {
+                    iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_za_accent));
+                    sortBy = "desc";
+                }
+
+                iconDateCounter=0;
+                iconIdentificationCounter=0;
+                iconPatientCounter++;
                 break;
-            case R.id.radio_identification:
-                if (checked)
-                    this.orderBy="identification";
+            case R.id.identification_button:
+                orderBy = "identification";
+
+                iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
+                iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
+                iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
+
+                if ((iconIdentificationCounter & 1) == 0) {
+                    iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
+                    sortBy = "asc";
+                } else {
+                    iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_za_accent));
+                    sortBy = "desc";
+                }
+
+                iconDateCounter=0;
+                iconPatientCounter=0;
+                iconIdentificationCounter++;
                 break;
-            case R.id.radio_executionDate:
-                if (checked)
-                    this.orderBy="executionDate";
+            case R.id.date_button:
+                orderBy = "executionDate";
+
+                iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
+                iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
+                iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
+
+                if ((iconDateCounter & 1) == 0) {
+                    iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
+                    sortBy = "asc";
+                } else {
+                    iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_90_accent));
+                    sortBy = "desc";
+                }
+
+                iconPatientCounter=0;
+                iconIdentificationCounter=0;
+                iconDateCounter++;
                 break;
         }
+    }
+
+
+    private void sortAndOrderList() {
+        listener.sortExamListBy(orderBy, sortBy);
     }
 
 }
