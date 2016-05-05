@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/forgot_pwd_textview"
+        android:layout_width="260sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:padding="3dp"
+        android:text="@string/forgot_pwd"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/forgot_pwd_instruction"
+        android:layout_width="260sp"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:text="@string/write_email_below"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/forgot_pwd_instruction2"
+        android:layout_width="260sp"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:text="@string/email_notification_msg"
+        android:textAlignment="center" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/forgot_pwd_email"
+        android:layout_width="260sp"
+        android:layout_height="wrap_content"
+        android:hint="@string/write_email_here"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/btn_request_pwd"
+        android:layout_width="260sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorPrimary"
+        android:drawableLeft="@drawable/ic_email_24dp_accent100"
+        android:paddingLeft="12dp"
+        android:paddingRight="36dp"
+        android:text="@string/submit"
+        android:textColor="@android:color/white" />
+</LinearLayout>

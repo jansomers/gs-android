@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude.ui.fragments;
+package br.com.managersystems.guardasaude.exams.exammenu.information;
 
 
 import android.content.Context;

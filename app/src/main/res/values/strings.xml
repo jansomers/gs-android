@@ -84,4 +84,12 @@
     <string name="examIdentification">Exam Identification</string>
     <string name="accessCode">Access Code</string>
     <string name="gs_exam_write_comment_hint">Start writing a comment...</string>
+    <string name="forgot_pwd">Forgot your password?</string>
+    <string name="write_email_below">Write your email below and click submit.</string>
+    <string name="email_notification_msg">An email will be sent to your inbox to reset your password.</string>
+    <string name="submit">Submit</string>
+    <string name="write_email_here">Email address</string>
+    <string name="snackReqPwd">Email sent. Check your inbox for further instructions.</string>
+    <string name="snackNoReqPwd">Email not sent. Something went wrong. Try again </string>
+    <string name="anonymous_exam">No account?\nDirectly access an exam</string>
 </resources>

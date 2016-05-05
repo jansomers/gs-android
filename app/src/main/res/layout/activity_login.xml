@@ -1,106 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gs_login_coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.activities.LoginActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5">
-
-        <ImageView
-            android:id="@+id/gs_login_logo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:src="@drawable/logo_guardasaude"
-            android:visibility="invisible"
-            android:textSize="35sp" />
-
-    </RelativeLayout>
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:layout_marginRight="24sp"
-        android:layout_marginLeft="24sp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".ui.activities.LoginActivity">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/gs_usernameWrapper"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/LoginInput"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+            android:layout_weight="0.5">
 
-            <EditText
-                android:id="@+id/gs_login_username"
+            <ImageView
+                android:id="@+id/gs_login_logo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/colorPrimaryDark" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/logo_guardasaude"
+                android:textSize="35sp"
+                android:visibility="invisible" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/gs_passwordWrapper"
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/LoginInput"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+            android:layout_marginLeft="24sp"
+            android:layout_marginRight="24sp"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/gs_login_password"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/gs_usernameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:textColor="@color/colorPrimaryDark" />
-        </android.support.design.widget.TextInputLayout>
+                android:theme="@style/LoginInput"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
-        <Button
-            android:id="@+id/gs_login_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/login"
-            android:theme="@style/LoginButton" />
+                <EditText
+                    android:id="@+id/gs_login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/username"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorPrimaryDark" />
+            </android.support.design.widget.TextInputLayout>
 
-        <ProgressBar
-            android:id="@+id/gs_login_progressbar"
-            style="@android:style/Widget.Material.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16sp" />
-        <ImageView
-            android:layout_width="48sp"
-            android:layout_height="48sp"
-            android:layout_marginTop="16sp"
-            android:layout_gravity="center"
-            android:id="@+id/gs_login_succes_imageview"
-            />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/gs_passwordWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/LoginInput"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
-        <TextView
-            android:id="@+id/gs_login_progress_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/authenticating_message"
-            android:textAppearance="@style/TextAppearance.App.Authentication.Progress" />
+                <EditText
+                    android:id="@+id/gs_login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorPrimaryDark" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/gs_login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/login"
+                android:theme="@style/LoginButton" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_anonymous_exam"
+                    style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:text="@string/anonymous_exam"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.DropDownHint"
+                    android:textColor="@color/colorPrimary300"
+                    android:textSize="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp" />
+
+                <Button
+                    android:id="@+id/btn_forgot_pwd"
+                    style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="0dp"
+                    android:text="@string/forgot_pwd"
+                    android:textAppearance="@android:style/TextAppearance.Material.Widget.DropDownHint"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:textSize="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/gs_login_progressbar"
+                style="@android:style/Widget.Material.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16sp" />
+
+            <ImageView
+                android:id="@+id/gs_login_succes_imageview"
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16sp" />
+
+            <TextView
+                android:id="@+id/gs_login_progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/authenticating_message"
+                android:textAppearance="@style/TextAppearance.App.Authentication.Progress" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

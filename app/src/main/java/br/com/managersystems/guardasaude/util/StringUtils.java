@@ -1,6 +1,8 @@
 package br.com.managersystems.guardasaude.util;
 
 
+import android.text.Editable;
+
 import org.jsoup.Jsoup;
 
 public class StringUtils {
@@ -42,5 +44,9 @@ public class StringUtils {
 
     public static String html2text(String html) {
         return Jsoup.parse(html).text();
+    }
+
+    public static boolean isValidEmail(Editable email) {
+        return true;
     }
 }
