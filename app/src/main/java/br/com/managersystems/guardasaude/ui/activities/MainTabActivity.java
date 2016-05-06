@@ -11,12 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.exams.mainmenu.IMainTabActivity;
 import br.com.managersystems.guardasaude.exams.mainmenu.TabsPagerAdapter;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainTabActivity extends AppCompatActivity {
+public class MainTabActivity extends AppCompatActivity implements IMainTabActivity{
     @Bind(R.id.pager)
     ViewPager viewPager;
 
@@ -33,10 +34,17 @@ public class MainTabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab);
         setTitle("");
         ButterKnife.bind(this);
-        sp = getSharedPref();
-        loginPresenter = new LoginPresenter(this, sp);
+        init();
     }
 
+    @Override
+    public void init() {
+        setSupportActionBar(toolbar);
+        setTabTitles();
+        getSharedPref();
+        loginPresenter = new LoginPresenter(this, sp);
+        viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles, sp));
+    }
 
     @Override
     protected void onStart() {
@@ -45,18 +53,12 @@ public class MainTabActivity extends AppCompatActivity {
         else navigateToLogin();
     }
 
-    private void navigateToLogin() {
+    @Override
+    public void navigateToLogin() {
         sp.edit().clear();
         sp.edit().apply();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    private void init() {
-        setSupportActionBar(toolbar);
-        setTabTitles();
-        setSharedPref();
-        viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles, sp));
     }
 
     @Override
@@ -72,11 +74,13 @@ public class MainTabActivity extends AppCompatActivity {
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
-    public void setSharedPref() {
+    @Override
+    public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-    private void setTabTitles() {
+    @Override
+    public void setTabTitles() {
         tabtitles = new String[]{(String) getResources().getText(R.string.exams), (String) getResources().getText(R.string.notifications), (String) getResources().getText(R.string.messages)};
     }
 

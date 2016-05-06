@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude.ui.activities;
+package br.com.managersystems.guardasaude.ui.dialogs;
 
 import android.app.Dialog;
 import android.support.design.widget.Snackbar;
@@ -8,12 +8,10 @@ import android.view.Window;
 import android.widget.Button;
 
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.ui.activities.LoginActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Jan on 5/05/2016.
- */
 public class ForgotPasswordDialog extends Dialog {
 
     @Bind(R.id.forgot_pwd_email)
@@ -33,7 +31,6 @@ public class ForgotPasswordDialog extends Dialog {
         this.succes = succesSnack;
         this.fail = failSnack;
         ButterKnife.bind(this);
-
     }
 
     @Override
@@ -63,8 +60,6 @@ public class ForgotPasswordDialog extends Dialog {
                     dismiss();
 
                 }
-
-
             }
         });
     }

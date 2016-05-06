@@ -1,11 +1,16 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,8 +22,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,11 +36,11 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamAdapter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOverviewPresenter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamOverview;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.NewExamDialogListener;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.NewExamListener;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.SortDialogListener;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.ui.activities.ExamTabActivity;
-import br.com.managersystems.guardasaude.ui.dialogs.NewExamDialogFragment;
 import br.com.managersystems.guardasaude.ui.dialogs.SortByDialogFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,6 +48,8 @@ import butterknife.OnClick;
 
 
 public class ExamOverviewFragment extends Fragment implements IExamOverview, SortDialogListener, NewExamListener {
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Bind(R.id.examOverviewList)
     RecyclerView recyclerView;
@@ -55,6 +63,9 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefresh;
 
+    @Bind(R.id.gs_exam_overview_coordinator_layout)
+    CoordinatorLayout examOverviewCoordinatorLayout;
+
     Menu menu;
     private ExamOverviewPresenter overviewPresenter;
     private LoginPresenter loginPresenter;
@@ -63,6 +74,9 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private List<Exam> examList = Collections.EMPTY_LIST;
     private String sortBy = null;
     private String orderBy = null;
+    private Snackbar snackSuccesfulNewExam;
+    private Snackbar snackWrongACNewExam;
+    private Snackbar snackInternalFailNewExam;
 
     public ExamOverviewFragment() {
 
@@ -80,6 +94,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         View view = inflater.inflate(R.layout.fragment_examoverview, container, false);
         ButterKnife.bind(this, view);
 
+        progressBar.setVisibility(View.VISIBLE);
+
         loginPresenter = new LoginPresenter(this.getActivity(), sp);
 
         overviewPresenter = new ExamOverviewPresenter(this, sp);
@@ -92,7 +108,9 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         return view;
     }
 
-    private void init() {
+
+    @Override
+    public void init() {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -101,7 +119,19 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
             }
         });
 
+        initSnackBars();
+
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void initSnackBars() {
+        snackSuccesfulNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_succesful), Snackbar.LENGTH_LONG);
+        snackSuccesfulNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        snackWrongACNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_fail), Snackbar.LENGTH_LONG);
+        snackWrongACNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorError));
+        snackInternalFailNewExam = Snackbar.make(examOverviewCoordinatorLayout,getResources().getText(R.string.exam_associated_internalfail),Snackbar.LENGTH_LONG);
+        snackInternalFailNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorError));
     }
 
     @Override
@@ -133,11 +163,27 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @OnClick(R.id.fab)
     public void showNexExamDialog() {
-        NewExamDialogFragment newExamDialogFragment = new NewExamDialogFragment();
-        newExamDialogFragment.setTargetFragment(this, 0);
-        newExamDialogFragment.show(getFragmentManager(), "NewExamDialog");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(R.layout.dialog_add_exam)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        builder.create().cancel();
+                    }
+                })
+                .setPositiveButton(R.string.find, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Button findbtn = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        findbtn.setOnClickListener(new NewExamDialogListener(this,alertDialog));
     }
 
+    @Override
     public void showSortByDialog() {
         SortByDialogFragment sortByDialogFragment = new SortByDialogFragment();
         sortByDialogFragment.setTargetFragment(this, 0);
@@ -159,26 +205,28 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
         adapter.addAllExams(this.examList);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onFailureExamList() {
         failText.setText(R.string.exam_overview_failed);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
         if (associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")) {
-            Toast.makeText(getContext(), "Exam associated", Toast.LENGTH_LONG).show();
+            snackSuccesfulNewExam.show();
             overviewPresenter.getSortedExamList(sortBy, orderBy);
-        } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_cide")) {
-            Toast.makeText(getContext(), "Wrong access code", Toast.LENGTH_LONG).show();
+        } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_code")) {
+            snackWrongACNewExam.show();
         }
     }
 
     @Override
     public void onFailureFindNewExam() {
-
+        snackInternalFailNewExam.show();
     }
 
     @Override
@@ -210,9 +258,9 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
                 for (int i = 0; i < examList.size(); i++) {
 
                     final String patientName = examList.get(i).getPatient().toLowerCase();
-                    final String examId = examList.get(i).getIdentification();
-                    final String clinicName = examList.get(i).getClinicName();
-                    final String date = examList.get(i).getExecutionDate();
+                    final String examId = examList.get(i).getIdentification().toLowerCase();
+                    final String clinicName = examList.get(i).getClinicName().toLowerCase();
+                    final String date = examList.get(i).getExecutionDate().toLowerCase();
                     if (patientName.contains(query) || examId.contains(query) || clinicName.contains(query) || date.contains(query)) {
                         filteredList.add(examList.get(i));
                     }
@@ -241,4 +289,5 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void onStop() {
         super.onDestroy();
     }
+
 }

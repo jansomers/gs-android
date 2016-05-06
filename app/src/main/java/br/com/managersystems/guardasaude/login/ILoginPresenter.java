@@ -26,4 +26,6 @@ public interface ILoginPresenter {
     boolean validateToken(String expires);
 
     void logout();
+
+    void retrieveAnonymousExam(String accessCodeString, String examIdString);
 }

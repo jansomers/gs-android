@@ -25,35 +25,33 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ImagesFragment extends Fragment implements IImagesView {
-    private GridView gridView;
-    private Activity activity;
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
+
+    @Bind(R.id.grid_view)
+    GridView gridView;
+
+    @Bind(R.id.imagesFail)
+    TextView failText;
+
     private ImagesPresenter imagesPresenter;
-    private GridViewImageAdapter adapter;
     private SharedPreferences sharedPreferences;
     private View view;
     private static final int GRID_PADDING = 1;
     private static final int NUM_OF_COLUMNS = 2;
     private int columnWidth;
-    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        this.activity = getActivity();
-
         view = inflater.inflate(R.layout.fragment_images, container, false);
         ButterKnife.bind(this, view);
 
-        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-
-        gridView = (GridView)view.findViewById(R.id.grid_view);
 
         initializeGridLayout();
 
         imagesPresenter = new ImagesPresenter(this,sharedPreferences);
-
         imagesPresenter.retrieveExam(getActivity().getIntent());
 
         return view;
@@ -66,22 +64,19 @@ public class ImagesFragment extends Fragment implements IImagesView {
 
     @Override
     public void noImagesFound(){
-        progressBar.setVisibility(View.GONE);
-        TextView failText = (TextView)view.findViewById(R.id.imagesFail);
         failText.setText(R.string.noImages);
+        progressBar.setVisibility(View.GONE);
     }
 
+    @Override
     public void imagesReceivedSucces() {
-        adapter = new GridViewImageAdapter(activity, imagesPresenter.getImagesForExam(), columnWidth);
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(new GridViewImageAdapter(getActivity(), imagesPresenter.getImagesForExam(), columnWidth));
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void initializeGridLayout() {
-        Resources r = getResources();
-        float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                GRID_PADDING, r.getDisplayMetrics());
+        float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, GRID_PADDING, getResources().getDisplayMetrics());
 
         columnWidth = (int) ((getScreenWidth() - ((NUM_OF_COLUMNS + 1) * padding)) / NUM_OF_COLUMNS);
 

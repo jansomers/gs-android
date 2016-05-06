@@ -10,10 +10,11 @@ import android.view.Menu;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
+import br.com.managersystems.guardasaude.exams.exammenu.IExamTabActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ExamTabActivity extends AppCompatActivity{
+public class ExamTabActivity extends AppCompatActivity implements IExamTabActivity{
     @Bind(R.id.pager)
     ViewPager viewPager;
 
@@ -42,12 +43,14 @@ public class ExamTabActivity extends AppCompatActivity{
         viewPager.setAdapter(new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp));
     }
 
-    private void init() {
-        setSharedPref();
+    @Override
+    public void init() {
+        getSharedPref();
         setTabTitles();
     }
 
-    private void setTabTitles() {
+    @Override
+    public void setTabTitles() {
         tabtitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
     }
 
@@ -64,7 +67,8 @@ public class ExamTabActivity extends AppCompatActivity{
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
-    public void setSharedPref() {
+    @Override
+    public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
 

@@ -52,7 +52,6 @@ public class ImagesInteractor implements IImagesInteractor{
 
     @Override
     public void getExam(Intent intent) {
-        Log.d(getClass().getSimpleName(), "Interactor is retrieving the exam...");
         Exam exam = intent.getParcelableExtra("exam");
         if (exam.getIdentification().isEmpty()) {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");

@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class FullScreenImageActivity extends Activity {
     @Bind(R.id.pager)
-    private ViewPager viewPager;
+    ViewPager viewPager;
 
     private FullScreenImageAdapter adapter;
     private ArrayList<Uri> images;

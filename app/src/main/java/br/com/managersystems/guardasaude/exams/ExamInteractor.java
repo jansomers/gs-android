@@ -1,8 +1,12 @@
-package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
+package br.com.managersystems.guardasaude.exams;
 
 
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamListInteractor;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.OnCallExamListFinishedListener;
+import br.com.managersystems.guardasaude.login.OnAnonymousExamRetrievedListener;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -10,13 +14,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ExamOverviewInteractor implements IExamListInteractor {
+public class ExamInteractor implements IExamListInteractor {
 
     private final String BASE_URL = "https://www.guardasaude.com.br/";
     private ExamApi examApi;
 
 
-    public ExamOverviewInteractor() {
+    public ExamInteractor() {
         examApi = initiateRetrofit();
     }
 
@@ -54,7 +58,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
         if(examApi==null){
             examApi = initiateRetrofit();
         }
-        Call<AssociatedExamResponse> call = examApi.associateNewExam(user,token,exid,ePassCode);
+        Call<AssociatedExamResponse> call = examApi.associateNewExam(user, token, exid, ePassCode);
         call.enqueue(new Callback<AssociatedExamResponse>() {
             @Override
             public void onResponse(Call<AssociatedExamResponse> call, Response<AssociatedExamResponse> response) {
@@ -69,5 +73,22 @@ public class ExamOverviewInteractor implements IExamListInteractor {
         });
     }
 
+    @Override
+    public void getAnonymousExam(final OnAnonymousExamRetrievedListener listener,String accessCodeString, String examIdString) {
+        if(examApi==null){
+            examApi=initiateRetrofit();
+        }
+        Call<ResponseBody> call = examApi.associateAnonymousExam(examIdString,accessCodeString);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                listener.examRetrievedSucces();
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                listener.examRetrievedFailure();
+            }
+        });
+    }
 }

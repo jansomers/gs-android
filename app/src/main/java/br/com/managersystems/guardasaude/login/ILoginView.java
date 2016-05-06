@@ -55,4 +55,8 @@ public interface ILoginView {
     void domainRetrievedFailed();
 
     void showServerOptionDialog();
+
+    void anonymousExamSucces();
+
+    void anonymousExamFailure();
 }

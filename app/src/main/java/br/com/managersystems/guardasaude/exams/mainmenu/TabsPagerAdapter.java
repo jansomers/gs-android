@@ -40,12 +40,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
                 return examOverviewFragment;
 
             case 1:
-                NotificationFragment notificationFragment = new NotificationFragment();
-                return notificationFragment;
+                return new NotificationFragment();
 
             case 2:
-                MessagesFragment messagesFragment = new MessagesFragment();
-                return messagesFragment;
+                return new MessagesFragment();
         }
         return null;
     }

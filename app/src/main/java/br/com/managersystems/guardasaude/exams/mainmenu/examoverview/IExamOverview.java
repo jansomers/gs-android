@@ -10,12 +10,54 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 
 public interface IExamOverview {
+    /**
+     * The examlist was received successfully
+     * @param exams = The list of exams
+     */
     void onSuccessExamList(ArrayList<Exam> exams);
+
+    /**
+     * The examlist was not received successfully
+     */
     void onFailureExamList();
+
+    /**
+     * The new exam was successfully associated with the user
+     */
     void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse);
+
+    /**
+     * The new exam could not be associated with the user
+     */
     void onFailureFindNewExam();
+
+    /**
+     * Navigate to the detail page of an exam
+     * @param exam:
+     */
     void navigateToExamDetail(Exam exam);
-    void setSharedPreferences(SharedPreferences sharedPreferences);
+
+    /**
+     * Initiate the searchviewlistener
+     * makes it possible for the user to search through the list of exams
+     */
     SearchView.OnQueryTextListener getSearchViewListener();
+
+    /**
+     * Sets swipeRefreshLayout to call presenter to refresh examlist
+     */
+    void init();
+
+    /**
+     * Initializes the snackbars used in this fragment
+     */
+    void initSnackBars();
+
+    /**
+     * Initializes and show the SortByDialog
+     */
+    void showSortByDialog();
+
+    void setSharedPreferences(SharedPreferences sharedPreferences);
     void setLoginPresenter(LoginPresenter loginPresenter);
 }

@@ -23,7 +23,7 @@ import java.util.Random;
 
 import br.com.managersystems.guardasaude.ui.activities.FullScreenImageActivity;
 
-public class GridViewImageAdapter extends BaseAdapter {
+public class GridViewImageAdapter extends BaseAdapter implements IGridViewImageAdapter {
 
     private Activity activity;
     private ArrayList<Bitmap> examImages = new ArrayList<Bitmap>();
@@ -34,14 +34,6 @@ public class GridViewImageAdapter extends BaseAdapter {
         this.activity = activity;
         this.examImages = examImages;
         this.imageWidth = imageWidth;
-       // initialiseFullscreenImages();
-    }
-
-    private void initialiseFullscreenImages() {
-        Intent i = new Intent(activity, FullScreenImageActivity.class);
-        i.putParcelableArrayListExtra("images", resizeBitmaps());
-        i.putExtra("onClicked",false);
-        activity.startActivity(i);
     }
 
     @Override
@@ -78,35 +70,34 @@ public class GridViewImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    public ArrayList<Uri> resizeBitmaps(){
+    @Override
+    public ArrayList<Uri> resizeBitmaps() {
         ArrayList<Uri> uris = new ArrayList<>();
 
-        for (Bitmap bitmap:examImages){
-           uris.add(bitmapToUriConverter(bitmap));
+        for (Bitmap bitmap : examImages) {
+            uris.add(bitmapToUriConverter(bitmap));
         }
 
         return uris;
     }
 
+    @Override
     public Uri bitmapToUriConverter(Bitmap mBitmap) {
         Uri uri = null;
         try {
             final BitmapFactory.Options options = new BitmapFactory.Options();
-            // Calculate inSampleSize
+
             options.inSampleSize = calculateInSampleSize(options, 100, 100);
 
-            // Decode bitmap with inSampleSize set
             options.inJustDecodeBounds = false;
             Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
                     true);
-            File file = new File(activity.getFilesDir(), "Image"
-                    + new Random().nextInt() + ".jpeg");
-            FileOutputStream out = activity.openFileOutput(file.getName(),
-                    Context.MODE_WORLD_READABLE);
+            File file = new File(activity.getFilesDir(), "Image" + new Random().nextInt() + ".jpeg");
+            FileOutputStream out = activity.openFileOutput(file.getName(),Context.MODE_PRIVATE);
             newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
-            //get absolute path
+
             String realPath = file.getAbsolutePath();
             File f = new File(realPath);
             uri = Uri.fromFile(f);
@@ -117,9 +108,10 @@ public class GridViewImageAdapter extends BaseAdapter {
         return uri;
     }
 
+
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
+
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
@@ -129,8 +121,6 @@ public class GridViewImageAdapter extends BaseAdapter {
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
 
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
             while ((halfHeight / inSampleSize) > reqHeight
                     && (halfWidth / inSampleSize) > reqWidth) {
                 inSampleSize *= 2;
@@ -153,7 +143,7 @@ public class GridViewImageAdapter extends BaseAdapter {
             Intent i = new Intent(activity, FullScreenImageActivity.class);
             i.putExtra("position", postion);
             i.putParcelableArrayListExtra("images", resizeBitmaps());
-            i.putExtra("onClicked",true);
+            i.putExtra("onClicked", true);
             activity.startActivity(i);
         }
     }

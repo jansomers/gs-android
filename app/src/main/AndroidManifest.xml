@@ -25,9 +25,14 @@
         <activity android:name=".ui.activities.ExamTabActivity">
 
         </activity>
+
         <activity android:name=".ui.activities.FullScreenImageActivity">
+        </activity>
+
+        <activity android:name=".ui.activities.AnonymousExamInformationActivity">
 
         </activity>
+
     </application>
 
 </manifest>

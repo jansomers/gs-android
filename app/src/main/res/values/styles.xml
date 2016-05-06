@@ -14,6 +14,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+
     <!--Button Styles-->
     <style name="LoginButton" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorControlHighlight">@color/colorPrimaryLight</item>
@@ -43,5 +45,7 @@
     <style name="TextAppearance.App.Authentication.Progress" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
+
 
 </resources>
