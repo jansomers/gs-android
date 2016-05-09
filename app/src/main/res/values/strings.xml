@@ -96,9 +96,9 @@
     <string name="anonymous_exam">No account?\nDirectly access an exam</string>
     <string name="createAccount">Create an account</string>
     <string name="moreInfo">To get more information</string>
-    <string name="exam_associated_succesful">Exam succesfully associated</string>
+    <string name="exam_associated_succesful">Exam successfully associated</string>
     <string name="exam_associated_fail">Exam not found or Wrong accesscode</string>
-    <string name="exam_associated_internalfail">Exam could not be associated</string>
+    <string name="exam_associated_internalfail">Exam not found</string>
     <string name="identification_required">Identification is required!</string>
     <string name="accesscode_required">Access code is required!</string>
     <string name="id_and_ac_required">Identification and access code are required!</string>

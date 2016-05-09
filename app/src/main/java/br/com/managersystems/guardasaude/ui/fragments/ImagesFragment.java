@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -48,6 +50,7 @@ public class ImagesFragment extends Fragment implements IImagesView {
         ButterKnife.bind(this, view);
 
         progressBar.setVisibility(View.VISIBLE);
+        failText.setVisibility(View.GONE);
 
         initializeGridLayout();
 
@@ -64,12 +67,14 @@ public class ImagesFragment extends Fragment implements IImagesView {
 
     @Override
     public void noImagesFound(){
+        failText.setVisibility(View.VISIBLE);
         failText.setText(R.string.noImages);
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void imagesReceivedSucces() {
+        failText.setVisibility(View.GONE);
         gridView.setAdapter(new GridViewImageAdapter(getActivity(), imagesPresenter.getImagesForExam(), columnWidth));
         progressBar.setVisibility(View.GONE);
     }
@@ -92,6 +97,9 @@ public class ImagesFragment extends Fragment implements IImagesView {
     public int getScreenWidth() {
         int columnWidth;
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
         Display display = wm.getDefaultDisplay();
 
         final Point point = new Point();
@@ -99,8 +107,8 @@ public class ImagesFragment extends Fragment implements IImagesView {
             display.getSize(point);
         } catch (java.lang.NoSuchMethodError ignore) {
             // Older device
-            point.x = display.getWidth();
-            point.y = display.getHeight();
+            point.x = displaymetrics.widthPixels;
+            point.y = displaymetrics.heightPixels;
         }
         columnWidth = point.x;
         return columnWidth;

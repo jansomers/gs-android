@@ -1,11 +1,17 @@
 package br.com.managersystems.guardasaude.exams;
 
 
+import android.content.Intent;
+import android.util.Log;
+
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
+import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
+import br.com.managersystems.guardasaude.exams.domain.IndividualExamResponse;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamListInteractor;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.OnCallExamListFinishedListener;
+import br.com.managersystems.guardasaude.login.AnonymousInformationListener;
 import br.com.managersystems.guardasaude.login.OnAnonymousExamRetrievedListener;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,27 +49,34 @@ public class ExamInteractor implements IExamListInteractor {
         call.enqueue(new Callback<ExamList>() {
             @Override
             public void onResponse(Call<ExamList> call, Response<ExamList> response) {
-                listener.onSuccessGetExamList(response.body());
+                if (response.body() != null) {
+                    listener.onSuccessGetExamList(response.body());
+                } else {
+                    listener.onFailureGetExamList();
+                }
             }
 
             @Override
             public void onFailure(Call<ExamList> call, Throwable t) {
-                listener.onFailureGetExamList();
+                listener.onFailureGetExamList();gi
             }
         });
     }
 
     @Override
-    public void associateNewExam(final OnCallExamListFinishedListener listener,String user, String token, String exid, String ePassCode) {
-        if(examApi==null){
+    public void associateNewExam(final OnCallExamListFinishedListener listener, String user, String token, String exid, String ePassCode) {
+        if (examApi == null) {
             examApi = initiateRetrofit();
         }
         Call<AssociatedExamResponse> call = examApi.associateNewExam(user, token, exid, ePassCode);
         call.enqueue(new Callback<AssociatedExamResponse>() {
             @Override
             public void onResponse(Call<AssociatedExamResponse> call, Response<AssociatedExamResponse> response) {
-                listener.onSuccessFindNewExam(response.body());
-                //TODO check response
+                if (response.body() != null) {
+                    listener.onSuccessFindNewExam(response.body());
+                } else {
+                    listener.onFailureFindNewExam();
+                }
             }
 
             @Override
@@ -74,21 +87,38 @@ public class ExamInteractor implements IExamListInteractor {
     }
 
     @Override
-    public void getAnonymousExam(final OnAnonymousExamRetrievedListener listener,String accessCodeString, String examIdString) {
-        if(examApi==null){
-            examApi=initiateRetrofit();
+    public void getAnonymousExam(final OnAnonymousExamRetrievedListener listener, String accessCodeString, String examIdString) {
+        if (examApi == null) {
+            examApi = initiateRetrofit();
         }
-        Call<ResponseBody> call = examApi.associateAnonymousExam(examIdString,accessCodeString);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<IndividualExamResponse> call = examApi.associateAnonymousExam(examIdString, accessCodeString);
+        call.enqueue(new Callback<IndividualExamResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                listener.examRetrievedSucces();
+            public void onResponse(Call<IndividualExamResponse> call, Response<IndividualExamResponse> response) {
+                if (response.body().getRows().size()!=0) {
+                    listener.examRetrievedSucces(response.body().getRows().get(0));
+                } else {
+                    listener.examRetrievedFailure();
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<IndividualExamResponse> call, Throwable t) {
                 listener.examRetrievedFailure();
             }
         });
+    }
+
+
+    @Override
+    public void getExam(final AnonymousInformationListener listener, Intent intent) {
+        Exam exam = intent.getParcelableExtra("exam");
+        if (exam.getIdentification().isEmpty()) {
+            Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");
+            listener.onExamFailure();
+        } else {
+            Log.d(getClass().getSimpleName(), "Exam was retrieved succesfully... notifying listener!");
+            listener.onExamReceived(exam);
+        }
     }
 }

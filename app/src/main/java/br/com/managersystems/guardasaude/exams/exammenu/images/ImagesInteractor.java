@@ -73,9 +73,11 @@ public class ImagesInteractor implements IImagesInteractor{
                     @Override
                     public void onResponse(Call<ExamImageResponse> call, Response<ExamImageResponse> response) {
                         imagesCounter++;
-                        listener.onImageSuccess(response.body());
-                        if(imagesCounter==exam.getImages().size()){
-                            listener.onAllImagesSuccess();
+                        if(response.body()!=null) {
+                            listener.onImageSuccess(response.body());
+                            if (imagesCounter == exam.getImages().size()) {
+                                listener.onAllImagesSuccess();
+                            }
                         }
                     }
 

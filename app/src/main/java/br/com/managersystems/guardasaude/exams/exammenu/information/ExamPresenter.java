@@ -10,9 +10,7 @@ import br.com.managersystems.guardasaude.exams.domain.Comment;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
 
-/**
- * Created by Jan on 26/04/2016.
- */
+
 public class ExamPresenter implements IExamPresenter, OnInformationRetrievedListener {
     
     IExamInformationView informationFragment;

@@ -7,7 +7,13 @@
     <TextView
         android:id="@+id/imagesFail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:textColor="@color/colorError"
+        android:drawableStart="@drawable/ic_error_36dp_error"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        />
 
     <ProgressBar
         android:id="@+id/progressBar"

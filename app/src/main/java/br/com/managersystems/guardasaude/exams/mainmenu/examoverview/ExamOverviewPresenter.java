@@ -46,8 +46,7 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
 
     @Override
     public void onSuccessGetExamList(ExamList examList) {
-        examOverview.onSuccessExamList(
-                (ArrayList<Exam>) examList.getRows());
+        examOverview.onSuccessExamList((ArrayList<Exam>) examList.getRows());
     }
 
     @Override

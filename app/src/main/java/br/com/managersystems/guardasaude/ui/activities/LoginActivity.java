@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.AccessDomain;
 import br.com.managersystems.guardasaude.login.ILoginView;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
@@ -300,8 +301,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     @Override
-    public void anonymousExamSucces() {
+    public void anonymousExamSucces(Exam exam) {
         Intent intent = new Intent(this, AnonymousExamInformationActivity.class);
+        intent.putExtra("exam",exam);
         startActivity(intent);
     }
 
@@ -343,7 +345,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     @OnClick(R.id.btn_anonymous_exam)
-
     public void showNewAnonymousExamDialog(){
         final NewAnonymousExamDialog dialog = new NewAnonymousExamDialog(this);
         dialog.activateRequestBtn();

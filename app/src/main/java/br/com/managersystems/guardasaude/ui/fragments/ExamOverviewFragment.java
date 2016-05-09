@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -121,6 +122,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
         initSnackBars();
 
+        failText.setVisibility(View.INVISIBLE);
+
         setHasOptionsMenu(true);
     }
 
@@ -199,6 +202,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void onSuccessExamList(ArrayList<Exam> exams) {
+        failText.setVisibility(View.GONE);
         this.examList = exams;
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -210,6 +214,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void onFailureExamList() {
+        failText.setVisibility(View.VISIBLE);
         failText.setText(R.string.exam_overview_failed);
         progressBar.setVisibility(View.GONE);
     }

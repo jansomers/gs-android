@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.managersystems.guardasaude.exams.ExamInteractor;
+import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
@@ -169,8 +170,8 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     }
 
     @Override
-    public void examRetrievedSucces() {
-        loginActivity.anonymousExamSucces();
+    public void examRetrievedSucces(Exam exam) {
+        loginActivity.anonymousExamSucces(exam);
     }
 
     @Override

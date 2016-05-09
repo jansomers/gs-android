@@ -2,6 +2,8 @@ package br.com.managersystems.guardasaude.login;
 
 import java.util.ArrayList;
 
+import br.com.managersystems.guardasaude.exams.domain.Exam;
+
 
 public interface ILoginView {
 
@@ -56,7 +58,7 @@ public interface ILoginView {
 
     void showServerOptionDialog();
 
-    void anonymousExamSucces();
+    void anonymousExamSucces(Exam exam);
 
     void anonymousExamFailure();
 }

@@ -23,11 +23,6 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
 
     private SharedPreferences sp;
 
-    public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
-        return examTabsPagerAdapter;
-    }
-
-    private ExamTabsPagerAdapter examTabsPagerAdapter;
     private String[] tabtitles;
 
     private Menu menu;
