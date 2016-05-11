@@ -1,17 +1,18 @@
 package br.com.managersystems.guardasaude.login;
 
 /**
- * Created by Jan on 15/04/2016.
+ * POJO Class that represent an access domain.
+ * Holds the id, tag and url of that domain.
  */
 public class AccessDomain {
 
     private int id;
-    private String tagName;
+    private String tag;
     private String domainUrl;
 
-    public AccessDomain(int id, String tagName, String domainUrl) {
+    public AccessDomain(int id, String tag, String domainUrl) {
         this.id = id;
-        this.tagName = tagName;
+        this.tag = tag;
         this.domainUrl = domainUrl;
     }
 
@@ -23,12 +24,12 @@ public class AccessDomain {
         this.id = id;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTag() {
+        return tag;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getDomainUrl() {

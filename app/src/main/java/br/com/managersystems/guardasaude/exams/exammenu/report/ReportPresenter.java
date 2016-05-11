@@ -6,12 +6,23 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnReportRetrievedListener;
 import br.com.managersystems.guardasaude.ui.fragments.ReportFragment;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 
 /**
- * Created by Jan on 27/04/2016.
+ * This class is an implementation of the IReportPreseneter. It also implements the
+ * OnReportRetrievedListener
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see IReportPresenter
+ * @see OnReportRetrievedListener
+ * @see IReportInteractor
+ * @see ReportFragment
+
  */
 public class ReportPresenter implements IReportPresenter, OnReportRetrievedListener {
     IExamReportView reportFragment;
@@ -28,7 +39,7 @@ public class ReportPresenter implements IReportPresenter, OnReportRetrievedListe
     @Override
     public void onFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure.. Forwarding to view");
-        reportFragment.showError();
+        reportFragment.showReportError();
     }
 
     @Override

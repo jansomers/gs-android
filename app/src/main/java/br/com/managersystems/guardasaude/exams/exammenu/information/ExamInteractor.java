@@ -16,7 +16,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Jan on 26/04/2016.
+ * This class is an implementation of the IExamInteractor
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see IExamInteractor
  */
 public class ExamInteractor implements  IExamInteractor {
     private final String BASE_URL= "https://guardasaude.com.br/";
@@ -32,6 +39,10 @@ public class ExamInteractor implements  IExamInteractor {
 
     }
 
+    /**
+     * Initiates the retrofit instances for the ExamApi.
+     * @return ExamApi instance representing the client.
+     */
     private ExamApi initiateRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -50,7 +61,7 @@ public class ExamInteractor implements  IExamInteractor {
         }
         else {
             Log.d(getClass().getSimpleName(), "Exam not retrieved... Alerting the listener");
-            examListener.onFailure();
+            examListener.onExamFailure();
         }
 
 
@@ -62,19 +73,19 @@ public class ExamInteractor implements  IExamInteractor {
         String user = base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token", "");
         if (user.isEmpty() || token.isEmpty() ||exid.toString().isEmpty()) {
-            examListener.onUnableToMakeCommentsCall();
+            examListener.onCommentsRetrievedFailure();
         }
         else {
             Call<CommentResponse> call = examApi.getComments(user,token, exid.toString());
             call.enqueue(new Callback<CommentResponse>() {
                 @Override
                 public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
-                    examListener.onCommentsRetrievedSuccesfully(response.body().getComments());
+                    examListener.onCommentsRetrievedSuccess(response.body().getComments());
                 }
 
                 @Override
                 public void onFailure(Call<CommentResponse> call, Throwable t) {
-                    examListener.onUnableToMakeCommentsCall();
+                    examListener.onCommentsRetrievedFailure();
 
                 }
             });

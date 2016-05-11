@@ -80,16 +80,12 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @Bind(R.id.gs_exam_comment_section_layout)
     LinearLayout commentLayout;
 
-
     ExamPresenter presenter;
     SharedPreferences sp;
     CommentsAdapter adapter;
     TextWatcher commentWatcher;
     boolean commentsHidden;
     boolean isPatient;
-      //final Exam DUMMY_EXAM = new Exam(167511113, "TMC56257", "RM ARTICULAR(PORATICULACAO)", "ATIDOR SILVA CORDOSO DOS SANTOS", "12/01/2016 12:10", "Finished", "JOHN SMITH", "CRMPR/98765", "JOSE CANDIDO VALENTE MALAGUIDO", "CRM SC/17989", "/mobile/getExamReport?user=doctor&exid=TMC56257", null);
-
-
 
 
     @Override
@@ -141,7 +137,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         Log.d(getClass().getSimpleName(), "Received success from Presenter... Showing Information");
         hideableLayout.setVisibility(View.VISIBLE);
         commentsBtn.setVisibility(isPatient ? View.GONE : View.VISIBLE);
-        imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().matches("finished | ready")? View.GONE: View.VISIBLE);
+        imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().matches("finished | ready") ? View.GONE : View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
         examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));
@@ -154,7 +150,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showComments() {
-        // set date reporting gone
         AnimationUtils.collapse(hideableLayout);
         AnimationUtils.expand(commentLayout);
         commentsBtn.setText(getText(R.string.information));
@@ -221,14 +216,13 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         if (commentsHidden) {
             showComments();
             presenter.retrieveComments(examIdTextView.getText(), sp);
-        }
-        else {
+        } else {
             hideComments();
         }
     }
 
     @OnClick(R.id.save_comment_btn)
-    public void clickSaveComment(){
+    public void clickSaveComment() {
         presenter.saveComment(examIdTextView.getText(), newCommentText.getEditableText().toString(), sp);
 
     }

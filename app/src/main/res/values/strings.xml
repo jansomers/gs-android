@@ -94,6 +94,57 @@
     <string name="snackReqPwd">Email sent. Check your inbox for further instructions.</string>
     <string name="snackNoReqPwd">Email not sent. Something went wrong. Try again </string>
     <string name="anonymous_exam">No account?\nDirectly access an exam</string>
+    <string name="Enter_email">Email *</string>
+    <string name="Enter_password">Password *</string>
+    <string name="Re_enter_password">Verify your password *</string>
+    <string name="account_info">Account Information</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="first_name">First name *</string>
+    <string name="last_name">Last name *</string>
+    <string name="password_info">Your password has to be at least 5 characters long and include at least 1 number, upprcase letter and lowercase letter (e.g: Abcd1)</string>
+    <string name="gender">Gender</string>
+    <string name="female_abbr">F</string>
+    <string name="male_abbr">M</string>
+    <string name="female">Woman</string>
+    <string name="male">Man</string>
+    <string name="city">City *</string>
+    <string name="language">Language *</string>
+    <string name="birth_date">Select your date of birth *</string>
+    <string name="select_birth_date">Select birth date</string>
+    <string name="id_type">Type of Identification *</string>
+    <string name="personal_id">Identification No *</string>
+    <string name="password_verify_info">Both passwords have to be the same.</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="must_befilled_in">Make sure all fields are filled in.</string>
+    <string name="invalid_entry">is not a valid entry.\\nCheck for mistakes and try again please..</string>
+
+    <!--Arrays -->
+    <string-array name="genders">
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </string-array>
+
+    <string-array name="dummy_cities">
+        <item>City 1</item>
+        <item>City 2</item>
+        <item>City 3</item>
+        <item>City 4</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>Português</item>
+        <item>Español</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="id_types">
+        <item>CPF</item>
+        <item>Passport</item>
+        <item>ID</item>
+        <item>ExternalSystem</item>
+        <item>Professional</item>
+        <item>ClinicInternalID</item>
+    </string-array>
     <string name="createAccount">Create an account</string>
     <string name="moreInfo">To get more information</string>
     <string name="exam_associated_succesful">Exam successfully associated</string>

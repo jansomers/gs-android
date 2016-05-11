@@ -14,6 +14,17 @@ import java.util.List;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Comment;
 
+/**
+ * This is class represents an adapter for Comment objects and extends Recyclerview.Adapter.
+ * It includes a viewholder innerclass for the visual representation of a Comment.
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also See:
+ * @see br.com.managersystems.guardasaude.ui.fragments.InformationFragment
+ */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder> {
 
     List<Comment> data = Collections.emptyList();
@@ -67,35 +78,33 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
 
 
+    /**
+     * Adds an item to the data.
+     * @param position int object representing the position in the list.
+     * @param comment Comment object representing the comment to be added to the list.
+     */
     public void add(int position, Comment comment) {
         data.add(position, comment);
         notifyItemInserted(position);
     }
 
+    /**
+     * Clears the data.
+     */
     public void removeAll() {
         data.clear();
         notifyDataSetChanged();
     }
 
+    /**
+     * Removes an item from the list.
+     * @param position int object representing the position in the list.
+     * @param comment Comment object representing the comment to be removed from the list.
+     */
     public void remove(int position, Comment comment) {
         data.remove(position);
         notifyItemRemoved(position);
     }
-
-    public class CommentsViewHolder extends RecyclerView.ViewHolder {
-
-        TextView user;
-        TextView date;
-        TextView comment;
-
-        public CommentsViewHolder(View itemView) {
-            super(itemView);
-            user = (TextView) itemView.findViewById(R.id.gs_exam_comment_username);
-            date = (TextView) itemView.findViewById(R.id.gs_exam_comment_time_posted);
-            comment = (TextView) itemView.findViewById(R.id.gs_exam_comment_text);
-        }
-    }
-
 
     @Override
     public void onViewRecycled(CommentsViewHolder holder) {
@@ -112,5 +121,22 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             default: layoutParams.height = 220;
         }
         recyclerView.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * This class holds the visual representation of the comment object.
+     */
+    public class CommentsViewHolder extends RecyclerView.ViewHolder {
+
+        TextView user;
+        TextView date;
+        TextView comment;
+
+        public CommentsViewHolder(View itemView) {
+            super(itemView);
+            user = (TextView) itemView.findViewById(R.id.gs_exam_comment_username);
+            date = (TextView) itemView.findViewById(R.id.gs_exam_comment_time_posted);
+            comment = (TextView) itemView.findViewById(R.id.gs_exam_comment_text);
+        }
     }
 }

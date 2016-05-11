@@ -2,6 +2,19 @@ package br.com.managersystems.guardasaude.login;
 
 import java.util.ArrayList;
 
+/**
+ * This interfaces consists of methods which are important for the implementation.
+ * All methods should not manipulate domain data in any way and is used purely for view purposes.
+ *
+ * Authors:
+ *
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Implementation:
+ *
+ * @see br.com.managersystems.guardasaude.ui.activities.LoginActivity
+ */
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 
@@ -51,11 +64,11 @@ public interface ILoginView {
      */
     void showRoleOptionDialog(ArrayList<String> roles);
 
-    // Retrieving domains for admins (currently not correct)
+    // To be implemented and changed...
     void domainRetrievedSuccesfully(ArrayList<AccessDomain> accessDomainArrayList);
-
+    // To be implemented and changed...
     void domainRetrievedFailed();
-
+    // To be implemented and changed...
     void showServerOptionDialog();
 
     /**

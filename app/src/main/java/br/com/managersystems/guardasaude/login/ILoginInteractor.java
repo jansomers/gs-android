@@ -5,7 +5,21 @@ import android.content.SharedPreferences;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 
 /**
- * Created by Jan on 15/04/2016.
+ * This interface consists of methods needed to succesfully handle authorization and login requests.
+ *
+ * In every method, the listener is called, which is, in this case, an instance of the LoginPresenter.
+ *
+ * The documentation briefly explains what the method does.
+ *
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Implementations / Also see:
+ *
+ * @see LoginInteractor
+ * @see OnLoginFinishedListener
+ * @see LoginPresenter
+ *
  */
 public interface ILoginInteractor {
 

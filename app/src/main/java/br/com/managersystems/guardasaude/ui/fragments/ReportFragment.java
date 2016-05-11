@@ -19,12 +19,12 @@ import butterknife.ButterKnife;
 
 public class ReportFragment extends Fragment implements IExamReportView {
 
-    /*@Bind(R.id.report_web_view)
-    WebView reportView;
-*/
     @Bind(R.id.report_test_textview)
     TextView textView;
+
     ReportPresenter presenter;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,17 +44,18 @@ public class ReportFragment extends Fragment implements IExamReportView {
     @Override
     public void showReport(String report) {
         Log.d(getClass().getSimpleName(), "Received report from presenter.. Showing webview!");
-       /* reportView.getSettings().setJavaScriptEnabled(true);
-        reportView.loadData(report, "text/html", "UTF-8");*/
         String text = String.valueOf(Html.fromHtml(report));
+        // Tried to remove any comments from the html string.
         String withOutComments = text.replaceAll("<!--*-->", " ");
         textView.setText(withOutComments);
 
     }
 
+    /**
+     * TODO Notify User there are no reports.
+     */
     @Override
-    public void showError() {
+    public void showReportError() {
         Log.d(getClass().getSimpleName(), "Received error alert from presenter.. Showing error in view!");
-        
     }
 }
