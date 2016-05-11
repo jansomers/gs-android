@@ -41,5 +41,14 @@
                 android:inputType="textPassword"
                 android:textColor="@color/colorTextColor" />
         </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_exam_error_msg"
+            android:layout_marginTop="12dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorError"
+            />
     </LinearLayout>
+
 </LinearLayout>

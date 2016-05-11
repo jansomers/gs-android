@@ -75,13 +75,11 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
 
     @Override
     public void onExamFailure() {
-        Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
         imagesFragment.noImagesFound();
     }
 
     @Override
     public void onImageFailure() {
-        Log.d(getClass().getSimpleName(), "Received interactor failure.. ");
         imagesFragment.noImagesFound();
     }
 

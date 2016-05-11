@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import br.com.managersystems.guardasaude.exams.ExamInteractor;
+import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
@@ -32,9 +34,8 @@ import br.com.managersystems.guardasaude.util.Base64Interactor;
  * @see OnLoginFinishedListener
  * @see ILoginInteractor
  * @see LoginActivity
-
- */
-public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener {
+*/
+public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener,OnAnonymousExamRetrievedListener {
 
     ILoginView loginActivity;
     Activity logoutActivity;
@@ -42,6 +43,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     LoginInteractor loginInteractor;
     DomainInteractor domainInteractor;
     Base64Interactor base64Interactor;
+    ExamInteractor examInteractor;
 
     public LoginPresenter(LoginActivity loginActivity, SharedPreferences sp) {
         this.loginActivity = loginActivity;
@@ -49,6 +51,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
         loginInteractor = new LoginInteractor();
         domainInteractor = new DomainInteractor(new ArrayList<AccessDomain>());
         base64Interactor = new Base64Interactor();
+        examInteractor = new ExamInteractor();
     }
 
     public LoginPresenter(Activity logoutActivity, SharedPreferences sp) {
@@ -175,5 +178,20 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     @Override
     public void onDomainFailed() {
         loginActivity.domainRetrievedFailed();
+    }
+
+    @Override
+    public void retrieveAnonymousExam(String accessCodeString, String examIdString) {
+        examInteractor.getAnonymousExam(this,accessCodeString,examIdString);
+    }
+
+    @Override
+    public void examRetrievedSucces(Exam exam) {
+        loginActivity.anonymousExamSucces(exam);
+    }
+
+    @Override
+    public void examRetrievedFailure() {
+        loginActivity.anonymousExamFailure();
     }
 }

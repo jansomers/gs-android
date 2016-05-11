@@ -52,7 +52,6 @@ public class ImagesInteractor implements IImagesInteractor{
 
     @Override
     public void getExam(Intent intent) {
-        Log.d(getClass().getSimpleName(), "Interactor is retrieving the exam...");
         Exam exam = intent.getParcelableExtra("exam");
         if (exam.getIdentification().isEmpty()) {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");
@@ -74,9 +73,11 @@ public class ImagesInteractor implements IImagesInteractor{
                     @Override
                     public void onResponse(Call<ExamImageResponse> call, Response<ExamImageResponse> response) {
                         imagesCounter++;
-                        listener.onImageSuccess(response.body());
-                        if(imagesCounter==exam.getImages().size()){
-                            listener.onAllImagesSuccess();
+                        if(response.body()!=null) {
+                            listener.onImageSuccess(response.body());
+                            if (imagesCounter == exam.getImages().size()) {
+                                listener.onAllImagesSuccess();
+                            }
                         }
                     }
 

@@ -122,7 +122,7 @@ public class SortByDialogFragment extends DialogFragment {
     public void onRadioButtonClicked(View view) {
         switch (view.getId()) {
             case R.id.patient_button:
-                orderBy = "patient";
+                sortBy = "patient";
 
                 iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
@@ -130,10 +130,10 @@ public class SortByDialogFragment extends DialogFragment {
 
                 if ((iconPatientCounter & 1) == 0) {
                     iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
-                    sortBy = "asc";
+                    orderBy = "asc";
                 } else {
                     iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_za_accent));
-                    sortBy = "desc";
+                    orderBy = "desc";
                 }
 
                 iconDateCounter=0;
@@ -141,7 +141,7 @@ public class SortByDialogFragment extends DialogFragment {
                 iconPatientCounter++;
                 break;
             case R.id.identification_button:
-                orderBy = "identification";
+                sortBy = "identification";
 
                 iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
@@ -149,10 +149,10 @@ public class SortByDialogFragment extends DialogFragment {
 
                 if ((iconIdentificationCounter & 1) == 0) {
                     iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
-                    sortBy = "asc";
+                    orderBy = "asc";
                 } else {
                     iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_za_accent));
-                    sortBy = "desc";
+                    orderBy = "desc";
                 }
 
                 iconDateCounter=0;
@@ -160,7 +160,7 @@ public class SortByDialogFragment extends DialogFragment {
                 iconIdentificationCounter++;
                 break;
             case R.id.date_button:
-                orderBy = "executionDate";
+                sortBy = "executionDate";
 
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
                 iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
@@ -168,10 +168,10 @@ public class SortByDialogFragment extends DialogFragment {
 
                 if ((iconDateCounter & 1) == 0) {
                     iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
-                    sortBy = "asc";
+                    orderBy = "asc";
                 } else {
                     iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_90_accent));
-                    sortBy = "desc";
+                    orderBy = "desc";
                 }
 
                 iconPatientCounter=0;

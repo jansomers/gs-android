@@ -25,16 +25,18 @@ import java.util.ArrayList;
 
 import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.AccessDomain;
 import br.com.managersystems.guardasaude.login.ILoginView;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
+import br.com.managersystems.guardasaude.ui.dialogs.ForgotPasswordDialog;
+import br.com.managersystems.guardasaude.ui.dialogs.NewAnonymousExamDialog;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
-public class LoginActivity extends AppCompatActivity implements ILoginView {
+public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Bind(R.id.gs_login_username)
     EditText gsUsernameEditText;
@@ -67,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     private Snackbar snackSuccesfulPwdReq;
     private Snackbar snackFailedPwdReq;
+    private Snackbar snackInternalFailNewExam;
 
     /* ********************************************
     TODO implement domain chooser
@@ -82,7 +85,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         presenter = new LoginPresenter(this, sp);
-
 
     }
 
@@ -110,6 +112,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         snackSuccesfulPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         snackFailedPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackNoReqPwd), Snackbar.LENGTH_LONG);
         snackFailedPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorError));
+        snackInternalFailNewExam = Snackbar.make(loginCoordinatorLayout,getResources().getText(R.string.exam_associated_internalfail),Snackbar.LENGTH_LONG);
+        snackInternalFailNewExam.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorError));
     }
 
     /**
@@ -165,9 +169,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         Intent intent = new Intent(this, MainTabActivity.class);
         Log.d(this.getClass().getSimpleName(), "Navigating to Maintabactivity as: " + sp.getString("role", "NOROLE"));
         startActivity(intent);
-
     }
-
 
     @Override
     public void domainRetrievedSuccesfully(ArrayList<AccessDomain> accessDomainArrayList) {
@@ -205,7 +207,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         dialog.setPwdText(username);
         dialog.activateRequestBtn();
         dialog.show();
-
     }
 
     @Override
@@ -300,6 +301,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     }
 
+    @Override
+    public void anonymousExamSucces(Exam exam) {
+        Intent intent = new Intent(this, AnonymousExamInformationActivity.class);
+        intent.putExtra("exam", exam);
+        startActivity(intent);
+    }
+
+    @Override
+    public void anonymousExamFailure() {
+        snackInternalFailNewExam.show();
+    }
+
     /**
      * Shows the authentication progress and hides any results.
      */
@@ -330,5 +343,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         authenticatingFinishedImageView.startAnimation(animation);
         authenticatingProgressText.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
 
+    }
+
+    @OnClick(R.id.btn_anonymous_exam)
+    public void showNewAnonymousExamDialog(){
+        final NewAnonymousExamDialog dialog = new NewAnonymousExamDialog(this);
+        dialog.activateRequestBtn();
+        dialog.show();
+    }
+
+    public void findAnonymousExam(String accessCodeString, String examIdString) {
+        presenter.retrieveAnonymousExam(accessCodeString, examIdString);
     }
 }

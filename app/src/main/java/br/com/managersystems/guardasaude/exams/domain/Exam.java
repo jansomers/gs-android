@@ -27,6 +27,7 @@ public class Exam implements Parcelable {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
 
+
     public Exam() {
     }
 

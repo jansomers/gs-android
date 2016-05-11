@@ -2,15 +2,10 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 
 import android.content.SharedPreferences;
-import android.support.v7.widget.SearchView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.managersystems.guardasaude.exams.ExamInteractor;
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
@@ -19,7 +14,7 @@ import br.com.managersystems.guardasaude.util.Base64Interactor;
 
 
 public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExamListFinishedListener {
-    ExamOverviewInteractor examOverviewInteractor;
+    ExamInteractor examOverviewInteractor;
     ExamOverviewFragment examOverview;
     Base64Interactor base64Interactor;
     SharedPreferences sp;
@@ -29,7 +24,7 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
         this.examOverview = examOverview;
         this.sp = sharedPreferences;
         base64Interactor = new Base64Interactor();
-        examOverviewInteractor = new ExamOverviewInteractor();
+        examOverviewInteractor = new ExamInteractor();
     }
 
     @Override
@@ -51,8 +46,7 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
 
     @Override
     public void onSuccessGetExamList(ExamList examList) {
-        ArrayList<Exam> exams = (ArrayList<Exam>) examList.getRows();
-        examOverview.onSuccessExamList(exams);
+        examOverview.onSuccessExamList((ArrayList<Exam>) examList.getRows());
     }
 
     @Override

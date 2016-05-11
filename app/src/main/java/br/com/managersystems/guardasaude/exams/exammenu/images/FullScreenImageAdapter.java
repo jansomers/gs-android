@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FullScreenImageAdapter extends PagerAdapter {
+public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenImageAdapter {
 
     private Activity activity;
     private ArrayList<Uri> uris;
@@ -31,7 +31,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
         init();
     }
 
-    private void init() throws IOException {
+    @Override
+    public void init() throws IOException {
         for (Uri uri:this.uris){
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(),uri);
             images.add(bitmap);

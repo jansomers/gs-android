@@ -31,12 +31,10 @@ public class ExamTabsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
 
             case 0:
-                InformationFragment informationFragment = new InformationFragment();
-                return informationFragment;
+                return new InformationFragment();
 
             case 1:
-                ReportFragment reportFragment = new ReportFragment();
-                return reportFragment;
+                return new ReportFragment();
 
             case 2:
                 ImagesFragment imagesFragment = new ImagesFragment();

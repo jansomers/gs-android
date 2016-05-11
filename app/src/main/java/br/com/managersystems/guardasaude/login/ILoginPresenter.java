@@ -46,4 +46,6 @@ public interface ILoginPresenter {
      * Forwards the request to logout.
      */
     void logout();
+
+    void retrieveAnonymousExam(String accessCodeString, String examIdString);
 }

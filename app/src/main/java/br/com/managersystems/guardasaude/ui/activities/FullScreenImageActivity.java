@@ -11,20 +11,22 @@ import java.util.ArrayList;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.exammenu.images.FullScreenImageAdapter;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class FullScreenImageActivity extends Activity {
-    private FullScreenImageAdapter adapter;
-    private ViewPager viewPager;
-    private ArrayList<Uri> images;
+    @Bind(R.id.pager)
+    ViewPager viewPager;
 
+    private FullScreenImageAdapter adapter;
+    private ArrayList<Uri> images;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreenimage);
-
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        ButterKnife.bind(this);
 
         Intent i = getIntent();
         int position = i.getIntExtra("position", 0);
@@ -37,8 +39,6 @@ public class FullScreenImageActivity extends Activity {
         }
 
         viewPager.setAdapter(adapter);
-
         viewPager.setCurrentItem(position);
-
     }
 }

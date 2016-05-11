@@ -5,8 +5,10 @@ import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.CommentResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
+import br.com.managersystems.guardasaude.exams.domain.IndividualExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.PostCommentResponse;
 import br.com.managersystems.guardasaude.exams.domain.ReportResponse;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -59,5 +61,11 @@ public interface ExamApi {
             @Query("token") String token,
             @Query("exid") String exId,
             @Query("msg") String comment
+    );
+
+    @POST("mobile/readIndividualExam")
+    Call<IndividualExamResponse> associateAnonymousExam(
+            @Query("exid") String exId,
+            @Query("epasscode") String ePassCode
     );
 }

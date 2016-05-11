@@ -15,6 +15,9 @@ import java.util.ArrayList;
  *
  * @see br.com.managersystems.guardasaude.ui.activities.LoginActivity
  */
+import br.com.managersystems.guardasaude.exams.domain.Exam;
+
+
 public interface ILoginView {
 
 
@@ -67,4 +70,8 @@ public interface ILoginView {
     void domainRetrievedFailed();
     // To be implemented and changed...
     void showServerOptionDialog();
+
+    void anonymousExamSucces(Exam exam);
+
+    void anonymousExamFailure();
 }

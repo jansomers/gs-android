@@ -17,22 +17,28 @@ import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.fragments.ExamOverviewFragment;
 
-public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder>{
+public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder> implements IExamAdapter {
     private LayoutInflater inflater;
     List<Exam> examList;
     Context context;
     ExamOverviewFragment examOverview;
-    private final String finished;
-    private final String ready;
-    private final String available;
+
+    private String finished;
+    private String ready;
+    private String available;
 
 
-    public ExamAdapter(Context context,List<Exam> examList,ExamOverviewFragment examOverview) {
+    public ExamAdapter(Context context, List<Exam> examList, ExamOverviewFragment examOverview) {
         inflater = LayoutInflater.from(context);
         this.examList = examList;
         this.context = context;
         this.examOverview = examOverview;
-        finished =context.getString(R.string.finished);
+        initialiseStrings();
+    }
+
+    @Override
+    public void initialiseStrings() {
+        finished = context.getString(R.string.finished);
         ready = context.getString(R.string.ready);
         available = context.getString(R.string.available);
     }
@@ -53,10 +59,10 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         holder.statusText.setText(current.getStatus());
 
         //Set status icon
-        if(current.getStatus().equalsIgnoreCase(finished) ||current.getStatus().equalsIgnoreCase(ready) ||current.getStatus().equalsIgnoreCase(available)){
+        if (current.getStatus().equalsIgnoreCase(finished) || current.getStatus().equalsIgnoreCase(ready) || current.getStatus().equalsIgnoreCase(available)) {
             holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp_accent));
-        }else{
-            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(),R.drawable.ic_clock_primary));
+        } else {
+            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_clock_primary));
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +78,9 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         return examList.size();
     }
 
-    private String toCamelCase(String string){
-        if (string==null)
+    @Override
+    public String toCamelCase(String string) {
+        if (string == null)
             return null;
 
         final StringBuilder ret = new StringBuilder(string.length());
@@ -83,23 +90,24 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
                 ret.append(word.substring(0, 1).toUpperCase());
                 ret.append(word.substring(1).toLowerCase());
             }
-            if (!(ret.length()==string.length()))
+            if (!(ret.length() == string.length()))
                 ret.append(" ");
         }
-
         return ret.toString();
     }
 
-    private String removeHoursFromDate(String date){
+    @Override
+    public String removeHoursFromDate(String date) {
         return date.substring(0, date.length() - 5);
     }
 
-    public void addAllExams(List<Exam> exams){
+    @Override
+    public void addAllExams(List<Exam> exams) {
         this.examList = exams;
         notifyDataSetChanged();
     }
 
-    class ExamViewHolder extends RecyclerView.ViewHolder{
+    class ExamViewHolder extends RecyclerView.ViewHolder {
         TextView examId;
         TextView statusText;
         TextView clinicName;
@@ -110,13 +118,13 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
 
         public ExamViewHolder(View itemView) {
             super(itemView);
-            examId = (TextView)itemView.findViewById(R.id.exam_id);
-            statusText = (TextView)itemView.findViewById(R.id.status_text);
-            clinicName = (TextView)itemView.findViewById(R.id.clinic_name);
-            patientName = (TextView)itemView.findViewById(R.id.patient_name);
-            executionDate = (TextView)itemView.findViewById(R.id.execution_date);
-            cardView = (CardView)itemView.findViewById(R.id.cardView);
-            statusImage = (ImageView)itemView.findViewById(R.id.status_icon);
+            examId = (TextView) itemView.findViewById(R.id.exam_id);
+            statusText = (TextView) itemView.findViewById(R.id.status_text);
+            clinicName = (TextView) itemView.findViewById(R.id.clinic_name);
+            patientName = (TextView) itemView.findViewById(R.id.patient_name);
+            executionDate = (TextView) itemView.findViewById(R.id.execution_date);
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
+            statusImage = (ImageView) itemView.findViewById(R.id.status_icon);
         }
     }
 }

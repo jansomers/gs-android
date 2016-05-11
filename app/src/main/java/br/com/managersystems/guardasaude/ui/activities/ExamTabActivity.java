@@ -10,10 +10,11 @@ import android.view.Menu;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
+import br.com.managersystems.guardasaude.exams.exammenu.IExamTabActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ExamTabActivity extends AppCompatActivity{
+public class ExamTabActivity extends AppCompatActivity implements IExamTabActivity{
     @Bind(R.id.pager)
     ViewPager viewPager;
 
@@ -22,11 +23,6 @@ public class ExamTabActivity extends AppCompatActivity{
 
     private SharedPreferences sp;
 
-    public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
-        return examTabsPagerAdapter;
-    }
-
-    private ExamTabsPagerAdapter examTabsPagerAdapter;
     private String[] tabtitles;
 
     private Menu menu;
@@ -38,13 +34,19 @@ public class ExamTabActivity extends AppCompatActivity{
         setTitle("");
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        init();
+        viewPager.setAdapter(new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp));
+    }
+
+    @Override
+    public void init() {
         getSharedPref();
+        setTabTitles();
+    }
+
+    @Override
+    public void setTabTitles() {
         tabtitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
-        examTabsPagerAdapter =  new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
-        viewPager.setAdapter(examTabsPagerAdapter);
-
-
-
     }
 
     @Override
@@ -60,6 +62,7 @@ public class ExamTabActivity extends AppCompatActivity{
         menu.setGroupVisible(R.id.overview_group, show);
     }
 
+    @Override
     public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
