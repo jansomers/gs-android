@@ -13,9 +13,14 @@ public interface IExamListInteractor {
     ExamApi initiateRetrofit();
 
     /**
-     * Makes a call to the examApi to retrieve the list of exams for one user
+     * Makes a call to the examApi to retrieve the list of exams for one user for the first page
      */
-    void getExamList(final OnCallExamListFinishedListener listener, final String userName, final String token,final String orderBy,final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole);
+    void getFirstExamList(final OnCallExamListFinishedListener listener, final String userName, final String token,final String orderBy,final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole);
+
+    /**
+     * Makes a call to the examApi to retrieve the list of exams for one user for pagination
+     */
+    void getNextExamList(final OnCallExamListFinishedListener listener, final String userName, final String token,final String orderBy,final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole);
 
     /**
      * Makes a call to the examApi to associate an exam to one user
@@ -32,5 +37,10 @@ public interface IExamListInteractor {
      */
     void getAnonymousExam(OnAnonymousExamRetrievedListener listener,String accessCodeString, String examIdString);
 
+    /**
+     * Gets the exam from the intent
+     * If exam is empty call onExamFailure method
+     * If exam is not empty call onExamReceived method and pass exam
+     */
     void getExam(final AnonymousInformationListener listener,Intent intent);
 }

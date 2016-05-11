@@ -58,7 +58,19 @@ public interface ILoginView {
 
     void showServerOptionDialog();
 
+    /**
+     * Retrieve of anonymous exam is successful
+     * Starts new AnonymousExamInformationActivity and passes exam through intent
+     */
     void anonymousExamSucces(Exam exam);
 
+    /**
+     * Shows failure snackbar
+     */
     void anonymousExamFailure();
+
+    /**
+     * Calls retrieveAnonymousExam method from preseneter and passes accesCode and examId
+     */
+    void findAnonymousExam(String accessCodeString, String examIdString);
 }

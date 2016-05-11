@@ -26,4 +26,6 @@ public interface OnCallExamListFinishedListener {
      * The exam could not be associated to the user
      */
     void onFailureFindNewExam();
+
+    void onSuccessGetNextExamList(ExamList examList);
 }

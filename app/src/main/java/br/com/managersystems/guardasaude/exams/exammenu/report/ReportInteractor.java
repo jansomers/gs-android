@@ -45,7 +45,7 @@ public class ReportInteractor implements IReportInteractor {
         call.enqueue(new Callback<ReportResponse>() {
             @Override
             public void onResponse(Call<ReportResponse> call, Response<ReportResponse> response) {
-                if (response.body().getReportContent().isEmpty()) {
+                if (response.body().getReportContent()==null) {
                     Log.d(getClass().getSimpleName(), "report response body was empty.. alerting listener!");
                     reportListener.onFailure();
                 } else {
