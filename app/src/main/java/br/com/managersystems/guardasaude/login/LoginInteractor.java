@@ -17,7 +17,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+/**
+ * This class is an implementation of the ILoginInteractor
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see ILoginInteractor
+ */
 public class LoginInteractor implements ILoginInteractor {
 
     private final String BASE_URL = "https://guardasaude.com.br/";
@@ -27,7 +36,10 @@ public class LoginInteractor implements ILoginInteractor {
         client = initiateRetrofit();
     }
 
-
+    /**
+     * Initiates the retrofit instances for the LoginApi.
+     * @return LoginApi instance representing the client.
+     */
     private LoginApi initiateRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

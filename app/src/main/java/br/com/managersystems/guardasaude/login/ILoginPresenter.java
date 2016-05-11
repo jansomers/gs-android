@@ -1,7 +1,19 @@
 package br.com.managersystems.guardasaude.login;
 
 /**
- * Created by Jan on 14/04/2016.
+ * This interface serves as a transportation layer between the view and the interactor.
+ * In this case it handles authorisation requests.
+ *
+ * The documentation briefly explain what the method does.
+ *
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Implementations / Also see:
+ *
+ * @see LoginPresenter
+ * @see ILoginInteractor
+ *
  */
 public interface ILoginPresenter {
 
@@ -23,7 +35,15 @@ public interface ILoginPresenter {
      */
     void requestSaveInfo(boolean patient);
 
+    /**
+     * Checks if the token expiration date is still in the future.
+     * @param expires String that represents the expiration date of the current token.
+     * @return
+     */
     boolean validateToken(String expires);
 
+    /**
+     * Forwards the request to logout.
+     */
     void logout();
 }

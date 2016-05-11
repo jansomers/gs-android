@@ -3,7 +3,19 @@ package br.com.managersystems.guardasaude.login;
 import java.util.ArrayList;
 
 /**
- * Created by Jan on 15/04/2016.
+ * This class is a <b>Dummy Implementation</b> of the IDomainInteractor class.
+ * The methods used can give an interpretation of how the domain request will be handle,
+ * currently without calling a database.
+ * <p/>
+ * Authors:
+ *
+ * @author Jan Somers
+ * @author Thanee Stevens
+ * <p/>
+ * Also see:
+ * @see IDomainInteractor
+ * @see OnDomainRetrievedListener
+ * @see LoginPresenter
  */
 public class DomainInteractor implements IDomainInteractor {
 
@@ -16,12 +28,16 @@ public class DomainInteractor implements IDomainInteractor {
         initList();
     }
 
+    /**
+     * Initiates the list of possible AccessDomains.
+     */
     private void initList() {
         liveDomain = new AccessDomain(1, "Live", "managersystems.com.br");
         domainList.add(liveDomain);
         demoDomain = new AccessDomain(2, "Demo", "demo.managersystems.com.br");
         domainList.add(demoDomain);
     }
+
 
     public ArrayList<AccessDomain> getDomainList() {
         return domainList;

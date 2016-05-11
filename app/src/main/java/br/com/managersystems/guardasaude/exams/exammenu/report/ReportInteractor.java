@@ -5,7 +5,6 @@ import android.util.Log;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ReportResponse;
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnReportRetrievedListener;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,7 +13,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Jan on 27/04/2016.
+ * This class is an implementation of the IReportInteractor
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see IReportInteractor
  */
 public class ReportInteractor implements IReportInteractor {
     private final String BASE_URL = "https://guardasaude.com.br/";
@@ -22,11 +28,15 @@ public class ReportInteractor implements IReportInteractor {
 
     ExamApi examApi;
 
+
     public ReportInteractor(OnReportRetrievedListener reportListener) {
         this.reportListener = reportListener;
         examApi = initiateRetrofit();
     }
-
+    /**
+     * Initiates the retrofit instances for the ExamApi.
+     * @return ExamApi instance representing the client.
+     */
     private ExamApi initiateRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -37,11 +47,11 @@ public class ReportInteractor implements IReportInteractor {
 
 
     @Override
-    public void getReport(final String identification, final String token, final String user) {
+    public void getReport(final String examIdentification, final String token, final String user) {
 
         if (examApi == null) initiateRetrofit();
         Log.d(getClass().getSimpleName(), "making the getReport call");
-        Call<ReportResponse> call = examApi.getReport(user, token, identification);
+        Call<ReportResponse> call = examApi.getReport(user, token, examIdentification);
         call.enqueue(new Callback<ReportResponse>() {
             @Override
             public void onResponse(Call<ReportResponse> call, Response<ReportResponse> response) {

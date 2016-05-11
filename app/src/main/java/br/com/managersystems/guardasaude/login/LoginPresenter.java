@@ -16,7 +16,24 @@ import br.com.managersystems.guardasaude.login.domain.MobileToken;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.ui.activities.LoginActivity;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
+/**
+ * This class is an implementation of the ILoginPresenter. It also implements the
+ * OnReportRetrievedListener.
+ *
+ * This presenter can be used either from the LoginActivity or from any activity that you log out from.
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see ILoginPresenter
+ * @see OnDomainRetrievedListener
+ * @see OnLoginFinishedListener
+ * @see ILoginInteractor
+ * @see LoginActivity
 
+ */
 public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener {
 
     ILoginView loginActivity;

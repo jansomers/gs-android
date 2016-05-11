@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/gs_new_account_coordinator_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="br.com.managersystems.guardasaude.ui.activities.RegisterActivity">
+
+    <ScrollView
+        android:id="@+id/new_account_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@android:color/background_light"
+        android:elevation="2dp"
+        android:padding="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/register_account_information_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="6dp"
+                    android:background="@color/colorAccent100"
+                    android:drawableLeft="@drawable/ic_person_16dp_textcolorlight"
+                    android:drawablePadding="4dp"
+                    android:padding="6dp"
+                    android:text="@string/account_info" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/email_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+
+                    >
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/email_input"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_email_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/Enter_email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress|textNoSuggestions"
+                        android:minWidth="350dp"
+                        android:textColor="@color/colorTextColor"
+                        android:textCursorDrawable="@null" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/password_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/password_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/ic_password_key_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/Enter_password"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPassword|textNoSuggestions"
+                        android:textColor="@color/colorTextColor"
+                        android:textCursorDrawable="@null" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/password_verification_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/password_verification_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/ic_password_key_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/Re_enter_password"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPassword|textNoSuggestions"
+                        android:textColor="@color/colorTextColor"
+                        android:textCursorDrawable="@null" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/password_input_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="@string/password_info"
+                    android:textAppearance="@android:style/TextAppearance.Material.Notification.Info"
+                    android:textColor="@color/colorPrimary300"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/password_verification_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="@string/password_verify_info"
+                    android:textAppearance="@android:style/TextAppearance.Material.Notification.Info"
+                    android:textColor="@color/colorPrimary300"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/register_personal_information_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="6dp"
+                    android:background="@color/colorAccent100"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24dp"
+                        android:layout_weight="0.3"
+                        android:drawableLeft="@drawable/ic_assignment_ind_16dp_gray"
+                        android:drawablePadding="4dp"
+                        android:text="@string/personal_info" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:prompt="@string/gender"
+                        android:spinnerMode="dropdown">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/first_name_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/first_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/ic_name_box_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/first_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textColor="@color/colorTextColor"
+                        android:textCursorDrawable="@null" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/last_name_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/last_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/ic_name_box_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/last_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorTextColor"
+                        android:textCursorDrawable="@null" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/city_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.v7.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/forced_city_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_city_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/city"
+                        android:imeOptions="actionNext"
+                        android:inputType="textAutoComplete"
+                        android:textSize="14dp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/language_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <br.com.managersystems.guardasaude.ui.customviews.InstantAutoComplete
+                        android:id="@+id/forced_language_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_chat_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/language"
+                        android:imeOptions="actionNext"
+                        android:inputType="textAutoComplete"
+                        android:textSize="14dp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/id_type_input_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <br.com.managersystems.guardasaude.ui.customviews.InstantAutoComplete
+                        android:id="@+id/forced_id_type_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_account_card_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/id_type"
+                        android:imeOptions="actionNext"
+                        android:inputType="textAutoComplete"
+                        android:textSize="14dp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/id_input_wrapper"
+                    android:theme="@style/LoginInput"
+                    app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/id_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_account_card_16dp_primary"
+                        android:drawablePadding="4dp"
+                        android:hint="@string/personal_id"
+                        android:imeOptions="actionNext"
+                        android:inputType="textNoSuggestions"
+                        android:textSize="14dp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+
+                        android:layout_weight="0.90">
+
+                        <android.support.v7.widget.AppCompatImageButton
+                            android:id="@+id/btn_birth_date"
+                            style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginLeft="4dp"
+                            android:background="@color/colorPrimary"
+                            android:contentDescription="@string/select_birth_date"
+                            android:elevation="1dp"
+                            android:src="@drawable/ic_calendar_24dp_white" />
+                    </RelativeLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/birth_date_input_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:theme="@style/LoginInput"
+                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/birth_date_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/birth_date"
+                            android:editable="false"
+                            android:imeOptions="actionNext"
+                            android:inputType="date"
+                            android:cursorVisible="false"
+                            android:textColor="@color/colorTextColor"
+                            android:textCursorDrawable="@null" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/submit_new_account_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/background_light"
+                android:text="@string/create_account"
+                android:theme="@style/LoginButton"
+                style="@android:style/Widget.Material.Light.Button" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

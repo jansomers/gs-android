@@ -11,7 +11,19 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
 
 /**
- * Created by Jan on 26/04/2016.
+ * This class is an implementation of the IExamPresenter. It also implements the
+ * OnInformationRetrievedListener.
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see IExamPresenter
+ * @see OnInformationRetrievedListener
+ * @see IExamInteractor
+ * @see InformationFragment
+
  */
 public class ExamPresenter implements IExamPresenter, OnInformationRetrievedListener {
     
@@ -36,13 +48,13 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     }
 
     @Override
-    public void saveComment(CharSequence s, CharSequence exid, SharedPreferences sp) {
-        examInteractor.postNewComment(s, exid, sp);
+    public void saveComment(CharSequence comment, CharSequence exid, SharedPreferences sp) {
+        examInteractor.postNewComment(comment, exid, sp);
     }
 
 
     @Override
-    public void onFailure() {
+    public void onExamFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure... Alerting view!");
         informationFragment.showInformationError();
 
@@ -56,13 +68,13 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     }
 
     @Override
-    public void onUnableToMakeCommentsCall() {
+    public void onCommentsRetrievedFailure() {
         Log.d(this.getClass().getSimpleName(), "Received unable comment call... Alerting view!");
         informationFragment.disableComments();
     }
 
     @Override
-    public void onCommentsRetrievedSuccesfully(List<Comment> comments) {
+    public void onCommentsRetrievedSuccess(List<Comment> comments) {
         Log.d(this.getClass().getSimpleName(), "Received comments succesfully... Notifying view!");
         informationFragment.enableComments(comments);
     }

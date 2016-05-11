@@ -2,6 +2,16 @@ package br.com.managersystems.guardasaude.util;
 
 import android.util.Base64;
 
+/**
+ * Implementation of the IBase64Interactor.
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *
+ * Also see:
+ * @see IBase64Interactor
+ */
 public class Base64Interactor implements IBase64Interactor{
 
     @Override

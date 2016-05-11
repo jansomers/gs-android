@@ -33,6 +33,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Bind(R.id.gs_login_username)
@@ -68,9 +69,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     private Snackbar snackFailedPwdReq;
 
     /* ********************************************
-    TODO 's :
-        - Implement managersystem.com.br domain choice
-        - Implement anonymous exam viewer.
+    TODO implement domain chooser
+    TODO implement profile switcher
 
     ******************************************** */
 
@@ -102,6 +102,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         instantiateProgressBar();
     }
 
+    /**
+     * Initiates snackbars.
+     */
     private void initSnacks() {
         snackSuccesfulPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackReqPwd), Snackbar.LENGTH_LONG);
         snackSuccesfulPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
@@ -141,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     /**
      * Handles the authorization when the login button is clicked.
-     * @param view
+     * @param view Button object representing the login button.
      */
     @OnClick(R.id.gs_login_btn)
     public void loginClicked(View view) {
@@ -171,7 +174,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         String domains[] = new String[accessDomainArrayList.size()];
         int placeCounter = 0;
         for (AccessDomain domain : accessDomainArrayList) {
-            domains[placeCounter] = domain.getTagName();
+            domains[placeCounter] = domain.getTag();
             placeCounter++;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

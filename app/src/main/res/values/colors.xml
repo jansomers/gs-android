@@ -19,7 +19,7 @@
     <!-- Additional colors -->
     <color name="colorError">#e53935</color>
     <color name="colorError300">#e57373</color>
-
+    <color name="colorWhite">#FFF</color>
     <!-- Text -->
     <color name="colorTextColor">#424242</color>
     <color name="colorTextColorLight">#9E9E9E</color>
