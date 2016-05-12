@@ -302,14 +302,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     @Override
-    public void anonymousExamSucces(Exam exam) {
+    public void showAnonymousExam(Exam exam) {
         Intent intent = new Intent(this, AnonymousExamInformationActivity.class);
         intent.putExtra("exam", exam);
         startActivity(intent);
     }
 
     @Override
-    public void anonymousExamFailure() {
+    public void showAnonymousExamError() {
         snackInternalFailNewExam.show();
     }
 
@@ -355,5 +355,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Override
     public void findAnonymousExam(String accessCodeString, String examIdString) {
         presenter.retrieveAnonymousExam(accessCodeString, examIdString);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Don't press back
     }
 }

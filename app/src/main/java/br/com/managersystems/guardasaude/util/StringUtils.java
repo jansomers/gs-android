@@ -1,6 +1,8 @@
 package br.com.managersystems.guardasaude.util;
 
 
+import android.util.Patterns;
+
 import org.jsoup.Jsoup;
 
 /**
@@ -60,7 +62,10 @@ public class StringUtils {
     }
 
     public static boolean isValidEmail(String email) {
-        return true;
+        if (email.isEmpty()) return false;
+        else {
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
     }
 
     public static boolean isValidPassword(String password) {

@@ -75,13 +75,12 @@ public interface ILoginView {
      * Retrieve of anonymous exam is successful
      * Starts new AnonymousExamInformationActivity and passes exam through intent
      */
-    void anonymousExamSucces(Exam exam);
+    void showAnonymousExam(Exam exam);
 
     /**
      * Shows failure snackbar
      */
-    void anonymousExamFailure();
-
+    void showAnonymousExamError();
     /**
      * Calls retrieveAnonymousExam method from preseneter and passes accesCode and examId
      */

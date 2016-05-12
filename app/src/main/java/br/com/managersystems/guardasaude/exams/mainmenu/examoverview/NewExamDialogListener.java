@@ -21,7 +21,7 @@ public class NewExamDialogListener implements View.OnClickListener {
     public void onClick(View view) {
         TextView errorText = (TextView)dialog.findViewById(R.id.new_exam_error_msg);
         EditText identification = (EditText)dialog.findViewById(R.id.new_exam_identification);
-        EditText accessCode = (EditText)dialog.findViewById(R.id.new_exam_accesscode);
+        EditText accessCode = (EditText)dialog.findViewById(R.id.new_exam_access_code);
 
         if(identification.getText().toString().trim().equals("") && accessCode.getText().toString().trim().equals("")){
             errorText.setText(fragment.getResources().getString(R.string.id_and_ac_required));

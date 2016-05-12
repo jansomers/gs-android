@@ -187,11 +187,11 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
 
     @Override
     public void examRetrievedSucces(Exam exam) {
-        loginActivity.anonymousExamSucces(exam);
+        loginActivity.showAnonymousExam(exam);
     }
 
     @Override
     public void examRetrievedFailure() {
-        loginActivity.anonymousExamFailure();
+        loginActivity.showAnonymousExamError();
     }
 }

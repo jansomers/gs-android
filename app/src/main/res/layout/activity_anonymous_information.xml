@@ -3,7 +3,7 @@
     style="@style/Widget.AppCompat.Button.Borderless.Colored"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_material_special_primary"
+    android:background="@android:color/background_light"
     android:gravity="top">
 
     <LinearLayout
@@ -209,7 +209,7 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/create_account_btn"
+            android:id="@+id/create_account_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -219,7 +219,7 @@
             android:layout_gravity="right">
 
             <Button
-                android:id="@+id/create_account"
+                android:id="@+id/create_account_btn"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

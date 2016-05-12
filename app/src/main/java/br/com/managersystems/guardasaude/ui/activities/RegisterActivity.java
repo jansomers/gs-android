@@ -304,6 +304,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         inputs.put(languageInputWrapper, languageText);
         inputs.put(idTypeInputWrapper, idTypeText);
         inputs.put(idInputWrapper, idInputText);
+        birthDateText.setKeyListener(null);
         inputs.put(birthDateInputWrapper, birthDateText);
     }
 
@@ -449,7 +450,12 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                         allFieldsValid = !textView.getEditableText().toString().isEmpty();
                         break;
                     case (R.id.forced_city_input):
-                        //TODO validate list
+                        for (int i = 0; i < cityText.getAdapter().getCount(); i++) {
+                            if (allFieldsValid = true) {
+                                if (!cityText.getText().equals(cityText.getAdapter().getItem(i)))
+                                    allFieldsValid = false;
+                            }
+                        }
                         break;
                     case (R.id.forced_language_input):
                         allFieldsValid = StringUtils.stringInArray(textView.getEditableText().toString(), getResources().getStringArray(R.array.languages));
@@ -520,9 +526,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         }, Snackbar.LENGTH_LONG + 750);
 
         if (birthDateText.getText().toString().isEmpty()) {
-            birthDateBtn.setColorFilter(ContextCompat.getColor(context, R.color.colorError));
+            birthDateBtn.setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
         } else {
-            birthDateBtn.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
+            birthDateBtn.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         }
     }
 

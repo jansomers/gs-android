@@ -1,5 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
     xmlns:appcompat="http://schemas.android.com/apk/res-auto">
 
     <group android:id="@+id/main_group">
@@ -7,7 +6,7 @@
             android:id="@+id/action_logout"
             android:icon="@drawable/ic_person_24dp_primarylight"
             android:title="@string/logout"
-            appcompat:showAsAction="withText" />
+            android:showAsAction="never"/>
 
 
     </group>

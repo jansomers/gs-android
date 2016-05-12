@@ -169,7 +169,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void navigateToImages() {
-
     }
 
     @Override
