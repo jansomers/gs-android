@@ -22,7 +22,7 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
     Toolbar toolbar;
 
     private SharedPreferences sp;
-
+    private ExamTabsPagerAdapter examTabPagerAdapter;
     private String[] tabtitles;
 
     private Menu menu;
@@ -35,7 +35,8 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         init();
-        viewPager.setAdapter(new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp));
+        examTabPagerAdapter=new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
+        viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
@@ -67,4 +68,7 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
         sp = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
+    public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
+        return examTabPagerAdapter;
+    }
 }
