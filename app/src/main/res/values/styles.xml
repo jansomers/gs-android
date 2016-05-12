@@ -28,6 +28,7 @@
         <item name="android:textColor">@color/colorTextColor</item>
     </style>
 
+
     <!--Input Styles-->
     <style name="LoginInput" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorControlNormal">@color/colorPrimaryDark</item>
@@ -52,6 +53,13 @@
 
     <style name="TextAppearance.App.Authentication.Progress" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="ActionBarDropDownItems" parent="AppTheme">
+        <item name="android:textColor">@color/colorPrimary300</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Subtitle</item>
+        <item name="android:drawablePadding">4dp</item>
     </style>
 
 

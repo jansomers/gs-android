@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AnonymousExamInformationActivity extends AppCompatActivity{
+public class AnonymousExamInformationActivity extends AppCompatActivity {
     @Bind(R.id.gs_exam_information_exam_id)
     TextView examIdTextView;
 
@@ -49,13 +49,14 @@ public class AnonymousExamInformationActivity extends AppCompatActivity{
     }
 
     private void init() {
-        presenter= new AnonymousExamInformationPresenter(this);
+        presenter = new AnonymousExamInformationPresenter(this);
         presenter.retrieveExam(getIntent());
     }
 
     @OnClick(R.id.create_account_btn)
-    void onCreateAccountClicked(){
-        //TODO go to create account activity
+    void onCreateAccountClicked() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     public void setExamInformation(Exam exam) {
@@ -73,6 +74,6 @@ public class AnonymousExamInformationActivity extends AppCompatActivity{
     }
 
     public void examNotFound() {
-        Log.d("ExamNotFound","Internal failure, exam not found");
+        Log.d("ExamNotFound", "Internal failure, exam not found");
     }
 }

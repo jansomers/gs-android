@@ -153,5 +153,6 @@
     <string name="identification_required">Identification is required!</string>
     <string name="accesscode_required">Access code is required!</string>
     <string name="id_and_ac_required">Identification and access code are required!</string>
+    <string name="associate">Associate Exam</string>
 
 </resources>

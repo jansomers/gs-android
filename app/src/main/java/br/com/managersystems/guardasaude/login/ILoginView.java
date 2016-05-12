@@ -71,7 +71,7 @@ public interface ILoginView {
     // To be implemented and changed...
     void showServerOptionDialog();
 
-    void anonymousExamSucces(Exam exam);
+    void showAnonymousExam(Exam exam);
 
-    void anonymousExamFailure();
+    void showAnonymousExamError();
 }

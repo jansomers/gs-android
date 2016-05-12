@@ -2,7 +2,6 @@ package br.com.managersystems.guardasaude.ui.fragments;
 
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -167,8 +165,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @OnClick(R.id.fab)
     public void showNexExamDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(R.layout.dialog_add_exam)
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setView(R.layout.dialog_add_exam);
+               /* .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         builder.create().cancel();
@@ -179,10 +177,10 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                });
+                });*/
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        Button findbtn = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button findbtn = (Button) alertDialog.findViewById(R.id.ass_exam_oke_btn);
         findbtn.setOnClickListener(new NewExamDialogListener(this,alertDialog));
     }
 

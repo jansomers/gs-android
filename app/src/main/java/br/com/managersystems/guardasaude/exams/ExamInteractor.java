@@ -13,7 +13,6 @@ import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamListIn
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.OnCallExamListFinishedListener;
 import br.com.managersystems.guardasaude.login.AnonymousInformationListener;
 import br.com.managersystems.guardasaude.login.OnAnonymousExamRetrievedListener;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,7 +57,7 @@ public class ExamInteractor implements IExamListInteractor {
 
             @Override
             public void onFailure(Call<ExamList> call, Throwable t) {
-                listener.onFailureGetExamList();gi
+                listener.onFailureGetExamList();
             }
         });
     }

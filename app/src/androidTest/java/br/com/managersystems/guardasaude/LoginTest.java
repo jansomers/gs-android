@@ -44,7 +44,7 @@ public class LoginTest {
 
     @Test
     public void shouldShowTextInputs(){
-        onView(withId(R.id.gs_usernameWrapper)).check(ViewAssertions.matches(isDisplayed()));
+        onView(withId(R.id.gs_username_wrapper)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.gs_login_username)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.gs_passwordWrapper)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.gs_login_password)).check(ViewAssertions.matches(isDisplayed()));

@@ -1,24 +1,17 @@
 package br.com.managersystems.guardasaude.ui.dialogs;
 
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.support.design.widget.TextInputEditText;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.ui.activities.LoginActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class NewAnonymousExamDialog extends Dialog {
 
@@ -38,6 +31,7 @@ public class NewAnonymousExamDialog extends Dialog {
 
     public NewAnonymousExamDialog(LoginActivity loginActivity) {
         super(loginActivity);
+        super.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.setContentView(R.layout.dialog_add_anonymous_exam);
         this.loginActivity = loginActivity;
         ButterKnife.bind(this);

@@ -44,7 +44,7 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/gs_usernameWrapper"
+                android:id="@+id/gs_username_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/LoginInput"

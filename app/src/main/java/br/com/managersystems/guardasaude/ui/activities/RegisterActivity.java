@@ -449,7 +449,12 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                         allFieldsValid = !textView.getEditableText().toString().isEmpty();
                         break;
                     case (R.id.forced_city_input):
-                        //TODO validate list
+                        for (int i = 0; i < cityText.getAdapter().getCount(); i++) {
+                            if (allFieldsValid = true) {
+                                if (!cityText.getText().equals(cityText.getAdapter().getItem(i)))
+                                    allFieldsValid = false;
+                            }
+                        }
                         break;
                     case (R.id.forced_language_input):
                         allFieldsValid = StringUtils.stringInArray(textView.getEditableText().toString(), getResources().getStringArray(R.array.languages));

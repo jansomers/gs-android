@@ -1,9 +1,6 @@
 package br.com.managersystems.guardasaude.ui.dialogs;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -11,13 +8,13 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.SortDialogListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SortByDialogFragment extends DialogFragment {
     @Bind(R.id.radio_icon_executionDate)
@@ -29,14 +26,23 @@ public class SortByDialogFragment extends DialogFragment {
     @Bind(R.id.radio_icon_patient)
     ImageView iconPatient;
 
-    @Bind(R.id.patient_button)
-    View radioPatient;
+    @Bind(R.id.patient_button_layout)
+    View radioPatientLayout;
 
-    @Bind(R.id.identification_button)
-    View radioIdentification;
+    @Bind(R.id.identification_button_layout)
+    View radioIdentificationLayout;
 
-    @Bind(R.id.date_button)
-    View radioDate;
+    @Bind(R.id.date_button_layout)
+    View radioDateLayout;
+
+    @Bind(R.id.radio_patient)
+    TextView radioPatient;
+
+    @Bind(R.id.radio_executionDate)
+    TextView radioDate;
+
+    @Bind(R.id.radio_identification)
+    TextView radioIdentification;
 
     private SortDialogListener listener;
     private String sortBy = null;
@@ -51,36 +57,31 @@ public class SortByDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    public AlertDialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = inflater.inflate(R.layout.dialog_sort_exams, null);
-
         ButterKnife.bind(this, view);
-
-        builder.setView(view).setPositiveButton(R.string.sort, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resetCounters();
-                sortAndOrderList();
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resetCounters();
-                SortByDialogFragment.this.getDialog().cancel();
-            }
-        });
-
+        builder.setView(view);
 
         listener = (SortDialogListener) getTargetFragment();
-
         init();
-
         return builder.create();
     }
 
+    @OnClick(R.id.cancel_sort_btn)
+    public void cancelExamClicked() {
+        resetCounters();
+        getDialog().cancel();
+    }
+
+    @OnClick(R.id.sort_exam_oke_btn)
+    public void confirmSortClicked(){
+        resetCounters();
+        sortAndOrderList();
+        getDialog().dismiss();
+
+    }
     private void resetCounters() {
         iconDateCounter=0;
         iconIdentificationCounter=0;
@@ -99,19 +100,19 @@ public class SortByDialogFragment extends DialogFragment {
     }
 
     public void setRadioOnClickListeners() {
-        radioPatient.setOnClickListener(new View.OnClickListener() {
+        radioPatientLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
             }
         });
-        radioDate.setOnClickListener(new View.OnClickListener() {
+        radioDateLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
             }
         });
-        radioIdentification.setOnClickListener(new View.OnClickListener() {
+        radioIdentificationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
@@ -120,9 +121,11 @@ public class SortByDialogFragment extends DialogFragment {
     }
 
     public void onRadioButtonClicked(View view) {
+        resetTextViewColors();
         switch (view.getId()) {
-            case R.id.patient_button:
+            case R.id.patient_button_layout:
                 sortBy = "patient";
+                radioPatient.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
 
                 iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
@@ -140,8 +143,9 @@ public class SortByDialogFragment extends DialogFragment {
                 iconIdentificationCounter=0;
                 iconPatientCounter++;
                 break;
-            case R.id.identification_button:
+            case R.id.identification_button_layout:
                 sortBy = "identification";
+                radioIdentification.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
 
                 iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
@@ -159,9 +163,9 @@ public class SortByDialogFragment extends DialogFragment {
                 iconPatientCounter=0;
                 iconIdentificationCounter++;
                 break;
-            case R.id.date_button:
+            case R.id.date_button_layout:
                 sortBy = "executionDate";
-
+                radioDate.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
                 iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
                 iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
@@ -179,6 +183,12 @@ public class SortByDialogFragment extends DialogFragment {
                 iconDateCounter++;
                 break;
         }
+    }
+
+    private void resetTextViewColors() {
+        radioPatient.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
+        radioDate.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
+        radioIdentification.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
     }
 
 
