@@ -304,6 +304,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         inputs.put(languageInputWrapper, languageText);
         inputs.put(idTypeInputWrapper, idTypeText);
         inputs.put(idInputWrapper, idInputText);
+        birthDateText.setKeyListener(null);
         inputs.put(birthDateInputWrapper, birthDateText);
     }
 
@@ -525,9 +526,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         }, Snackbar.LENGTH_LONG + 750);
 
         if (birthDateText.getText().toString().isEmpty()) {
-            birthDateBtn.setColorFilter(ContextCompat.getColor(context, R.color.colorError));
+            birthDateBtn.setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
         } else {
-            birthDateBtn.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
+            birthDateBtn.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         }
     }
 
