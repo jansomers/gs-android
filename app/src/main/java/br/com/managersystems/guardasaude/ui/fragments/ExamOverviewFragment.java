@@ -2,6 +2,7 @@ package br.com.managersystems.guardasaude.ui.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ import java.util.List;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.EndlessRecyclerViewScrollListener;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamAdapter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOverviewPresenter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamOverview;
@@ -76,6 +79,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private Snackbar snackSuccesfulNewExam;
     private Snackbar snackWrongACNewExam;
     private Snackbar snackInternalFailNewExam;
+    private LinearLayoutManager llm;
 
     public ExamOverviewFragment() {
 
@@ -97,9 +101,6 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
         loginPresenter = new LoginPresenter(this.getActivity(), sp);
 
-        overviewPresenter = new ExamOverviewPresenter(this, sp);
-        overviewPresenter.getSortedExamList(sortBy, orderBy);
-
         adapter = new ExamAdapter(getActivity(), this.examList, this);
 
         init();
@@ -107,13 +108,26 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         return view;
     }
 
-
     @Override
     public void init() {
+        llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(adapter);
+        overviewPresenter = new ExamOverviewPresenter(this, sp);
+        overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
+
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                overviewPresenter.getNextSortedExamList(sortBy,orderBy, String.valueOf(page));
+            }
+        });
+
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                overviewPresenter.getSortedExamList(sortBy, orderBy);
+                overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -131,7 +145,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         snackSuccesfulNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         snackWrongACNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_fail), Snackbar.LENGTH_LONG);
         snackWrongACNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorError));
-        snackInternalFailNewExam = Snackbar.make(examOverviewCoordinatorLayout,getResources().getText(R.string.exam_associated_internalfail),Snackbar.LENGTH_LONG);
+        snackInternalFailNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_internalfail), Snackbar.LENGTH_LONG);
         snackInternalFailNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorError));
     }
 
@@ -163,21 +177,9 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
 
     @OnClick(R.id.fab)
-    public void showNexExamDialog() {
+    public void showNewExamDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(R.layout.dialog_add_exam);
-               /* .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        builder.create().cancel();
-                    }
-                })
-                .setPositiveButton(R.string.find, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });*/
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
         Button findbtn = (Button) alertDialog.findViewById(R.id.ass_exam_oke_btn);
@@ -195,19 +197,25 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void sortExamListBy(String orderBy, String sortBy) {
         this.sortBy = sortBy;
         this.orderBy = orderBy;
-        overviewPresenter.getSortedExamList(sortBy, orderBy);
+        overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
     }
 
     @Override
     public void onSuccessExamList(ArrayList<Exam> exams) {
+        progressBar.setVisibility(View.GONE);
         failText.setVisibility(View.GONE);
         this.examList = exams;
-        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(adapter);
         adapter.addAllExams(this.examList);
+    }
+
+    @Override
+    public void onSuccessNextExamList(ArrayList<Exam> exams) {
         progressBar.setVisibility(View.GONE);
+        failText.setVisibility(View.GONE);
+        this.examList.addAll(exams);
+        int curSize = adapter.getItemCount();
+        adapter.addAllExams(examList);
+        adapter.notifyItemRangeInserted(curSize, examList.size() - 1);
     }
 
     @Override
@@ -221,7 +229,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
         if (associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")) {
             snackSuccesfulNewExam.show();
-            overviewPresenter.getSortedExamList(sortBy, orderBy);
+            overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
         } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_code")) {
             snackWrongACNewExam.show();
         }
@@ -292,5 +300,4 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void onStop() {
         super.onDestroy();
     }
-
 }

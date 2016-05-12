@@ -18,7 +18,8 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     ExamOverviewFragment examOverview;
     Base64Interactor base64Interactor;
     SharedPreferences sp;
-
+    private final String START_MAX_VALUE="5";
+    private final String START_OFFSET_VALUE="0";
 
     public ExamOverviewPresenter(ExamOverviewFragment examOverview,SharedPreferences sharedPreferences) {
         this.examOverview = examOverview;
@@ -28,12 +29,21 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     }
 
     @Override
-    public void getSortedExamList(String sortBy, String orderBy){
+    public void getFirstSortedExamList(String sortBy, String orderBy){
         byte [] encryptedUser =  sp.getString("user",null).getBytes();
         String user= base64Interactor.decodeBase64ToString(encryptedUser);
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
-        examOverviewInteractor.getExamList(this,user,token,orderBy,sortBy,null,null,null,role);
+        examOverviewInteractor.getFirstExamList(this, user, token, orderBy, sortBy, START_MAX_VALUE,START_OFFSET_VALUE, null, role);
+    }
+
+    @Override
+    public void getNextSortedExamList(String sortBy, String orderBy, String offsetValue) {
+        byte [] encryptedUser =  sp.getString("user",null).getBytes();
+        String user= base64Interactor.decodeBase64ToString(encryptedUser);
+        String token = sp.getString("token",null);
+        String role = sp.getString("role",null);
+        examOverviewInteractor.getNextExamList(this,user,token,orderBy,sortBy,START_MAX_VALUE,offsetValue+5,null,role);
     }
 
     @Override
@@ -62,6 +72,11 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     @Override
     public void onFailureFindNewExam() {
         examOverview.onFailureFindNewExam();
+    }
+
+    @Override
+    public void onSuccessGetNextExamList(ExamList examList) {
+        examOverview.onSuccessNextExamList((ArrayList<Exam>) examList.getRows());
     }
 
 }

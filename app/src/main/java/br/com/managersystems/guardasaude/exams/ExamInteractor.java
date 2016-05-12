@@ -4,15 +4,20 @@ package br.com.managersystems.guardasaude.exams;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.concurrent.TimeUnit;
+
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
 import br.com.managersystems.guardasaude.exams.domain.IndividualExamResponse;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOverviewPresenter;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamListInteractor;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.OnCallExamListFinishedListener;
 import br.com.managersystems.guardasaude.login.AnonymousInformationListener;
 import br.com.managersystems.guardasaude.login.OnAnonymousExamRetrievedListener;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,13 +39,14 @@ public class ExamInteractor implements IExamListInteractor {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(new OkHttpClient().newBuilder().connectTimeout(60, TimeUnit.SECONDS).readTimeout(60, TimeUnit.SECONDS).writeTimeout(60, TimeUnit.SECONDS).build())
                 .build();
         return retrofit.create(ExamApi.class);
     }
 
 
     @Override
-    public void getExamList(final OnCallExamListFinishedListener listener, final String userName, final String token, final String orderBy, final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole) {
+    public void getFirstExamList(final OnCallExamListFinishedListener listener, final String userName, final String token, final String orderBy, final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole) {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
@@ -50,6 +56,28 @@ public class ExamInteractor implements IExamListInteractor {
             public void onResponse(Call<ExamList> call, Response<ExamList> response) {
                 if (response.body() != null) {
                     listener.onSuccessGetExamList(response.body());
+                } else {
+                    listener.onFailureGetExamList();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExamList> call, Throwable t) {
+                listener.onFailureGetExamList();
+            }
+        });
+    }
+
+    @Override
+    public void getNextExamList(final OnCallExamListFinishedListener listener, String userName, String token, String orderBy, String sortBy, String maxValue, String offsetValue, String filterBy, String accesRole) {
+        if (examApi == null) {
+            examApi = initiateRetrofit();
+        }
+        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole);
+        call.enqueue(new Callback<ExamList>() {
+            @Override
+            public void onResponse(Call<ExamList> call, Response<ExamList> response) {
+                if (response.body() != null) {listener.onSuccessGetNextExamList(response.body());
                 } else {
                     listener.onFailureGetExamList();
                 }

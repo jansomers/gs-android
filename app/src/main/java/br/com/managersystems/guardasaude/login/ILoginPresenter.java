@@ -47,5 +47,8 @@ public interface ILoginPresenter {
      */
     void logout();
 
+    /**
+     * Calls getAnonymousExam method from interactor and passes accesCode and examId
+     */
     void retrieveAnonymousExam(String accessCodeString, String examIdString);
 }

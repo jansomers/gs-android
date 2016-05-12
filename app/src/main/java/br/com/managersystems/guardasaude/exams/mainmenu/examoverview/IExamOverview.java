@@ -58,6 +58,15 @@ public interface IExamOverview {
      */
     void showSortByDialog();
 
+    /**
+     * Sets the shared preferences for the fragment
+     */
     void setSharedPreferences(SharedPreferences sharedPreferences);
+
+    /**
+     * Sets the loginpresenter for the fragment
+     */
     void setLoginPresenter(LoginPresenter loginPresenter);
+
+    void onSuccessNextExamList(ArrayList<Exam> rows);
 }

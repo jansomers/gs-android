@@ -352,6 +352,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         dialog.show();
     }
 
+    @Override
     public void findAnonymousExam(String accessCodeString, String examIdString) {
         presenter.retrieveAnonymousExam(accessCodeString, examIdString);
     }
