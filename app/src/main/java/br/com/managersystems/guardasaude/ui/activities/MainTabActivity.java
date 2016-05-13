@@ -28,6 +28,7 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabActivi
     private SharedPreferences sp;
     private String[] tabtitles;
     private LoginPresenter loginPresenter;
+    private TabsPagerAdapter tabsPagerAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,8 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabActivi
         setTabTitles();
         getSharedPref();
         loginPresenter = new LoginPresenter(this, sp);
-        viewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles, sp));
+        tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles, sp);
+        viewPager.setAdapter(tabsPagerAdapter);
     }
 
     @Override
@@ -89,5 +91,9 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabActivi
         // Don't go back
     }
 
+
+    public TabsPagerAdapter getTabsPagerAdapter() {
+        return tabsPagerAdapter;
+    }
 }
 
