@@ -79,6 +79,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private Snackbar snackSuccesfulNewExam;
     private Snackbar snackWrongACNewExam;
     private Snackbar snackInternalFailNewExam;
+    private Snackbar snackalreadyAssociatedExam;
     private LinearLayoutManager llm;
 
     public ExamOverviewFragment() {
@@ -120,7 +121,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                overviewPresenter.getNextSortedExamList(sortBy,orderBy, String.valueOf(page));
+                overviewPresenter.getNextSortedExamList(sortBy, orderBy, String.valueOf(page));
             }
         });
 
@@ -143,6 +144,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void initSnackBars() {
         snackSuccesfulNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_succesful), Snackbar.LENGTH_LONG);
         snackSuccesfulNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        snackalreadyAssociatedExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_already_associated), Snackbar.LENGTH_LONG);
+        snackalreadyAssociatedExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         snackWrongACNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_fail), Snackbar.LENGTH_LONG);
         snackWrongACNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorError));
         snackInternalFailNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_internalfail), Snackbar.LENGTH_LONG);
@@ -159,6 +162,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         if (menu == null) return;
         MenuItem actionSearchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(actionSearchItem);
+        searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(getSearchViewListener());
         menu.setGroupVisible(R.id.overview_group, show);
     }
@@ -228,10 +232,12 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Override
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
         if (associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")) {
-            snackSuccesfulNewExam.show();
-            overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
+                snackSuccesfulNewExam.show();
+                overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
         } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_code")) {
             snackWrongACNewExam.show();
+        }else if(associatedExamResponse.getCode().equalsIgnoreCase("access_already_exists")){
+            snackalreadyAssociatedExam.show();
         }
     }
 
@@ -259,6 +265,21 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public SearchView.OnQueryTextListener getSearchViewListener() {
+        return new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                overviewPresenter.getFilteredExamList(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                overviewPresenter.getFirstSortedExamList(sortBy,orderBy);
+                return false;
+            }
+        };
+    /* !!! OLD WAY !!!
         return new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String query) {
@@ -287,8 +308,9 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
                 return false;
             }
         };
-
+        */
     }
+
 
 
     @Override
@@ -300,4 +322,5 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void onStop() {
         super.onDestroy();
     }
+
 }

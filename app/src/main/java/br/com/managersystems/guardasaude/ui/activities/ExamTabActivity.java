@@ -33,16 +33,20 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
         setContentView(R.layout.activity_tab);
         setTitle("");
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         init();
-        examTabPagerAdapter=new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
-        viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
     public void init() {
+        setSupportActionBar(toolbar);
         getSharedPref();
         setTabTitles();
+        setTabsPagerAdapter();
+    }
+
+    private void setTabsPagerAdapter() {
+        examTabPagerAdapter=new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
+        viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
@@ -70,5 +74,9 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
 
     public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
         return examTabPagerAdapter;
+    }
+
+    public void setCurrentItem(int position){
+        examTabPagerAdapter.getItem(position);
     }
 }

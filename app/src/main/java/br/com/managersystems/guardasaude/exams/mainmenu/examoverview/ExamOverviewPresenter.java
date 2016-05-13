@@ -55,6 +55,15 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     }
 
     @Override
+    public void getFilteredExamList(String filterBy) {
+        byte [] encryptedUser =  sp.getString("user",null).getBytes();
+        String user= base64Interactor.decodeBase64ToString(encryptedUser);
+        String token = sp.getString("token",null);
+        String role = sp.getString("role",null);
+        examOverviewInteractor.getFirstExamList(this,user,token,null,null,START_MAX_VALUE,START_OFFSET_VALUE,filterBy,role);
+    }
+
+    @Override
     public void onSuccessGetExamList(ExamList examList) {
         examOverview.onSuccessExamList((ArrayList<Exam>) examList.getRows());
     }

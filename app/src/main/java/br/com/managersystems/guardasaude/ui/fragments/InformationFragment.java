@@ -1,10 +1,12 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,6 +43,9 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Bind(R.id.gs_exam_information_exam_id)
     TextView examIdTextView;
+
+    @Bind(R.id.gs_exam_information_exam_referring_phys)
+    TextView examRefPhysTextView;
 
     @Bind(R.id.gs_exam_information_exam_type)
     TextView examTypeTextView;
@@ -96,7 +102,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         ButterKnife.bind(this, view);
         presenter = new ExamPresenter(this);
         sp = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-        commentWatcher = new TextWatcher() {
+        commentWatcher = new TextWatcher()  {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 saveCommentBtn.setEnabled(false);
@@ -145,6 +151,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         examClinicTextView.setText(StringUtils.anyCaseToNameCase(exam.getClinicName()));
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);
         examRepPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReportingPhysicianName()));
+        examRefPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReferringPhysicianName()));
 
     }
 
@@ -165,10 +172,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         commentsBtn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_less_24dp_primary, 0);
         commentsHidden = true;
 
-    }
-
-    @Override
-    public void navigateToImages() {
     }
 
     @Override
@@ -224,5 +227,17 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     public void clickSaveComment() {
         presenter.saveComment(examIdTextView.getText(), newCommentText.getEditableText().toString(), sp);
 
+    }
+
+    @Override
+    @OnClick(R.id.images_btn)
+    public void navigateToImages(){
+        ViewPager viewPager = (ViewPager)getActivity().findViewById(R.id.pager);
+        viewPager.setCurrentItem(2);
+    }
+
+    @OnClick(R.id.documents_btn)
+    public void downloadDocuments(){
+        //TODO DOWNLOAD DOCUMENTS
     }
 }
