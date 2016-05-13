@@ -80,7 +80,8 @@
             <RelativeLayout
                 android:id="@+id/clic_patient_rel_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/date_phys_rel_layout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,8 +146,7 @@
             <RelativeLayout
                 android:id="@+id/date_phys_rel_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/clic_patient_rel_layout">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -206,7 +206,75 @@
 
                 </LinearLayout>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/documents_refPhys_rel_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/clic_patient_rel_layout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_attachment" />
+
+                        <Button
+                            android:id="@+id/documents_btn"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@android:color/transparent"
+                            android:textSize="12sp"
+                            android:text="@string/download_documents"
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_doctor" />
+
+                        <TextView
+                            android:id="@+id/gs_exam_information_exam_referring_phys"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:paddingStart="2dp"
+                            android:text="@string/exam_referring_phys"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
         </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/comment_image_btns_rel_layout"

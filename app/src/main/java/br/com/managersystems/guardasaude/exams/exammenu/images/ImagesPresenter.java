@@ -48,9 +48,11 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
             imagesFragment.noImagesFound();
         } else {
             for (ExamImageResponse response : imagesFiles) {
-                byte[] decryptedResponse = Base64.decode(response.getDocumentValue(),Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(decryptedResponse, 0, decryptedResponse.length);
-                imageItems.add(bitmap);
+                if(response.getDocumentValue()!=null) {
+                    byte[] decryptedResponse = Base64.decode(response.getDocumentValue(), Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decryptedResponse, 0, decryptedResponse.length);
+                    imageItems.add(bitmap);
+                }
             }
         }
 

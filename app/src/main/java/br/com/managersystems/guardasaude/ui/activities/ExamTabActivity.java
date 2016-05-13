@@ -45,8 +45,6 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
         setTitle("");
         ButterKnife.bind(this);
         init();
-        examTabPagerAdapter=new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
-        viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
@@ -55,7 +53,12 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
         getSharedPref();
         loginPresenter = new LoginPresenter(this, sp);
         setTabTitles();
-        viewPager.setAdapter(new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles, sp));
+        setTabsPagerAdapter();
+    }
+
+    private void setTabsPagerAdapter() {
+        examTabPagerAdapter=new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
+        viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
@@ -100,5 +103,9 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabActivi
     }
     public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
         return examTabPagerAdapter;
+    }
+
+    public void setCurrentItem(int position){
+        examTabPagerAdapter.getItem(position);
     }
 }

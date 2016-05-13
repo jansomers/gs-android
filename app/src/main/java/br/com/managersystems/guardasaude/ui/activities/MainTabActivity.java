@@ -83,7 +83,7 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabActivi
 
     @Override
     public void setTabTitles() {
-        tabtitles = new String[]{(String) getResources().getText(R.string.exams), (String) getResources().getText(R.string.notifications), (String) getResources().getText(R.string.messages)};
+        tabtitles = new String[]{(String) getResources().getText(R.string.exams)};
     }
 
     @Override

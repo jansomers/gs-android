@@ -26,4 +26,6 @@ public interface IExamOverviewPresenter  {
      * @param ePassCode: accesscode or password of the exam
      */
     void findNewExam(final String exid, final String ePassCode);
+
+    void getFilteredExamList(String filterBy);
 }

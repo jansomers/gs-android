@@ -12,7 +12,7 @@ import br.com.managersystems.guardasaude.ui.fragments.NotificationFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter{
 
-    final int PAGE_COUNT = 3;
+    final int PAGE_COUNT = 1;
     private String tabtitles[];
     SharedPreferences sharedPreferences;
     LoginPresenter loginPresenter;
@@ -39,11 +39,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
                 examOverviewFragment.setSharedPreferences(sharedPreferences);
                 return examOverviewFragment;
 
-            case 1:
-                return new NotificationFragment();
-
-            case 2:
-                return new MessagesFragment();
         }
         return null;
     }

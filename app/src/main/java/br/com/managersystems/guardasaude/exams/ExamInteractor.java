@@ -73,6 +73,7 @@ public class ExamInteractor implements IExamListInteractor {
         }
         Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole);
         call.enqueue(new Callback<ExamList>() {
+
             @Override
             public void onResponse(Call<ExamList> call, Response<ExamList> response) {
                 if (response.body() != null) {listener.onSuccessGetNextExamList(response.body());
