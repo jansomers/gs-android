@@ -2,7 +2,6 @@ package br.com.managersystems.guardasaude.ui.fragments;
 
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -107,6 +105,14 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         init();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Exam> exams = adapter.getExamList();
+        adapter.removeAll();
+        adapter.addAllExams(exams);
     }
 
     @Override

@@ -43,6 +43,10 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         available = context.getString(R.string.available);
     }
 
+    public List<Exam> getExamList() {
+        return examList;
+    }
+
     @Override
     public ExamViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item_exam, parent, false);
@@ -104,6 +108,11 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
     @Override
     public void addAllExams(List<Exam> exams) {
         this.examList = exams;
+        notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        examList.clear();
         notifyDataSetChanged();
     }
 

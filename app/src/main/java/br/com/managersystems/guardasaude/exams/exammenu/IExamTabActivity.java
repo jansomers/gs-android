@@ -16,4 +16,6 @@ public interface IExamTabActivity {
      * Get shared preferences from preference manager
      */
     void getSharedPref();
+
+    void navigateToLogin();
 }

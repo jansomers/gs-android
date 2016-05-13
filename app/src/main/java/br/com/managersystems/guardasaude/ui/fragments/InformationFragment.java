@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -33,6 +34,7 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.exammenu.information.CommentsAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.ExamPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.IExamInformationView;
+import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.util.AnimationUtils;
 import br.com.managersystems.guardasaude.util.StringUtils;
 import butterknife.Bind;
@@ -90,8 +92,10 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     SharedPreferences sp;
     CommentsAdapter adapter;
     TextWatcher commentWatcher;
+    LoginPresenter loginPresenter;
     boolean commentsHidden;
     boolean isPatient;
+    private Menu menu;
 
 
     @Override
@@ -101,8 +105,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         View view = inflater.inflate(R.layout.fragment_information, container, false);
         ButterKnife.bind(this, view);
         presenter = new ExamPresenter(this);
-        sp = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-        commentWatcher = new TextWatcher()  {
+        sp = PreferenceManager.getDefaultSharedPreferences(this.getActivity());;
+        commentWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 saveCommentBtn.setEnabled(false);
