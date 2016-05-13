@@ -1,6 +1,5 @@
 package br.com.managersystems.guardasaude;
 
-import android.app.Instrumentation;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
@@ -14,7 +13,6 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
 import br.com.managersystems.guardasaude.ui.activities.LoginActivity;
 import br.com.managersystems.guardasaude.ui.activities.MainTabActivity;
@@ -23,7 +21,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
-import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
@@ -57,7 +54,7 @@ public class ExamOverviewTest {
     }
 
     @Test
-    public void checkTab(){
+    public void showsTab(){
         onView(withText("Exams")).check(ViewAssertions.matches(isDisplayed()));
     }
 
@@ -68,8 +65,9 @@ public class ExamOverviewTest {
 
         onView(withId(R.id.fab)).perform(click());
         onView(withId(R.id.new_exam_identification)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_id).toString()));
-        onView(withId(R.id.new_exam_accesscode)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode).toString()));
-        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.new_exam_access_code)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode).toString()));
+        onView(withId(R.id.sort_exam_oke_btn)).perform(click());
+        //TODO assert added exam
         Thread.sleep(100);
     }
 
@@ -80,9 +78,9 @@ public class ExamOverviewTest {
 
         onView(withId(R.id.fab)).perform(click());
         onView(withId(R.id.new_exam_identification)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_id).toString()));
-        onView(withId(R.id.new_exam_accesscode)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode_wrong).toString()));
-        onView(withId(android.R.id.button1)).perform(click());
-
+        onView(withId(R.id.new_exam_access_code)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode_wrong).toString()));
+        onView(withId(R.id.sort_exam_oke_btn)).perform(click());
+        //TODO assert failed
         Thread.sleep(100);
     }
 
@@ -90,9 +88,9 @@ public class ExamOverviewTest {
     public void shouldSearchForExamsWithText() throws InterruptedException {
         onView(withId(R.id.action_search)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.action_search)).check(ViewAssertions.matches(isFocusable()));
-
         onView(withId(R.id.action_search)).perform(click());
         onView(isAssignableFrom(EditText.class)).perform(typeText("test"), pressKey(KeyEvent.KEYCODE_ENTER));
+        //TODO assert has text
         Thread.sleep(100);
     }
 
@@ -104,15 +102,17 @@ public class ExamOverviewTest {
         onView(withId(R.id.action_sortby)).perform(click());
         onView(withId(R.id.action_sortby)).perform(click());
 
-        onView(withId(R.id.identification_button)).perform(click());
-        onView(withId(R.id.identification_button)).perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.identification_button_layout)).perform(click());
+        onView(withId(R.id.identification_button_layout)).perform(click());
+        onView(withId(R.id.sort_exam_oke_btn)).perform(click());
+        //TODO assert
         Thread.sleep(100);
     }
 
     @Test
     public void shouldSwipeLeft() throws InterruptedException {
         onView(withId(R.id.maintablayout)).perform(swipeLeft());
+        //TODO assert
         Thread.sleep(100);
     }
 }

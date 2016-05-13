@@ -24,6 +24,7 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -91,6 +92,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     @Bind(R.id.last_name_input)
     AppCompatEditText lastNameText;
 
+    @Bind(R.id.country_input)
+    AppCompatSpinner countrySpinner;
+
     @Bind(R.id.city_input_wrapper)
     TextInputLayout cityInputWrapper;
 
@@ -130,13 +134,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
 
     Map<TextInputLayout, TextView> inputs;
-    int birth_year;
-    int birth_month;
-    int birth_day;
+    String birth_year;
+    String birth_month;
+    String birth_day;
 
     DatePickerDialog.OnDateSetListener onDateSelectedListener;
     TextWatcher idTypeWatcher;
     TextWatcher cityWatcher;
+    TextWatcher nonCityWatcher;
     TextWatcher cpfTextWatcher;
     TextWatcher nonCpfTextWatcher;
     RegisterPresenter presenter;
@@ -144,6 +149,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     private String cpfNo = "";
     private final InputFilter[] CPFFILTER = new InputFilter[]{new InputFilter.LengthFilter(14)};
     private final InputFilter[] NONCPFFILTER = new InputFilter[]{new InputFilter.LengthFilter(20)};
+    private ArrayAdapter<String> cityAdapter;
+    private ArrayAdapter<String> genderAdapter;
+    private ArrayAdapter<String> countryAdapter;
+    private ArrayAdapter<String> languageAdapter;
+    private ArrayAdapter<String> idTypeAdapter;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,13 +172,15 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     @Override
     public void initiateAdapters() {
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(this, R.layout.gender_row, getResources().getStringArray(R.array.genders));
+        genderAdapter = new ArrayAdapter<String>(this, R.layout.gender_row, getResources().getStringArray(R.array.genders));
         genderSpinner.setAdapter(genderAdapter);
-        ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(this, R.layout.city_row, new String[]{});
+        countryAdapter = new ArrayAdapter<String>(this, R.layout.country_row, getResources().getStringArray(R.array.countries));
+        countrySpinner.setAdapter(countryAdapter);
+        cityAdapter = new ArrayAdapter<String>(this, R.layout.city_row, new String[]{});
         cityText.setAdapter(cityAdapter);
-        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this, R.layout.language_row, getResources().getStringArray(R.array.languages));
+        languageAdapter = new ArrayAdapter<String>(this, R.layout.language_row, getResources().getStringArray(R.array.languages));
         languageText.setAdapter(languageAdapter);
-        ArrayAdapter<String> idTypeAdapter = new ArrayAdapter<String>(this, R.layout.id_type_row, getResources().getStringArray(R.array.id_types));
+        idTypeAdapter = new ArrayAdapter<String>(this, R.layout.id_type_row, getResources().getStringArray(R.array.id_types));
         idTypeText.setAdapter(idTypeAdapter);
 
     }
@@ -178,9 +190,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         onDateSelectedListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                birth_year = year;
-                birth_month = monthOfYear;
-                birth_day = dayOfMonth;
+                birth_year = year <10 ? "0" + String.valueOf(year) : String.valueOf(year);
+                birth_month = monthOfYear < 10 ? "0" + String.valueOf(monthOfYear) : String.valueOf(monthOfYear);
+                birth_day = dayOfMonth < 10 ? "0" +  String.valueOf(dayOfMonth): String.valueOf(dayOfMonth);
+                StringBuilder dateStringBuilder = new StringBuilder(10);
+
                 birthDateText.setText(birth_day + "/" + birth_month + "/" + birth_year);
             }
         };
@@ -243,15 +257,35 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filter = s.toString();
-                if (filter.length() >= 2) {
-                    presenter.retrieveLocations(cityText, filter);
+                if (countrySpinner.getSelectedItem().toString().toLowerCase().equals("brazil")) {
+                    filter = s.toString();
+                    if (filter.length() >= 2) {
+                        presenter.retrieveLocations(cityText, filter);
+                    }
+                } else {
+                    cityAdapter.clear();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 filter = s.toString();
+
+            }
+        };
+        nonCityWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         };
@@ -290,6 +324,36 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             }
         };
         idTypeText.addTextChangedListener(idTypeWatcher);
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (countrySpinner.getSelectedItem().toString().equals(getText(R.string.brazil))) {
+                    try {
+                        cityText.removeTextChangedListener(nonCityWatcher);
+
+                    } catch (Exception e) {
+                        // This exception can happen only once
+                    }
+                    cityText.addTextChangedListener(cityWatcher);
+                }
+                else  {
+                    try {
+                        cityText.removeTextChangedListener(cityWatcher);
+                    } catch (Exception e) {
+                        // This exception can happen only once
+
+                    }
+                    cityAdapter.clear();
+                    cityText.addTextChangedListener(nonCityWatcher);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -385,6 +449,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
                     }
                     if (hasFocus) {
+                        if (v.getId() == R.id.forced_city_input) {
+                            if (!countrySpinner.getSelectedItem().toString().toLowerCase().equals("brazil".toLowerCase())){
+                                cityAdapter.clear();
+                            }
+                        }
                         editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, crossDrawable, null);
                         editText.setOnTouchListener(oncrossTouchListener);
                         layout.getEditText().setHint("");
@@ -482,13 +551,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
     private void showDatePickerDialog() {
-        if (birth_year <= 0 || birth_month <= 0 || birth_day <= 0) {
-            birth_year = Calendar.getInstance().get(Calendar.YEAR);
-            birth_month = Calendar.getInstance().get(Calendar.MONTH);
-            birth_day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        }
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSelectedListener, birth_year, birth_month, birth_day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSelectedListener, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
         datePickerDialog.show();
     }

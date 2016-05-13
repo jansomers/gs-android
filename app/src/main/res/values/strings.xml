@@ -23,17 +23,7 @@
     <string name="Images">Images</string>
     <string name="Close">Close</string>
 
-    <string-array name="image_ids">
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-    </string-array>
+
     <string name="search">Search</string>
     <string name="menu_search">Search menu</string>
     <string name="search_hint">search hint</string>
@@ -117,18 +107,30 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="must_befilled_in">Make sure all fields are filled in.</string>
     <string name="invalid_entry">is not a valid entry.\\nCheck for mistakes and try again please..</string>
-
+    <string name="createAccount">Create an account</string>
+    <string name="moreInfo">To get more information</string>
+    <string name="exam_associated_succesful">Exam successfully associated</string>
+    <string name="exam_associated_fail">Exam not found or Wrong accesscode</string>
+    <string name="exam_associated_internalfail">Exam not found</string>
+    <string name="identification_required">Identification is required!</string>
+    <string name="accesscode_required">Access code is required!</string>
+    <string name="id_and_ac_required">Identification and access code are required!</string>
+    <string name="test_add_exam_id">GKS0001</string>
+    <string name="test_add_exam_accesscode">01012001</string>
+    <string name="test_add_exam_accesscode_wrong">01012002</string>
+    <string name="associate">Associate Exam</string>
+    <string name="country">Country *</string>
+    <string name="brazil">Brazil</string>
+    <string name="other">Other</string>
     <!--Arrays -->
     <string-array name="genders">
         <item>@string/male</item>
         <item>@string/female</item>
     </string-array>
 
-    <string-array name="dummy_cities">
-        <item>City 1</item>
-        <item>City 2</item>
-        <item>City 3</item>
-        <item>City 4</item>
+    <string-array name="countries">
+        <item>@string/brazil</item>
+        <item>@string/other</item>
     </string-array>
 
     <string-array name="languages">
@@ -145,17 +147,18 @@
         <item>Professional</item>
         <item>ClinicInternalID</item>
     </string-array>
-    <string name="createAccount">Create an account</string>
-    <string name="moreInfo">To get more information</string>
-    <string name="exam_associated_succesful">Exam successfully associated</string>
-    <string name="exam_associated_fail">Exam not found or Wrong accesscode</string>
-    <string name="exam_associated_internalfail">Exam not found</string>
-    <string name="identification_required">Identification is required!</string>
-    <string name="accesscode_required">Access code is required!</string>
-    <string name="id_and_ac_required">Identification and access code are required!</string>
-    <string name="test_add_exam_id">GKS0001</string>
-    <string name="test_add_exam_accesscode">01012001</string>
-    <string name="test_add_exam_accesscode_wrong">01012002</string>
-    <string name="associate">Associate Exam</string>
+
+    <string-array name="image_ids">
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+    </string-array>
+
 
 </resources>
