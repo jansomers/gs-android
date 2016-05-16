@@ -5,6 +5,8 @@ import android.widget.AutoCompleteTextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.managersystems.guardasaude.register.domain.LocationResponse;
+import br.com.managersystems.guardasaude.register.domain.LocationRow;
 import br.com.managersystems.guardasaude.ui.activities.RegisterActivity;
 
 /**

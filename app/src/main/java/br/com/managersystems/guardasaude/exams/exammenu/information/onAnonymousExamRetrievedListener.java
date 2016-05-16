@@ -1,9 +1,9 @@
-package br.com.managersystems.guardasaude.login;
+package br.com.managersystems.guardasaude.exams.exammenu.information;
 
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 
-public interface OnAnonymousExamRetrievedListener {
+public interface onAnonymousExamRetrievedListener {
     /**
      * Calls anonymousExamSucces method from activity and passes exam
      */

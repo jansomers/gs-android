@@ -11,13 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import br.com.managersystems.guardasaude.R;
-import br.com.managersystems.guardasaude.exams.mainmenu.IMainTabActivity;
+import br.com.managersystems.guardasaude.exams.mainmenu.IMainTabView;
 import br.com.managersystems.guardasaude.exams.mainmenu.TabsPagerAdapter;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainTabActivity extends AppCompatActivity implements IMainTabActivity{
+public class MainTabActivity extends AppCompatActivity implements IMainTabView {
     @Bind(R.id.pager)
     ViewPager viewPager;
 

@@ -35,15 +35,12 @@ public class LoginTest {
     @Before
     public void init() {
         //Binding views for logging purposes
-        logout();
         progressText = (TextView) login.getActivity().findViewById(R.id.gs_login_progress_text);
     }
 
-    private void logout() {
-    }
 
     @Test
-    public void shouldShowTextInputs(){
+    public void showsTextInputs(){
         onView(withId(R.id.gs_username_wrapper)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.gs_login_username)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.gs_passwordWrapper)).check(ViewAssertions.matches(isDisplayed()));
@@ -51,12 +48,13 @@ public class LoginTest {
     }
 
     @Test
-    public void shouldDisplayLoginButton(){
-        onView(withId(R.id.gs_login_btn)).check(ViewAssertions.matches(isDisplayed())).check(ViewAssertions.matches(isClickable()));
+    public void showsLoginButton(){
+        onView(withId(R.id.gs_login_btn)).check(ViewAssertions
+                .matches(isDisplayed())).check(ViewAssertions.matches(isClickable()));
     }
 
     @Test
-    public void shouldShowUnsuccesfulLoginResultWithWrongPassword() {
+    public void showsUnsuccesfulLoginResultWithWrongPassword() {
         onView(withId(R.id.gs_login_username)).perform(ViewActions.clearText());
         onView(withId(R.id.gs_login_password)).perform(ViewActions.clearText());
         onView(withId(R.id.gs_login_username)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_multi_role_user).toString()));
@@ -67,7 +65,7 @@ public class LoginTest {
     }
 
     @Test
-    public void shouldShowUnsuccesfulLoginResultWithWrongUser() {
+    public void showsUnsuccesfulLoginResultWithWrongUser() {
 
         onView(withId(R.id.gs_login_username)).perform(ViewActions.clearText());
         onView(withId(R.id.gs_login_password)).perform(ViewActions.clearText());
@@ -81,7 +79,7 @@ public class LoginTest {
     }
 
     @Test
-    public void shouldShowDialogWithMultipleRoles() {
+    public void showsDialogWithMultipleRoles() {
 
         try {
             onView(withId(R.id.gs_role_choose_title)).check(ViewAssertions.matches(not(isDisplayed())));
@@ -99,7 +97,7 @@ public class LoginTest {
     }
 
     @Test
-     public void shouldShowExamOverviewAfterSuccesfulSingeRoleLogin() {
+     public void showsExamOverviewAfterSuccesfulSingeRoleLogin() {
         try {
             onView(withId(R.id.gs_role_choose_title)).check(ViewAssertions.matches(not(isDisplayed())));
             fail();
@@ -111,5 +109,6 @@ public class LoginTest {
         onView(withId(R.id.gs_login_username)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_single_role_user).toString()));
         onView(withId(R.id.gs_login_password)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_single_role_password).toString()));
         onView(withId(R.id.gs_login_btn)).perform(ViewActions.click());
+        onView(withId(R.id.maintablayout)).check(ViewAssertions.matches(isDisplayed()));
     }
 }

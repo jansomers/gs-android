@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude.exams;
+package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 
 import android.content.Intent;
@@ -10,11 +10,8 @@ import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
 import br.com.managersystems.guardasaude.exams.domain.IndividualExamResponse;
-import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
-import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.IExamListInteractor;
-import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.OnCallExamListFinishedListener;
-import br.com.managersystems.guardasaude.login.AnonymousInformationListener;
-import br.com.managersystems.guardasaude.login.OnAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousInformationRetrievedListener;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -113,7 +110,7 @@ public class ExamInteractor implements IExamListInteractor {
     }
 
     @Override
-    public void getAnonymousExam(final OnAnonymousExamRetrievedListener listener, String accessCodeString, String examIdString) {
+    public void getAnonymousExam(final onAnonymousExamRetrievedListener listener, String accessCodeString, String examIdString) {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
@@ -137,7 +134,7 @@ public class ExamInteractor implements IExamListInteractor {
 
 
     @Override
-    public void getExam(final AnonymousInformationListener listener, Intent intent) {
+    public void getExam(final onAnonymousInformationRetrievedListener listener, Intent intent) {
         Exam exam = intent.getParcelableExtra("exam");
         if (exam.getIdentification().isEmpty()) {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");

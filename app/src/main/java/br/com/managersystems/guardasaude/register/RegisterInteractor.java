@@ -1,5 +1,6 @@
 package br.com.managersystems.guardasaude.register;
 
+import br.com.managersystems.guardasaude.register.domain.LocationResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

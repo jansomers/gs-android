@@ -1,7 +1,7 @@
 package br.com.managersystems.guardasaude.exams.mainmenu;
 
 
-public interface IMainTabActivity {
+public interface IMainTabView {
     /**
      * Sets supportactiontoolbar
      * Initializes loginpresenter

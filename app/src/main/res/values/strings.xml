@@ -22,18 +22,6 @@
     <string name="Report">Report</string>
     <string name="Images">Images</string>
     <string name="Close">Close</string>
-
-    <string-array name="image_ids">
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-    </string-array>
     <string name="search">Search</string>
     <string name="menu_search">Search menu</string>
     <string name="search_hint">search hint</string>
@@ -58,7 +46,6 @@
     <string name="comment_example">Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.</string>
     <string name="information_error">NOT FOUND</string>
     <string name="information_error_response">Try again or contact an administrator</string>
-
     <string name="patient">Patient</string>
     <string name="report">Report</string>
     <string name="reporting">Reporting Physician</string>
@@ -83,7 +70,7 @@
     <string name="logout">Logout</string>
     <string name="examIdentification">Exam Identification</string>
     <string name="accessCode">Access Code</string>
-    <string name="gs_exam_write_comment_hint">Start writing a comment...</string>
+    <string name="gs_exam_write_comment_hint">Start writing a comment &#8230;</string>
     <string name="clinic">Clinic</string>
     <string name="sort_icon">Sort Icon</string>
     <string name="forgot_pwd">Forgot your password?</string>
@@ -117,18 +104,18 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="must_befilled_in">Make sure all fields are filled in.</string>
     <string name="invalid_entry">is not a valid entry.\\nCheck for mistakes and try again please..</string>
-
+    <string name="country">Country *</string>
+    <string name="brazil">Brazil</string>
+    <string name="other">Other</string>
     <!--Arrays -->
     <string-array name="genders">
         <item>@string/male</item>
         <item>@string/female</item>
     </string-array>
 
-    <string-array name="dummy_cities">
-        <item>City 1</item>
-        <item>City 2</item>
-        <item>City 3</item>
-        <item>City 4</item>
+    <string-array name="countries">
+        <item>@string/brazil</item>
+        <item>@string/other</item>
     </string-array>
 
     <string-array name="languages">
@@ -160,5 +147,18 @@
     <string name="associate">Associate Exam</string>
     <string name="exam_referring_phys">Referring physician</string>
     <string name="download_documents">Documents</string>
+
+    <string-array name="image_ids">
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+    </string-array>
+
 
 </resources>

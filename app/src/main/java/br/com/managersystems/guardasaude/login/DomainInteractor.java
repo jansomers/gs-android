@@ -2,6 +2,8 @@ package br.com.managersystems.guardasaude.login;
 
 import java.util.ArrayList;
 
+import br.com.managersystems.guardasaude.login.domain.AccessDomain;
+
 /**
  * This class is a <b>Dummy Implementation</b> of the IDomainInteractor class.
  * The methods used can give an interpretation of how the domain request will be handle,

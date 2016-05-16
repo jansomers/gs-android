@@ -25,12 +25,13 @@
 
             <ImageView
                 android:id="@+id/gs_login_logo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleY="0.85"
+                android:scaleX="0.85"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:src="@drawable/logo_guardasaude"
-                android:textSize="35sp"
+                android:src="@drawable/thumbnail_gs_logo_and_text_small"
                 android:visibility="invisible" />
 
         </RelativeLayout>

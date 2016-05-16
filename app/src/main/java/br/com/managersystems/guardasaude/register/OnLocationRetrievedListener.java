@@ -1,5 +1,7 @@
 package br.com.managersystems.guardasaude.register;
 
+import br.com.managersystems.guardasaude.register.domain.LocationResponse;
+
 /**
  * Created by Jan on 10/05/2016.
  */

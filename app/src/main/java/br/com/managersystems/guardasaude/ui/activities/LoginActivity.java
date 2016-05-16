@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.login.AccessDomain;
+import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 import br.com.managersystems.guardasaude.login.ILoginView;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         presenter = new LoginPresenter(this, sp);
 

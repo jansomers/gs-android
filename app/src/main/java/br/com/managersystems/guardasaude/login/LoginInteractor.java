@@ -19,12 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * This class is an implementation of the ILoginInteractor
- *
+ * <p/>
  * Authors:
+ *
  * @author Jan Somers
  * @author Thanee Stevens
- *
- * Also see:
+ *         <p/>
+ *         Also see:
  * @see ILoginInteractor
  */
 public class LoginInteractor implements ILoginInteractor {
@@ -38,6 +39,7 @@ public class LoginInteractor implements ILoginInteractor {
 
     /**
      * Initiates the retrofit instances for the LoginApi.
+     *
      * @return LoginApi instance representing the client.
      */
     private LoginApi initiateRetrofit() {
