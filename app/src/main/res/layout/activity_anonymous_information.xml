@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_anonymous_information"
     style="@style/Widget.AppCompat.Button.Borderless.Colored"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,13 +35,14 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:id="@+id/anon_exam_string"
                     android:layout_height="wrap_content"
                     android:text="@string/exam_literal"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                     android:textColor="@color/colorTextColorLight" />
 
                 <TextView
-                    android:id="@+id/gs_exam_information_exam_id"
+                    android:id="@+id/gs_anon_exam_information_exam_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -50,7 +52,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/gs_exam_information_exam_type"
+                android:id="@+id/gs_anon_exam_information_exam_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gs_exam_header_linearlayout"
@@ -61,7 +63,7 @@
                 android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
             <ImageView
-                android:id="@+id/gs_exam_information_status"
+                android:id="@+id/gs_anon_exam_information_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -102,10 +104,11 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/anon_exam_clinic_icon"
                             android:src="@drawable/ic_local_hospital_24dp_primarylight" />
 
                         <TextView
-                            android:id="@+id/gs_exam_information_clinic_id"
+                            android:id="@+id/gs_anon_exam_information_clinic_id"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
@@ -126,10 +129,11 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/anon_exam_patient_icon"
                             android:src="@drawable/ic_person_24dp_primarylight" />
 
                         <TextView
-                            android:id="@+id/gs_exam_information_patient"
+                            android:id="@+id/gs_anon_exam_information_patient"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
@@ -166,10 +170,11 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/anon_exam_date_icon"
                             android:src="@drawable/ic_today_24dp_primarylight" />
 
                         <TextView
-                            android:id="@+id/gs_exam_information_exam_date"
+                            android:id="@+id/gs_anon_exam_information_exam_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
@@ -190,10 +195,11 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/anon_exam_phys_icon"
                             android:src="@drawable/ic_report_account_24dp_primarylight" />
 
                         <TextView
-                            android:id="@+id/gs_exam_information_exam_reporting_phys"
+                            android:id="@+id/gs_anon_exam_information_exam_reporting_phys"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="5dp"

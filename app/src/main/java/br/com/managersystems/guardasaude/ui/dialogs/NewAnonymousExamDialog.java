@@ -21,8 +21,8 @@ public class NewAnonymousExamDialog extends Dialog {
     @Bind(R.id.add_anonymous_examId)
     TextInputEditText examId;
 
-    @Bind(R.id.btn_anonymous_exam)
-    Button findNexExamButton;
+    @Bind(R.id.btn_find_anonymous_exam)
+    Button findNewExamButton;
 
     @Bind(R.id.new_anon_exam_error_msg)
     TextView errorText;
@@ -44,7 +44,7 @@ public class NewAnonymousExamDialog extends Dialog {
 
 
     public void activateRequestBtn(){
-        findNexExamButton.setOnClickListener(new View.OnClickListener() {
+        findNewExamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String accessCodeString = accessCode.getEditableText().toString();

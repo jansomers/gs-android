@@ -154,7 +154,7 @@
     <string name="identification_required">Identification is required!</string>
     <string name="accesscode_required">Access code is required!</string>
     <string name="id_and_ac_required">Identification and access code are required!</string>
-    <string name="test_add_exam_id">GKS0001</string>
+    <string name="test_add_exam_id">GKS0004</string>
     <string name="test_add_exam_accesscode">01012001</string>
     <string name="test_add_exam_accesscode_wrong">01012002</string>
     <string name="associate">Associate Exam</string>

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.ui.activities.ExamTabActivity;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,7 +59,6 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
         View viewLayout = inflater.inflate(R.layout.fullscreen_image, container, false);
 
         imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.imgDisplay);
-        btnClose = viewLayout.findViewById(R.id.btnClose);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -66,6 +66,7 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
         Bitmap bitmap = images.get(position);
         imgDisplay.setImageBitmap(bitmap);
 
+        btnClose = viewLayout.findViewById(R.id.btnClose);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
