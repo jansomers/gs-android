@@ -11,8 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import br.com.managersystems.guardasaude.exams.ExamInteractor;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamInteractor;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
@@ -35,7 +37,7 @@ import br.com.managersystems.guardasaude.util.Base64Interactor;
  * @see ILoginInteractor
  * @see LoginActivity
 */
-public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener,OnAnonymousExamRetrievedListener {
+public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener,onAnonymousExamRetrievedListener {
 
     ILoginView loginActivity;
     Activity logoutActivity;

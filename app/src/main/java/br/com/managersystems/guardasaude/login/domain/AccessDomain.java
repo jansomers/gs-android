@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude.login;
+package br.com.managersystems.guardasaude.login.domain;
 
 /**
  * POJO Class that represent an access domain.

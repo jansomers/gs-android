@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Jan on 19/04/2016.
+ * POJO containing the fields and getters/setters
+ * for the expected response of an authorization request.
  */
 public class AuthorisationResult {
 
@@ -17,72 +18,56 @@ public class AuthorisationResult {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The success
+     * @return The success
      */
     public String getSuccess() {
         return success;
     }
 
     /**
-     *
-     * @param success
-     * The success
+     * @param success The success
      */
     public void setSuccess(String success) {
         this.success = success;
     }
 
     /**
-     *
-     * @return
-     * The code
+     * @return The code
      */
     public String getCode() {
         return code;
     }
 
     /**
-     *
-     * @param code
-     * The code
+     * @param code The code
      */
     public void setCode(String code) {
         this.code = code;
     }
 
     /**
-     *
-     * @return
-     * The token
+     * @return The token
      */
     public String getToken() {
         return token;
     }
 
     /**
-     *
-     * @param token
-     * The token
+     * @param token The token
      */
     public void setToken(String token) {
         this.token = token;
     }
 
     /**
-     *
-     * @return
-     * The roles
+     * @return The roles
      */
     public List<String> getRoles() {
         return roles;
     }
 
     /**
-     *
-     * @param roles
-     * The roles
+     * @param roles The roles
      */
     public void setRoles(List<String> roles) {
         this.roles = roles;

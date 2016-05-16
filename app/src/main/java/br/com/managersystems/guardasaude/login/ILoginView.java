@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * @see br.com.managersystems.guardasaude.ui.activities.LoginActivity
  */
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 
 
 public interface ILoginView {

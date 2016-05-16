@@ -102,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     AutoCompleteTextView cityText;
 
 
-    @Bind(R.id.spinner_gender)
+    @Bind(R.id.gender_input)
     AppCompatSpinner genderSpinner;
 
     @Bind(R.id.language_input_wrapper)
@@ -172,15 +172,15 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     @Override
     public void initiateAdapters() {
-        genderAdapter = new ArrayAdapter<String>(this, R.layout.gender_row, getResources().getStringArray(R.array.genders));
+        genderAdapter = new ArrayAdapter<String>(this, R.layout.spinner_gender_row, getResources().getStringArray(R.array.genders));
         genderSpinner.setAdapter(genderAdapter);
-        countryAdapter = new ArrayAdapter<String>(this, R.layout.country_row, getResources().getStringArray(R.array.countries));
+        countryAdapter = new ArrayAdapter<String>(this, R.layout.spinner_country_row, getResources().getStringArray(R.array.countries));
         countrySpinner.setAdapter(countryAdapter);
-        cityAdapter = new ArrayAdapter<String>(this, R.layout.city_row, new String[]{});
+        cityAdapter = new ArrayAdapter<String>(this, R.layout.spinner_city_row, new String[]{});
         cityText.setAdapter(cityAdapter);
         languageAdapter = new ArrayAdapter<String>(this, R.layout.language_row, getResources().getStringArray(R.array.languages));
         languageText.setAdapter(languageAdapter);
-        idTypeAdapter = new ArrayAdapter<String>(this, R.layout.id_type_row, getResources().getStringArray(R.array.id_types));
+        idTypeAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_id_type_row, getResources().getStringArray(R.array.id_types));
         idTypeText.setAdapter(idTypeAdapter);
 
     }

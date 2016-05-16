@@ -1,7 +1,7 @@
 package br.com.managersystems.guardasaude.login.domain;
 
 /**
- * Created by Jan on 18/04/2016.
+ * POJO class holding the information about a User.
  */
 public class BaseUser {
     private static BaseUser mInstance = null;

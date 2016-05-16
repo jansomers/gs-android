@@ -35,12 +35,9 @@ public class LoginTest {
     @Before
     public void init() {
         //Binding views for logging purposes
-        logout();
         progressText = (TextView) login.getActivity().findViewById(R.id.gs_login_progress_text);
     }
 
-    private void logout() {
-    }
 
     @Test
     public void showsTextInputs(){
@@ -52,7 +49,8 @@ public class LoginTest {
 
     @Test
     public void showsLoginButton(){
-        onView(withId(R.id.gs_login_btn)).check(ViewAssertions.matches(isDisplayed())).check(ViewAssertions.matches(isClickable()));
+        onView(withId(R.id.gs_login_btn)).check(ViewAssertions
+                .matches(isDisplayed())).check(ViewAssertions.matches(isClickable()));
     }
 
     @Test

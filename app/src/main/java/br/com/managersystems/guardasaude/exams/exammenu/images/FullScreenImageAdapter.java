@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import br.com.managersystems.guardasaude.R;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -55,7 +54,7 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
         View btnClose;
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewLayout = inflater.inflate(R.layout.fullscreen_image, container, false);
+        View viewLayout = inflater.inflate(R.layout.section_fullscreen_image, container, false);
 
         imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.imgDisplay);
         btnClose = viewLayout.findViewById(R.id.btnClose);

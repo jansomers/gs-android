@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude.register;
+package br.com.managersystems.guardasaude.register.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;

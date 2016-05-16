@@ -5,7 +5,7 @@ import java.util.Date;
 import br.com.managersystems.guardasaude.util.DateUtil;
 
 /**
- * Created by Jan on 18/04/2016.
+ * POJO Class that holds all information that needs to be know for further authorization.
  */
 public class MobileToken {
 

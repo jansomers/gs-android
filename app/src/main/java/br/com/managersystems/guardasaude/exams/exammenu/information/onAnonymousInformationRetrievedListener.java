@@ -1,9 +1,9 @@
-package br.com.managersystems.guardasaude.login;
+package br.com.managersystems.guardasaude.exams.exammenu.information;
 
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 
-public interface AnonymousInformationListener {
+public interface onAnonymousInformationRetrievedListener {
     /**
      * Calls setExamInformation method from fragment and passes exam
      */

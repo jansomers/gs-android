@@ -3,8 +3,8 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 import android.content.Intent;
 
-import br.com.managersystems.guardasaude.login.AnonymousInformationListener;
-import br.com.managersystems.guardasaude.login.OnAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousInformationRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousExamRetrievedListener;
 
 public interface IExamListInteractor {
     /**
@@ -35,12 +35,12 @@ public interface IExamListInteractor {
      * @param accessCodeString: the access code or password for the exam
      * @param examIdString: the identification code of the exam
      */
-    void getAnonymousExam(OnAnonymousExamRetrievedListener listener,String accessCodeString, String examIdString);
+    void getAnonymousExam(onAnonymousExamRetrievedListener listener,String accessCodeString, String examIdString);
 
     /**
      * Gets the exam from the intent
      * If exam is empty call onExamFailure method
      * If exam is not empty call onExamReceived method and pass exam
      */
-    void getExam(final AnonymousInformationListener listener,Intent intent);
+    void getExam(final onAnonymousInformationRetrievedListener listener,Intent intent);
 }

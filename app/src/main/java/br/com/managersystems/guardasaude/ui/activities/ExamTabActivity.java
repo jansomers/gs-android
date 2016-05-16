@@ -12,12 +12,12 @@ import android.view.MenuItem;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
-import br.com.managersystems.guardasaude.exams.exammenu.IExamTabActivity;
+import br.com.managersystems.guardasaude.exams.exammenu.IExamTabView;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ExamTabActivity extends AppCompatActivity implements IExamTabActivity{
+public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     @Bind(R.id.pager)
     ViewPager viewPager;
 
