@@ -10,13 +10,12 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.ui.activities.ExamTabActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import br.com.managersystems.guardasaude.R;
 
 public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenImageAdapter {
 
@@ -51,15 +50,14 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
     }
 
     @Override
-    public Object instantiateItem(final ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, int position) {
         TouchImageView imgDisplay;
-        ImageView btnClose;
+        View btnClose;
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = inflater.inflate(R.layout.section_fullscreen_image, container, false);
 
-        imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.img_display);
-        btnClose = (ImageView) viewLayout.findViewById(R.id.btn_close);
+        imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.imgDisplay);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -67,10 +65,11 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
         Bitmap bitmap = images.get(position);
         imgDisplay.setImageBitmap(bitmap);
 
+        btnClose = viewLayout.findViewById(R.id.btnClose);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.finish();
             }
         });
 

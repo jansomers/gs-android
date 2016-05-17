@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
+    android:id="@+id/dialog_anonymous_exam"
     android:background="@android:color/background_light">
 
 
@@ -32,7 +33,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/btn_anonymous_exam"
+        android:id="@+id/btn_find_anonymous_exam"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

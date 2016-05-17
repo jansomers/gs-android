@@ -41,4 +41,5 @@ public class FullScreenImageActivity extends Activity {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position);
     }
+
 }

@@ -17,25 +17,25 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AnonymousExamInformationActivity extends AppCompatActivity {
-    @Bind(R.id.gs_exam_information_exam_id)
+    @Bind(R.id.gs_anon_exam_information_exam_id)
     TextView examIdTextView;
 
-    @Bind(R.id.gs_exam_information_exam_type)
+    @Bind(R.id.gs_anon_exam_information_exam_type)
     TextView examTypeTextView;
 
-    @Bind(R.id.gs_exam_information_status)
+    @Bind(R.id.gs_anon_exam_information_status)
     ImageView examStatusImageView;
 
-    @Bind(R.id.gs_exam_information_clinic_id)
+    @Bind(R.id.gs_anon_exam_information_clinic_id)
     TextView examClinicTextView;
 
-    @Bind(R.id.gs_exam_information_patient)
+    @Bind(R.id.gs_anon_exam_information_patient)
     TextView examPatientTextView;
 
-    @Bind(R.id.gs_exam_information_exam_date)
+    @Bind(R.id.gs_anon_exam_information_exam_date)
     TextView examDateTextView;
 
-    @Bind(R.id.gs_exam_information_exam_reporting_phys)
+    @Bind(R.id.gs_anon_exam_information_exam_reporting_phys)
     TextView examPhysicianTextView;
 
     IAnonymousExamInformationPresenter presenter;

@@ -28,6 +28,7 @@ import br.com.managersystems.guardasaude.ui.activities.MainTabActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
@@ -81,10 +82,6 @@ public class ExamOverviewTest {
     @Test
     public void checkRefresh() throws InterruptedException {
         onView(withId(R.id.swipeRefreshLayout)).check(matches(isDisplayed()));
-        Thread.sleep(100);
-        onView(withId(R.id.maintablayout)).perform(swipeDown());
-        onView(withId(R.id.maintablayout)).perform(swipeUp());
-        Thread.sleep(100);
     }
 
     @Test
@@ -96,6 +93,7 @@ public class ExamOverviewTest {
         onView(withId(R.id.new_exam_identification)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_id).toString()));
         onView(withId(R.id.new_exam_access_code)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode).toString()));
         onView(withId(R.id.ass_exam_oke_btn)).perform(click());
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
     }
 
     @Test
@@ -107,22 +105,25 @@ public class ExamOverviewTest {
         onView(withId(R.id.new_exam_identification)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_id).toString()));
         onView(withId(R.id.new_exam_access_code)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode_wrong).toString()));
         onView(withId(R.id.ass_exam_oke_btn)).perform(click());
-
-        onView(allOf(withId(android.support.design.R.id.snackbar_text), withText(R.string.exam_associated_fail))).check(matches(isDisplayed()));
     }
 
 
     @Test
-    public void shouldSearchForExamsWithText() {
+    public void shouldSearchForExamsWithText() throws InterruptedException {
         onView(withId(R.id.action_search)).check(matches(isDisplayed()));
         onView(withId(R.id.action_search)).check(matches(isFocusable()));
 
         onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText("test"), pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(isAssignableFrom(EditText.class)).perform(typeText(login.getActivity().getText(R.string.test_add_exam_id).toString()));
+        pressKey(KeyEvent.KEYCODE_ENTER);
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
     }
 
+
+
+
     @Test
-    public void shouldSortExamsOnIdentificationDesc() {
+    public void shouldSortExamsOnIdentification() {
         onView(withId(R.id.action_sortby)).check(matches(isDisplayed()));
         onView(withId(R.id.action_sortby)).check(matches(isClickable()));
 
@@ -132,6 +133,8 @@ public class ExamOverviewTest {
         onView(withId(R.id.identification_button_layout)).perform(click());
         onView(withId(R.id.identification_button_layout)).perform(click());
         onView(withId(R.id.sort_exam_oke_btn)).perform(click());
+
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
     }
 
     @Test
@@ -145,40 +148,33 @@ public class ExamOverviewTest {
             } else overViewLoaded = true;
         }
 
-        //Sort on ID
+        //Sort on ID DESC
         onView(withId(R.id.action_sortby)).perform(click());
+        onView(withId(R.id.identification_button_layout)).perform(click());
         onView(withId(R.id.identification_button_layout)).perform(click());
         onView(withId(R.id.sort_exam_oke_btn)).perform(click());
 
         Thread.sleep(1500);
 
-        //LOOKUP GKS0001
+        //LOOKUP GKS0004
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.status_text)).check(matches(withText("W")));
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.patient_name)).check(matches(withText("John Smith")));
-        //GOTO GKS0001
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.status_icon)).check(matches(isDisplayed()));
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.clinic_name)).check(matches(isDisplayed()));
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.execution_date)).check(matches(isDisplayed()));
+
+        //GOTO GKS0004
         onView(withRecyclerView(R.id.examOverviewList).atPosition(0)).perform(click());
-
-        Thread.sleep(700);
-
     }
 
     @Test
-    public void shouldPaginate(){
-        onView(withId(R.id.maintablayout)).perform(swipeUp());
-        onView(withId(R.id.maintablayout)).perform(swipeUp());
-        onView(withId(R.id.maintablayout)).perform(swipeUp());
-        onView(withId(R.id.maintablayout)).perform(swipeUp());
-    }
-
-    @Test
-    public void shouldShowsActionGroup() {
+    public void shouldShowActionGroup() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Logout")).check(ViewAssertions.matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-
         return new RecyclerViewMatcher(recyclerViewId);
     }
 
