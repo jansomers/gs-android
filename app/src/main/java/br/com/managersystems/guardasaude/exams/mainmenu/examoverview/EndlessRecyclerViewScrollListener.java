@@ -3,6 +3,9 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+/**
+ * TODO what to do with doc?
+ */
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.

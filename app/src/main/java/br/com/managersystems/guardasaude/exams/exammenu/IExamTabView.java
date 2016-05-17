@@ -13,9 +13,12 @@ public interface IExamTabView {
     void setTabTitles();
 
     /**
-     * Get shared preferences from preference manager
+     * Gets shared preferences from preference manager
      */
     void getSharedPref();
 
+    /**
+     * Navigates to the login activity after the user logs out.
+     */
     void navigateToLogin();
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Jan on 4/05/2016.
+ * POJO that holds the response after posting a new comment.
  */
 public class PostCommentResponse {
 

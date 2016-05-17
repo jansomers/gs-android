@@ -7,7 +7,7 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 public interface IExamAdapter {
     /**
-     * Gets strings from resources
+     * Gets strings from resources.
      */
     void initialiseStrings();
 
@@ -25,11 +25,5 @@ public interface IExamAdapter {
      */
     void addAllExams(List<Exam> exams);
 
-    /**
-     * Splits string on space
-     * Converts a string to camelcase
-     * @param string: The string you want to convert to camelcase
-     * @return converted string
-     */
-    String toCamelCase(String string);
+
 }

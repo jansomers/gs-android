@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Jan on 27/04/2016.
+ * POJO that holds the report information for an exam after retrieving the report.
  */
 public class ReportResponse {
     private String result;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Jan on 3/05/2016.
+ * POJO that holds everything a comment needs.
  */
 public class Comment {
 

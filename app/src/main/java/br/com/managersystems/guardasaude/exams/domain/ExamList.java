@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * POJO that holds all exams for an account with extra information.
+ */
 public class ExamList {
     private List<Exam> rows = new ArrayList<Exam>();
     private Integer total;

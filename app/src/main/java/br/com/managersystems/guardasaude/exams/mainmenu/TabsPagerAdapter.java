@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.ui.fragments.ExamOverviewFragment;
-import br.com.managersystems.guardasaude.ui.fragments.MessagesFragment;
-import br.com.managersystems.guardasaude.ui.fragments.NotificationFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter{
 

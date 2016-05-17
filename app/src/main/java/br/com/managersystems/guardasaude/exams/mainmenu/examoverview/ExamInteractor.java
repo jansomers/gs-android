@@ -10,8 +10,8 @@ import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
 import br.com.managersystems.guardasaude.exams.domain.IndividualExamResponse;
-import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousExamRetrievedListener;
-import br.com.managersystems.guardasaude.exams.exammenu.information.onAnonymousInformationRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousInformationRetrievedListener;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,7 +110,7 @@ public class ExamInteractor implements IExamListInteractor {
     }
 
     @Override
-    public void getAnonymousExam(final onAnonymousExamRetrievedListener listener, String accessCodeString, String examIdString) {
+    public void getAnonymousExam(final OnAnonymousExamRetrievedListener listener, String accessCodeString, String examIdString) {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
@@ -134,7 +134,7 @@ public class ExamInteractor implements IExamListInteractor {
 
 
     @Override
-    public void getExam(final onAnonymousInformationRetrievedListener listener, Intent intent) {
+    public void getExam(final OnAnonymousInformationRetrievedListener listener, Intent intent) {
         Exam exam = intent.getParcelableExtra("exam");
         if (exam.getIdentification().isEmpty()) {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");

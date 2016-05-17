@@ -211,7 +211,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @Override
-    public void onSuccessExamList(ArrayList<Exam> exams) {
+    public void showExamList(ArrayList<Exam> exams) {
         progressBar.setVisibility(View.GONE);
         failText.setVisibility(View.GONE);
         this.examList = exams;
@@ -219,7 +219,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @Override
-    public void onSuccessNextExamList(ArrayList<Exam> exams) {
+    public void showNextExamList(ArrayList<Exam> exams) {
         progressBar.setVisibility(View.GONE);
         failText.setVisibility(View.GONE);
         this.examList.addAll(exams);
@@ -229,7 +229,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @Override
-    public void onFailureExamList() {
+    public void showLoadingExamsError() {
         failText.setVisibility(View.VISIBLE);
         failText.setText(R.string.exam_overview_failed);
         progressBar.setVisibility(View.GONE);
@@ -248,7 +248,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @Override
-    public void onFailureFindNewExam() {
+    public void showInternalFailForNewExam() {
         snackInternalFailNewExam.show();
     }
 

@@ -7,7 +7,7 @@ import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamInterac
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.activities.AnonymousExamInformationActivity;
 
-public class AnonymousExamInformationPresenter implements onAnonymousInformationRetrievedListener, IAnonymousExamInformationPresenter {
+public class AnonymousExamInformationPresenter implements OnAnonymousInformationRetrievedListener, IAnonymousExamInformationPresenter {
     private ExamInteractor interactor;
     private AnonymousExamInformationActivity activity;
 

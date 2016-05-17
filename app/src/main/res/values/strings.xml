@@ -5,7 +5,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="authenticating_message">Authenticating...</string>
+    <string name="authenticating_message">Authenticating&#8230;</string>
     <string name="exams">Exams</string>
     <string name="filter">Filter</string>
     <string name="notifications">Notifications</string>
@@ -107,6 +107,8 @@
     <string name="country">Country *</string>
     <string name="brazil">Brazil</string>
     <string name="other">Other</string>
+
+
     <!--Arrays -->
     <string-array name="genders">
         <item>@string/male</item>

@@ -7,6 +7,9 @@ import android.os.Parcelable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * POJO that holds information about an Image.
+ */
 public class ExamImage implements Parcelable {
     private String examIdentification;
     private String imageIdentification;
