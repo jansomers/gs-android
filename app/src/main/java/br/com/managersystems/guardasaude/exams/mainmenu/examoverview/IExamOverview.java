@@ -14,12 +14,12 @@ public interface IExamOverview {
      * The examlist was received successfully
      * @param exams = The list of exams
      */
-    void onSuccessExamList(ArrayList<Exam> exams);
+    void showExamList(ArrayList<Exam> exams);
 
     /**
      * The examlist was not received successfully
      */
-    void onFailureExamList();
+    void showLoadingExamsError();
 
     /**
      * The new exam was successfully associated with the user
@@ -29,7 +29,7 @@ public interface IExamOverview {
     /**
      * The new exam could not be associated with the user
      */
-    void onFailureFindNewExam();
+    void showInternalFailForNewExam();
 
     /**
      * Navigate to the detail page of an exam
@@ -68,5 +68,5 @@ public interface IExamOverview {
      */
     void setLoginPresenter(LoginPresenter loginPresenter);
 
-    void onSuccessNextExamList(ArrayList<Exam> rows);
+    void showNextExamList(ArrayList<Exam> rows);
 }

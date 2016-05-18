@@ -16,6 +16,7 @@ import java.util.List;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.fragments.ExamOverviewFragment;
+import br.com.managersystems.guardasaude.util.StringUtils;
 
 public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder> implements IExamAdapter {
     private LayoutInflater inflater;
@@ -57,7 +58,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
     public void onBindViewHolder(ExamViewHolder holder, int position) {
         final Exam current = examList.get(position);
         holder.examId.setText(current.getIdentification());
-        holder.patientName.setText(toCamelCase(current.getPatient()));
+        holder.patientName.setText(StringUtils.anyCaseToNameCase(current.getPatient()));
         holder.clinicName.setText(current.getClinicName());
         holder.executionDate.setText(removeHoursFromDate(current.getExecutionDate()));
         holder.statusText.setText(current.getStatus());
@@ -82,7 +83,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         return examList.size();
     }
 
-    @Override
+/*    @Override
     public String toCamelCase(String string) {
         if (string == null)
             return null;
@@ -98,7 +99,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
                 ret.append(" ");
         }
         return ret.toString();
-    }
+    }*/
 
     @Override
     public String removeHoursFromDate(String date) {

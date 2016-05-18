@@ -5,10 +5,11 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-
+/**
+ * POJO that holds all information about an exam.
+ */
 public class Exam implements Parcelable {
 
     private int id;

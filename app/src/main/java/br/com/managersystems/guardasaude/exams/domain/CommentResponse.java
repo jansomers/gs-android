@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Jan on 3/05/2016.
+ * POJO that holds the response after retrieving all comments.
  */
 public class CommentResponse {
     private String dataClassification;

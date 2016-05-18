@@ -5,6 +5,9 @@ import android.util.Patterns;
 
 import org.jsoup.Jsoup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Utility class handles and/or returns String objects.
  * Currently handles:
@@ -80,5 +83,15 @@ public class StringUtils {
             }
         }
         return inArray;
+    }
+
+    public static String[] rolesToDisplayRoles(String[] rolesArray) {
+        List<String> displayRoles = new ArrayList<>();
+
+        for (String role: rolesArray) {
+            String roleConverted = anyCaseToFormalCase(role.split("_")[role.split("_").length -1]);
+            displayRoles.add(roleConverted);
+        }
+        return displayRoles.toArray(new String[displayRoles.size()]);
     }
 }

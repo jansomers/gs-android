@@ -6,22 +6,22 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 public interface IImagesInteractor {
     /**
-     * Gets exam from intent
-     * If exam has no identification call listeners onExamFailure method
-     * Else call listeners onExamReceived method and pass exam
-     * @param intent
+     * Gets an exam from the intent
+     * If the exam has no identification the listener's onExamFailure method is called upon.
+     * Else calls the onExamSuccess method and passes the exams to the listener.
+     * @param intent Intent object that holds the exam.
      */
     void getExam(Intent intent);
 
     /**
-     * Makes a call to the examApi to get a certain image for an exam
-     * If image is received call listeners onImageSuccess method and pass ExamImageResponse
-     * If all images are received call listeners onAllImagesSuccess method
-     * @param exam
-     * @param user
-     * @param token
-     * @param exId
-     * @param exDocId
+     * Makes a call to the examApi to get a certain image for an exam.
+     * If the image is received calls listener's onImageSuccess method and passes an ExamImageResponse
+     * If all images are received calls listener's onAllImagesSuccess method.
+     * @param exam Exam object which the image belongs to.
+     * @param username String object representing the username of the user.
+     * @param token String object representing the token.
+     * @param exId String that holds the exam identification.
+     * @param exDocId String that holds the document identification.
      */
-    void getExamImage(Exam exam,String user, String token,String exId, String exDocId);
+    void getExamImage(Exam exam,String username, String token,String exId, String exDocId);
 }

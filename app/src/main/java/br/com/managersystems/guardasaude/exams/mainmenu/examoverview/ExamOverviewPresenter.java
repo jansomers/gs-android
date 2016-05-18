@@ -64,12 +64,12 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
 
     @Override
     public void onSuccessGetExamList(ExamList examList) {
-        examOverview.onSuccessExamList((ArrayList<Exam>) examList.getRows());
+        examOverview.showExamList((ArrayList<Exam>) examList.getRows());
     }
 
     @Override
     public void onFailureGetExamList() {
-        examOverview.onFailureExamList();
+        examOverview.showLoadingExamsError();
     }
 
     @Override
@@ -79,12 +79,12 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
 
     @Override
     public void onFailureFindNewExam() {
-        examOverview.onFailureFindNewExam();
+        examOverview.showInternalFailForNewExam();
     }
 
     @Override
     public void onSuccessGetNextExamList(ExamList examList) {
-        examOverview.onSuccessNextExamList((ArrayList<Exam>) examList.getRows());
+        examOverview.showNextExamList((ArrayList<Exam>) examList.getRows());
     }
 
 }

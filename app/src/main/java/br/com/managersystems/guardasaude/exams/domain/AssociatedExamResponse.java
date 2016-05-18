@@ -3,6 +3,9 @@ package br.com.managersystems.guardasaude.exams.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * POJO that holds the response after associating an exam with your account.
+ */
 public class AssociatedExamResponse {
     private String result;
     private String code;

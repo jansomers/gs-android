@@ -3,38 +3,32 @@ package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
-import okhttp3.ResponseBody;
 
 public interface OnImagesRetrievedListener {
     /**
-     * The exam could not be found
-     * Address fragment to show error to user
+     * Notofies the fragment to show an error when the exam can't be retrieved.
      */
     void onExamFailure();
 
     /**
-     * The image could not be found
-     * Address fragment to show error to user
+     * Notifies fragment to show  an error to  the user when the  image could not be found.
      */
     void onImageFailure();
 
     /**
-     * The exam was successfully received
-     * calls retrieveImages method
-     * @param exam
+     * Calls retrieveImages method after an exam was successfully retrieved.
+     * @param exam Exam object that holds the images.
      */
     void onExamReceived(Exam exam);
 
     /**
-     * The image was successfully received
-     * ExamImageResponse is added to the list of imagefiles
-     * @param response
+     * ExamImageResponse is added to the list of imagefiles after the image was successfully received
+     * @param response ExamImageResponse that represents the response of a request.
      */
     void onImageSuccess(ExamImageResponse response);
 
     /**
-     * All images were succesfully receives
-     * communicates the successfull reception to fragment
+     * Notifies the successful retrieval of all images to the fragment.
      */
     void onAllImagesSuccess();
 }

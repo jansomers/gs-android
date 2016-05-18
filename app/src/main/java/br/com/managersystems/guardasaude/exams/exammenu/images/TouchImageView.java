@@ -1,6 +1,7 @@
 package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 /*
+    TODO Wat met deze doc?
  * TouchImageView.java
  * By: Michael Ortiz
  * Updated By: Patrick Lackemacher
@@ -402,6 +403,7 @@ public class TouchImageView extends ImageView {
     /**
      * Set zoom parameters equal to another TouchImageView. Including scale, position,
      * and ScaleType.
+     * @param img
      */
     public void setZoom(TouchImageView img) {
         PointF center = img.getScrollPosition();

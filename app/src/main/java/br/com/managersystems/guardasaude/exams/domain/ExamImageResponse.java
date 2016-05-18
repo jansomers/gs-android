@@ -1,5 +1,8 @@
 package br.com.managersystems.guardasaude.exams.domain;
 
+/**
+ * POJO that holds information after retrieving an image.
+ */
 public class ExamImageResponse {
 
     private String result;

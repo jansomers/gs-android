@@ -1,23 +1,22 @@
 package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 import java.util.ArrayList;
 
 public interface IGridViewImageAdapter {
     /**
-     * Convert each bitmap in examImages array to Uri with use of bitmapToUriConverter
-     * Add Uris to arraylist of uris
-     * @return arraylist of Uris
+     * Converts each bitmap inside an array of images into a Uri making use of the
+     * bitmapToUriConverter. Adds Uris to an ArrayList.
+     * @return ArrayList object containg Uri objects.
      */
     ArrayList<Uri> resizeBitmaps();
 
     /**
-     * Convert bitmap to Uri using BitmapFactory
-     * @param mBitmap : Bitmap that needs to be converted to Uri
-     * @return Uri
+     * Converts a bitmap to an Uri object using BitmapFactory
+     * @param mBitmap : Bitmap objects that needs to be converted into a Uri
+     * @return Uri object that represents the converted Bitmap.
      */
     Uri bitmapToUriConverter(Bitmap mBitmap);
 

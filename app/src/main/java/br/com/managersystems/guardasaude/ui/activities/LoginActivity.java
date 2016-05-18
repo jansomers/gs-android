@@ -26,12 +26,13 @@ import java.util.ArrayList;
 import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 import br.com.managersystems.guardasaude.login.ILoginView;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
+import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.ui.dialogs.ForgotPasswordDialog;
 import br.com.managersystems.guardasaude.ui.dialogs.NewAnonymousExamDialog;
+import br.com.managersystems.guardasaude.util.StringUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -256,7 +257,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         AlertDialog.Builder roleOptionBuilder = new AlertDialog.Builder(this);
         roleOptionBuilder.setCustomTitle(getLayoutInflater().inflate(R.layout.dialog_role_title, null));
         String[] rolesArray = roles.toArray(new String[roles.size()]);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dialog_role_custom_checked_textview, rolesArray);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dialog_role_custom_checked_textview, StringUtils.rolesToDisplayRoles(rolesArray));
         roleOptionBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
