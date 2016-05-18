@@ -224,32 +224,7 @@
                     android:orientation="horizontal"
                     android:weightSum="1">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_attachment" />
-
-                        <Button
-                            android:id="@+id/documents_btn"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="16dp"
-                            android:background="@android:color/transparent"
-                            android:textSize="12sp"
-                            android:text="@string/download_documents"
-                            android:gravity="center"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -257,7 +232,8 @@
                         android:layout_weight="0.4"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="5dp"
+                        android:layout_marginTop="2dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -281,7 +257,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/comment_image_btns_rel_layout"
+            android:id="@+id/doc_comment_image_btns_rel_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -292,7 +268,17 @@
                 android:layout_alignParentTop="true"
                 android:background="@android:color/background_light"
                 android:orientation="horizontal"
+                android:layout_marginTop="6dp"
                 android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/documents_btn"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_pdf"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="42dp"
+                    android:contentDescription="@string/pdf"
+                    />
 
                 <Button
                     android:id="@+id/comments_btn"

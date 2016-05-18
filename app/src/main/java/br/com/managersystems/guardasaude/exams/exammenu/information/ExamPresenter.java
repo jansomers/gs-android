@@ -39,7 +39,6 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     public void retrieveInformation(Intent intent) {
         Log.d(getClass().getSimpleName(), "Received intent from view... Forwarding to interactor");
         examInteractor.getExam(intent);
-
     }
 
     @Override
@@ -57,14 +56,12 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     public void onExamFailure() {
         Log.d(getClass().getSimpleName(), "Received interactor failure... Alerting view!");
         informationFragment.showInformationError();
-
     }
 
     @Override
     public void onExamSuccess(Exam exam) {
         Log.d(getClass().getSimpleName(), "Received interactor success... Notifying view!");
         informationFragment.showInformation(exam);
-
     }
 
     @Override

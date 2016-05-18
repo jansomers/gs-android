@@ -147,6 +147,8 @@
     <string name="associate">Associate Exam</string>
     <string name="exam_referring_phys">Referring physician</string>
     <string name="download_documents">Documents</string>
+    <string name="patient_role">ROLE_PATIENT</string>
+    <string name="pdf">Pdf icon</string>
 
     <string-array name="image_ids">
         <item>@drawable/image_1</item>

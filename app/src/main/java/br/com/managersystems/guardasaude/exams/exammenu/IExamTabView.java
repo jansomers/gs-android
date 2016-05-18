@@ -10,7 +10,7 @@ public interface IExamTabView {
     /**
      * Sets titles for tabs
      */
-    void setTabTitles();
+    void setAllTabTitles();
 
     /**
      * Get shared preferences from preference manager

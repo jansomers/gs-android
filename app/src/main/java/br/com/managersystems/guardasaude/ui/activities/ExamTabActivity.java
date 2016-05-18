@@ -11,8 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.exams.exammenu.ExamOneTabPagerAdapter;
+import br.com.managersystems.guardasaude.exams.exammenu.ExamTabPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.IExamTabView;
+import br.com.managersystems.guardasaude.exams.exammenu.information.ExamPresenter;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,15 +29,19 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
 
     private SharedPreferences sp;
     private ExamTabsPagerAdapter examTabPagerAdapter;
+    private ExamOneTabPagerAdapter examOneTabPagerAdapter;
     private String[] tabtitles;
-
+    private ExamTabPresenter examPresenter;
     private Menu menu;
     private LoginPresenter loginPresenter;
+    private boolean examStatusIsReady;
+    private String role;
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (loginPresenter.validateToken(sp.getString("expires", "")) && !(sp.getString("role", "").isEmpty())) init();
+        if (loginPresenter.validateToken(sp.getString("expires", "")) && !(sp.getString("role", "").isEmpty()))
+            init();
         else navigateToLogin();
     }
 
@@ -51,19 +58,40 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     public void init() {
         setSupportActionBar(toolbar);
         getSharedPref();
+        examPresenter = new ExamTabPresenter(this);
         loginPresenter = new LoginPresenter(this, sp);
-        setTabTitles();
-        setTabsPagerAdapter();
+        examPresenter.retrieveExamStatus(getIntent());
+
+        if (role.equalsIgnoreCase(getResources().getString(R.string.patient_role))) {
+            if (this.examStatusIsReady) {
+                setAllTabsPagerAdapter();
+            } else {
+                setOneTabsPagerAdapter();
+            }
+        } else {
+            setAllTabsPagerAdapter();
+        }
     }
 
-    private void setTabsPagerAdapter() {
-        examTabPagerAdapter=new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles,sp);
+    private void setOneTabsPagerAdapter() {
+        setOneTabTitle();
+        examOneTabPagerAdapter = new ExamOneTabPagerAdapter(getSupportFragmentManager(), tabtitles);
+        viewPager.setAdapter(examOneTabPagerAdapter);
+    }
+
+    private void setAllTabsPagerAdapter() {
+        setAllTabTitles();
+        examTabPagerAdapter = new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles, sp);
         viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
-    public void setTabTitles() {
+    public void setAllTabTitles() {
         tabtitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
+    }
+
+    public void setOneTabTitle() {
+        tabtitles = new String[]{(String) getResources().getText(R.string.Information)};
     }
 
     @Override
@@ -89,9 +117,11 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        role = sp.getString("role", null);
     }
 
     @Override
@@ -101,11 +131,16 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
     public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
         return examTabPagerAdapter;
     }
 
-    public void setCurrentItem(int position){
+    public void setCurrentItem(int position) {
         examTabPagerAdapter.getItem(position);
+    }
+
+    public void setExamStatusIsReady(boolean isReady) {
+        this.examStatusIsReady = isReady;
     }
 }

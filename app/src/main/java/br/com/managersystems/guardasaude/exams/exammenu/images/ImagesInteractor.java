@@ -45,7 +45,6 @@ public class ImagesInteractor implements IImagesInteractor{
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         return retrofit.create(ExamApi.class);
     }
 

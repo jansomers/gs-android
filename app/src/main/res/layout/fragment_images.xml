@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_material_special_primary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/images_fragment">
 
     <TextView
         android:id="@+id/imagesFail"
