@@ -87,7 +87,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     LinearLayout commentLayout;
 
     @Bind(R.id.doc_comment_image_btns_rel_layout)
-    LinearLayout docCommentImageButtons;
+    RelativeLayout docCommentImageButtons;
 
     ExamPresenter presenter;
     SharedPreferences sp;
