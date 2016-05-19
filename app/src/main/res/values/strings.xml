@@ -149,6 +149,7 @@
     <string name="associate">Associate Exam</string>
     <string name="exam_referring_phys">Referring physician</string>
     <string name="download_documents">Documents</string>
+    <string name="no_report">No report was found for this exam.</string>
 
     <string-array name="image_ids">
         <item>@drawable/image_1</item>

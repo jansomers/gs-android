@@ -70,7 +70,8 @@ public interface IRegisterView {
      * Shows the filtered suggestions for the input of a city and is called upon by the presenter,
      * after successfully retrieving the locations.
      * @param cityText  AutoCompleteTextView representing the city textview.
+     * @param cityids
      * @param cities List of strings representing the cities that are suggested to the user.
      */
-    void showCitySuggestions(AutoCompleteTextView cityText, List<String> cities);
+    void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityids, List<String> cities);
 }

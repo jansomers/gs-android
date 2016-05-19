@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     SharedPreferences sp;
 
+
     private Snackbar snackSuccesfulPwdReq;
     private Snackbar snackFailedPwdReq;
     private Snackbar snackInternalFailNewExam;
@@ -172,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     @Override
-    public void domainRetrievedSuccesfully(ArrayList<AccessDomain> accessDomainArrayList) {
+    public void showDomainOptionDialog(ArrayList<AccessDomain> accessDomainArrayList) {
         String domains[] = new String[accessDomainArrayList.size()];
         int placeCounter = 0;
         for (AccessDomain domain : accessDomainArrayList) {
@@ -187,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO ADD event
+
             }
         });
         AlertDialog dialog = builder.create();
@@ -217,6 +218,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         navigateToOverviewActivity();
 
     }
+
 
 
     @Override
@@ -350,6 +352,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         final NewAnonymousExamDialog dialog = new NewAnonymousExamDialog(this);
         dialog.activateRequestBtn();
         dialog.show();
+
     }
 
     @Override
@@ -357,6 +360,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         presenter.retrieveAnonymousExam(accessCodeString, examIdString);
     }
 
+
+    public LoginPresenter getPresenter() {
+        return presenter;
+    }
     @Override
     public void onBackPressed() {
         //Don't press back

@@ -1,6 +1,5 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
-import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -147,7 +145,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         Log.d(getClass().getSimpleName(), "Received success from Presenter... Showing Information");
         hideableLayout.setVisibility(View.VISIBLE);
         commentsBtn.setVisibility(isPatient ? View.GONE : View.VISIBLE);
-        imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().matches("finished | ready") ? View.GONE : View.VISIBLE);
+        imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().equals("available") ? View.GONE : View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
         examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));

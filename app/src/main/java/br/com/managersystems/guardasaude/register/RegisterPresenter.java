@@ -8,9 +8,18 @@ import java.util.List;
 import br.com.managersystems.guardasaude.register.domain.LocationResponse;
 import br.com.managersystems.guardasaude.register.domain.LocationRow;
 import br.com.managersystems.guardasaude.ui.activities.RegisterActivity;
+import br.com.managersystems.guardasaude.util.StringUtils;
 
 /**
- * Created by Jan on 10/05/2016.
+ * This class is an implementation of the IRegisterPresenter
+ * <p/>
+ * Authors:
+ *
+ * @author Jan Somers
+ * @author Thanee Stevens
+ *         <p/>
+ *         Also see:
+ * @see IRegisterPresenter
  */
 public class RegisterPresenter implements IRegisterPresenter,OnLocationRetrievedListener{
 
@@ -36,12 +45,20 @@ public class RegisterPresenter implements IRegisterPresenter,OnLocationRetrieved
     }
 
     @Override
+    public void registerUser(String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate) {
+        String digitCPF = StringUtils.tryReformatCPF(identification);
+        interactor.addNewAccount(firstName,lastName,email,country, city, password, verificationPw,digitCPF,idType,gender, birthDate);
+    }
+
+    @Override
     public void onSuccessfulLocationResponse(LocationResponse locationResponse) {
         List<String> cities = new ArrayList<>();
+        List<String> cityids = new ArrayList<>();
         for (LocationRow row : locationResponse.getRows()) {
-            cities.add(row.getLocationName());
+            cities.add(row.getLocationValue());
+            cityids.add(row.getLocationID());
         }
-        activity.showCitySuggestions(cityText, cities);
+        activity.showCitySuggestions(cityText,cityids, cities);
     }
 
     @Override

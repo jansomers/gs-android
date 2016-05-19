@@ -9,6 +9,7 @@ import java.util.Date;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.BaseUser;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
+import br.com.managersystems.guardasaude.login.domain.ResetResponse;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 import retrofit2.Call;
@@ -114,6 +115,30 @@ public class LoginInteractor implements ILoginInteractor {
         editor.putString("role", "");
         editor.apply();
         listener.onDeletedInfo();
+    }
+
+    @Override
+    public void handlePasswordRequest(final OnPasswordResetListener listener, String forgotPwdEmail) {
+        if(client == null) {
+            initiateRetrofit();
+        }
+        Call<ResetResponse> call = client.resetPassword(forgotPwdEmail);
+        call.enqueue(new Callback<ResetResponse>() {
+            @Override
+            public void onResponse(Call<ResetResponse> call, Response<ResetResponse> response) {
+                if (response.body().getSuccess().toLowerCase().equals("true")){
+                    listener.onPassWordReset();
+                }
+                else {
+                    listener.onPassWordResetFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResetResponse> call, Throwable t) {
+                listener.onPassWordResetFailed();
+            }
+        });
     }
 
 }

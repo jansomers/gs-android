@@ -31,12 +31,14 @@ import android.widget.DatePicker;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.register.IRegisterView;
 import br.com.managersystems.guardasaude.register.RegisterPresenter;
@@ -154,6 +156,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     private ArrayAdapter<String> countryAdapter;
     private ArrayAdapter<String> languageAdapter;
     private ArrayAdapter<String> idTypeAdapter;
+    private ArrayList<String> cityIds;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,8 +165,18 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         ButterKnife.bind(this);
         presenter = new RegisterPresenter(this);
         context = getApplicationContext();
+        cityIds = new ArrayList<>();
         inputs = new HashMap<>();
 
+        if (BuildConfig.DEBUG) {
+            emailText.setText("jan@gmail.com");
+            firstNameText.setText("jan");
+            lastNameText.setText("somers");
+            passwordText.setText("Abcde1");
+            vPasswordText.setText("Abcde1");
+            birthDateText.setText("03/05/1991");
+            idInputText.setText("123.234.234-22");
+        }
         initiateAdapters();
         initiateListeners();
         addAllInputsToMap();
@@ -257,6 +270,12 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter = s.toString();
                 if (countrySpinner.getSelectedItem().toString().toLowerCase().equals("brazil")) {
                     filter = s.toString();
                     if (filter.length() >= 2) {
@@ -265,11 +284,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                 } else {
                     cityAdapter.clear();
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filter = s.toString();
 
             }
         };
@@ -335,8 +349,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                         // This exception can happen only once
                     }
                     cityText.addTextChangedListener(cityWatcher);
-                }
-                else  {
+                } else {
                     try {
                         cityText.removeTextChangedListener(cityWatcher);
                     } catch (Exception e) {
@@ -489,7 +502,21 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     @OnClick(R.id.submit_new_account_btn)
     public void clickCreateAccount() {
         boolean readyToRegister = validateFormClientSide();
-        if (readyToRegister) { /* get all input values and forward to presenter.requestNewAccount */} else {
+        if (readyToRegister) {
+            presenter.registerUser(
+                    firstNameText.getEditableText().toString(),
+                    lastNameText.getEditableText().toString(),
+                    emailText.getEditableText().toString(),
+                    "BR",
+                    cityIds.get(cityAdapter.getPosition(cityText.getEditableText().toString())),
+                    passwordText.getEditableText().toString(),
+                    vPasswordText.getEditableText().toString(),
+                    idInputText.getEditableText().toString(),
+                    idTypeText.getEditableText().toString(),
+                    genderSpinner.getSelectedItem().toString().substring(0,1).toUpperCase(),
+                    birthDateText.getText().toString());
+
+        /* get all input values and forward to presenter.requestNewAccount */} else {
         } /* do nothing */
 
     }
@@ -519,12 +546,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                         allFieldsValid = !textView.getEditableText().toString().isEmpty();
                         break;
                     case (R.id.forced_city_input):
-                        for (int i = 0; i < cityText.getAdapter().getCount(); i++) {
-                            if (allFieldsValid = true) {
-                                if (!cityText.getText().equals(cityText.getAdapter().getItem(i)))
-                                    allFieldsValid = false;
-                            }
-                        }
+                        boolean matchFound = false;
+                        ArrayAdapter<String> adapter = (ArrayAdapter<String>) cityText.getAdapter();
+                        String city = cityText.getText().toString();
+                        if (adapter.getPosition(city) >= 0 ) matchFound = true;
+                        allFieldsValid = matchFound;
                         break;
                     case (R.id.forced_language_input):
                         allFieldsValid = StringUtils.stringInArray(textView.getEditableText().toString(), getResources().getStringArray(R.array.languages));
@@ -550,6 +576,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         return allFieldsValid;
     }
 
+    /**
+     * Displays a dialog where users can select their birth date.
+     * Sets the starting / maxdate to tthe current date.
+     */
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSelectedListener, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
@@ -597,19 +627,30 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
 
     @Override
-    public void showCitySuggestions(AutoCompleteTextView cityText, List<String> cities) {
+    public void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityIdent, List<String> cities) {
         ArrayAdapter<String> cityAdapter = (ArrayAdapter<String>) cityText.getAdapter();
-        cityAdapter.clear();
+        cityAdapter.clear();;
         cityAdapter.addAll(cities);
+        if (cityIdent.size() > 0) {
+            cityIds = (ArrayList<String>) cityIdent;
+        }
         cityAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Requests focus on a textview and scrolls to the bottom of the textview.
+     * @param textView Textview object that needs to be focused.
+     */
     private void focusText(TextView textView) {
         textView.setFocusableInTouchMode(true);
         textView.requestFocus();
         scrollView.scrollTo(0, textView.getBottom());
     }
 
+    /**
+     * Clears the text.
+     * @param textView TextView object that needs to be cleared of text.
+     */
     private void clearText(TextView textView) {
         textView.getEditableText().clear();
     }

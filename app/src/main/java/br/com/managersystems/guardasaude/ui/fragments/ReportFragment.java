@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 public class ReportFragment extends Fragment implements IExamReportView {
 
     @Bind(R.id.report_test_textview)
-    TextView textView;
+    TextView reportTextView;
 
     ReportPresenter presenter;
 
@@ -47,15 +47,13 @@ public class ReportFragment extends Fragment implements IExamReportView {
         String text = String.valueOf(Html.fromHtml(report));
         // Tried to remove any comments from the html string.
         String withOutComments = text.replaceAll("<!--*-->", " ");
-        textView.setText(withOutComments);
+        reportTextView.setText(withOutComments);
 
     }
 
-    /**
-     * TODO Notify User there are no reports.
-     */
     @Override
     public void showReportError() {
         Log.d(getClass().getSimpleName(), "Received error alert from presenter.. Showing error in view!");
+        reportTextView.setText(getActivity().getText(R.string.no_report));
     }
 }

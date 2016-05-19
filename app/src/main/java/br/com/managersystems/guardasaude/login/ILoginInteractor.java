@@ -53,4 +53,6 @@ public interface ILoginInteractor {
     void saveUserInfo(OnLoginFinishedListener listener, SharedPreferences.Editor editor, boolean patient);
 
     void deleteUserInfo(OnLoginFinishedListener listener, SharedPreferences.Editor edit);
+
+    void handlePasswordRequest(OnPasswordResetListener listener, String forgotPwdEmail);
 }
