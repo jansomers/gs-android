@@ -10,15 +10,13 @@ import br.com.managersystems.guardasaude.ui.fragments.ImagesFragment;
 import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
 import br.com.managersystems.guardasaude.ui.fragments.ReportFragment;
 
-public class ExamTabsPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
+public class ExamOneTabPagerAdapter extends FragmentPagerAdapter {
+    final int PAGE_COUNT = 1;
     private String tabtitles[];
-    private SharedPreferences sharedPreferences;
 
-    public ExamTabsPagerAdapter(FragmentManager fm, String[] tabtitles, SharedPreferences sp) {
+    public ExamOneTabPagerAdapter(FragmentManager fm, String[] tabtitles) {
         super(fm);
         this.tabtitles = tabtitles;
-        this.sharedPreferences = sp;
     }
 
     @Override
@@ -30,15 +28,9 @@ public class ExamTabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new InformationFragment();
-
-            case 1:
-                return new ReportFragment();
-
-            case 2:
-                ImagesFragment imagesFragment = new ImagesFragment();
-                imagesFragment.setSharedPreferences(sharedPreferences);
-                return imagesFragment;
+               InformationFragment informationFragment = new InformationFragment();
+                informationFragment.setDocCommentImageButtonsNotVisible();
+                return informationFragment;
         }
         return null;
     }

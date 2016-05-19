@@ -27,9 +27,6 @@
 
         </activity>
 
-        <activity android:name=".ui.activities.FullScreenImageActivity">
-        </activity>
-
         <activity android:name=".ui.activities.AnonymousExamInformationActivity">
 
         </activity>

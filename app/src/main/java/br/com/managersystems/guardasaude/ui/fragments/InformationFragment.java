@@ -86,6 +86,9 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @Bind(R.id.gs_exam_comment_section_layout)
     LinearLayout commentLayout;
 
+    @Bind(R.id.doc_comment_image_btns_rel_layout)
+    LinearLayout docCommentImageButtons;
+
     ExamPresenter presenter;
     SharedPreferences sp;
     CommentsAdapter adapter;
@@ -94,6 +97,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     boolean commentsHidden;
     boolean isPatient;
     private Menu menu;
+    private boolean docCommentImageButtonsVisible = true;
 
 
     @Override
@@ -128,6 +132,9 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     }
 
     private void init() {
+        if(!docCommentImageButtonsVisible){
+            docCommentImageButtons.setVisibility(View.INVISIBLE);
+        }
         isPatient = (sp.getString("role", "").equals("ROLE_PATIENT"));
         Log.d(getClass().getSimpleName(), "Initializing Information Fragment...");
         Log.d(getClass().getSimpleName(), "Organizing startup views...");
@@ -241,5 +248,9 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @OnClick(R.id.documents_btn)
     public void downloadDocuments(){
         //TODO DOWNLOAD DOCUMENTS
+    }
+
+    public void setDocCommentImageButtonsNotVisible() {
+        docCommentImageButtonsVisible=false;
     }
 }

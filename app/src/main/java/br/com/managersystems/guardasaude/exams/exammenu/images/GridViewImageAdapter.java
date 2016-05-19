@@ -2,11 +2,9 @@ package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-import br.com.managersystems.guardasaude.ui.activities.FullScreenImageActivity;
+import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.ui.fragments.FullScreenImageFragment;
 
 public class GridViewImageAdapter extends BaseAdapter implements IGridViewImageAdapter {
 
@@ -55,17 +52,16 @@ public class GridViewImageAdapter extends BaseAdapter implements IGridViewImageA
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
-            imageView = new ImageView(activity);
+            imageView = new ImageView(activity.getApplicationContext());
+            Bitmap bitmap = examImages.get(position);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
+            imageView.setImageBitmap(bitmap);
+
+            imageView.setOnClickListener(new OnImageClickListener(position));
         } else {
             imageView = (ImageView) convertView;
         }
-
-        Bitmap bitmap = examImages.get(position);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(imageWidth, imageWidth));
-        imageView.setImageBitmap(bitmap);
-
-        imageView.setOnClickListener(new OnImageClickListener(position));
 
         return imageView;
     }
@@ -140,11 +136,10 @@ public class GridViewImageAdapter extends BaseAdapter implements IGridViewImageA
 
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(activity, FullScreenImageActivity.class);
-            i.putExtra("position", postion);
-            i.putParcelableArrayListExtra("images", resizeBitmaps());
-            i.putExtra("onClicked", true);
-            activity.startActivity(i);
+                FullScreenImageFragment fullScreenImageFragment = new FullScreenImageFragment();
+                fullScreenImageFragment.setPosition(postion);
+                fullScreenImageFragment.setUris(resizeBitmaps());
+                activity.getFragmentManager().beginTransaction().replace(R.id.images_fragment,fullScreenImageFragment).addToBackStack(null).commit();
         }
     }
 

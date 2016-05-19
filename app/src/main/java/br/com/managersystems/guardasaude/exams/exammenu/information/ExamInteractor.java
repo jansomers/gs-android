@@ -64,7 +64,6 @@ public class ExamInteractor implements  IExamInteractor {
             examListener.onExamFailure();
         }
 
-
     }
 
     @Override
