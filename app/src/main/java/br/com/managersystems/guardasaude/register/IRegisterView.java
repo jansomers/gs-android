@@ -74,4 +74,8 @@ public interface IRegisterView {
      * @param cities List of strings representing the cities that are suggested to the user.
      */
     void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityids, List<String> cities);
+
+    void showSuccesfulRegistration();
+
+    void showUnsuccesfulRegistration();
 }

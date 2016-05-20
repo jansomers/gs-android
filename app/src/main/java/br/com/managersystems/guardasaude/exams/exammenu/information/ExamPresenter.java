@@ -1,16 +1,9 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
-import android.support.test.espresso.core.deps.guava.io.Files;
-import android.util.Base64;
 import android.util.Log;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -7,6 +7,11 @@
     android:background="@drawable/background_material_special_primary"
     android:gravity="top">
 
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/gs_exam_coordinator_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.design.widget.CoordinatorLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -219,6 +224,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -231,6 +237,19 @@
                         android:orientation="horizontal"
                         android:padding="5dp">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_history_24dp" />
+
+                        <TextView
+                            android:id="@+id/gs_exam_information_extra"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/exam_referring_phys"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -275,13 +294,6 @@
                 android:background="@android:color/background_light"
                 android:padding="0dp">
 
-                <ImageView
-                    android:id="@+id/pdf_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_pdf_24dp_red" />
 
                 <Button
                     android:id="@+id/documents_btn"
@@ -289,7 +301,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="32sp"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/pdf_image"
+                    android:drawableLeft="@drawable/ic_pdf_24dp_red"
+                    android:drawablePadding="4dp"
                     android:padding="5dp"
                     android:text="@string/download_documents"
 

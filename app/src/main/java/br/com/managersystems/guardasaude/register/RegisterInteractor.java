@@ -3,6 +3,7 @@ package br.com.managersystems.guardasaude.register;
 import android.util.Log;
 
 import br.com.managersystems.guardasaude.register.domain.LocationResponse;
+import br.com.managersystems.guardasaude.register.domain.OnRegisteredListener;
 import br.com.managersystems.guardasaude.register.domain.RegistrationResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +59,7 @@ public class RegisterInteractor implements IRegisterInteractor {
     }
 
     @Override
-    public void addNewAccount(String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate) {
+    public void addNewAccount(final OnRegisteredListener listener,String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate) {
         if (client == null) {
             client = initiateRetrofit();
         }
@@ -66,13 +67,13 @@ public class RegisterInteractor implements IRegisterInteractor {
         call.enqueue(new Callback<RegistrationResponse>() {
             @Override
             public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                //DO STH
                 RegistrationResponse registrationResponse = response.body();
+                listener.onRegistered();
             }
 
             @Override
             public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                //DO STH
+                listener.onFailedToRegister();
             }
         });
 

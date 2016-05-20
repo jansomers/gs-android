@@ -39,8 +39,8 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
 
     @Override
     public void initialiseStrings() {
-        finished = context.getString(R.string.finished);
-        ready = context.getString(R.string.ready);
+        finished = context.getString(R.string.finished_char);
+        ready = context.getString(R.string.ready_char);
         available = context.getString(R.string.available);
     }
 

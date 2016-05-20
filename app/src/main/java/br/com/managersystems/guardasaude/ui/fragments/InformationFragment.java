@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -34,12 +35,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -83,8 +81,14 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @Bind(R.id.gs_exam_information_exam_reporting_phys)
     TextView examRepPhysTextView;
 
+    @Bind(R.id.gs_exam_information_extra)
+    TextView extraTextView;
+
     @Bind(R.id.hideable_information_layout)
     RelativeLayout hideableLayout;
+
+    @Bind(R.id.gs_exam_coordinator_lay)
+    CoordinatorLayout coordinatorLay;
 
     @Bind(R.id.comments_btn)
     Button commentsBtn;
@@ -108,7 +112,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     RelativeLayout docCommentImageButtons;
 
     @Bind(R.id.documents_btn)
-    ImageView documentsButton;
+    Button documentsButton;
 
     @Bind(R.id.fragment_information_layout)
     RelativeLayout informationRelLayout;
@@ -117,6 +121,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     SharedPreferences sp;
     CommentsAdapter adapter;
     TextWatcher commentWatcher;
+    Handler finishedDocs;
     boolean commentsHidden;
     boolean isPatient;
     boolean docAndImagesHidden;
@@ -156,6 +161,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
             }
         };
+        finishedDocs = new Handler();
         init();
         return view;
     }
@@ -184,12 +190,13 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         docCommentImageButtons.setVisibility(isPatient&&docAndImagesHidden ? View.GONE:View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
-        examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));
+        examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished_char)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready_char)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));
         examPatientTextView.setText(StringUtils.anyCaseToNameCase(exam.getPatient()));
         examClinicTextView.setText(StringUtils.anyCaseToNameCase(exam.getClinicName()));
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);
         examRepPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReportingPhysicianName()));
         examRefPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReferringPhysicianName()));
+        extraTextView.setText(exam.getStatus().toString().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
     }
 
     @Override
@@ -238,7 +245,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showCommentPostError() {
-        Toast.makeText(this.getContext(), "Failed to post comment, try again", Toast.LENGTH_SHORT).show();
+        Snackbar.make(coordinatorLay, getText(R.string.comment_failed),Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -252,6 +259,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         snackDocumentNotFound = Snackbar.make(informationRelLayout, getResources().getText(R.string.snackDocNotFound), Snackbar.LENGTH_LONG);
         snackDocumentNotFound.getView().setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorError));
         snackDocumentNotFound.show();
+        enableButton(documentsButton);
     }
 
     @Override
@@ -284,6 +292,12 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         }catch (IOException e){
             e.printStackTrace();
         }
+        stopDocumentsProgress();
+
+    }
+
+    private void stopDocumentsProgress() {
+        documentsButton.setText(R.string.opening);
 
     }
 
@@ -299,8 +313,24 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @OnClick(R.id.save_comment_btn)
     public void clickSaveComment() {
-        presenter.saveComment(examIdTextView.getText(), newCommentText.getEditableText().toString(), sp);
+        if (newCommentText.getEditableText().toString().isEmpty()) showCommentEmptyError();
+        else  presenter.saveComment(examIdTextView.getText(), newCommentText.getEditableText().toString(), sp);
 
+
+    }
+
+    private void showCommentEmptyError() {
+        Snackbar.make(coordinatorLay, R.string.comment_empty, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void disableButton(Button button) {
+        button.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.colorTextColorLight));
+        button.setEnabled(false);
+    }
+
+    private void enableButton(Button button) {
+        button.setTextColor(ContextCompat.getColor(this.getActivity(),R.color.colorError));
+        button.setEnabled(true);
     }
 
     @Override
@@ -312,7 +342,13 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @OnClick(R.id.documents_btn)
     public void downloadDocuments(){
+        showDocummentsProgress();
         presenter.retrieveDocuments(exam, sp);
+    }
+
+    private void showDocummentsProgress() {
+        disableButton(documentsButton);
+        documentsButton.setText(R.string.loading);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.com.managersystems.guardasaude.register.domain.LocationResponse;
 import br.com.managersystems.guardasaude.register.domain.LocationRow;
+import br.com.managersystems.guardasaude.register.domain.OnRegisteredListener;
 import br.com.managersystems.guardasaude.ui.activities.RegisterActivity;
 import br.com.managersystems.guardasaude.util.StringUtils;
 
@@ -21,7 +22,7 @@ import br.com.managersystems.guardasaude.util.StringUtils;
  *         Also see:
  * @see IRegisterPresenter
  */
-public class RegisterPresenter implements IRegisterPresenter,OnLocationRetrievedListener{
+public class RegisterPresenter implements IRegisterPresenter, OnRegisteredListener, OnLocationRetrievedListener{
 
     AutoCompleteTextView cityText;
     RegisterInteractor interactor;
@@ -47,7 +48,7 @@ public class RegisterPresenter implements IRegisterPresenter,OnLocationRetrieved
     @Override
     public void registerUser(String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate) {
         String digitCPF = StringUtils.tryReformatCPF(identification);
-        interactor.addNewAccount(firstName,lastName,email,country, city, password, verificationPw,digitCPF,idType,gender, birthDate);
+        interactor.addNewAccount(this,firstName,lastName,email,country, city, password, verificationPw,digitCPF,idType,gender, birthDate);
     }
 
     @Override
@@ -64,5 +65,15 @@ public class RegisterPresenter implements IRegisterPresenter,OnLocationRetrieved
     @Override
     public void onFailureLocationResponse() {
 
+    }
+
+    @Override
+    public void onRegistered() {
+        activity.showSuccesfulRegistration();
+    }
+
+    @Override
+    public void onFailedToRegister() {
+        activity.showUnsuccesfulRegistration();
     }
 }
