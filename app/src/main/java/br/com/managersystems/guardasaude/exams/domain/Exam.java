@@ -15,6 +15,7 @@ public class Exam implements Parcelable {
 
     private int id;
     private String identification;
+    private String isEmergency;
     private String serviceName;
     private String clinicName;
     private String patient;
@@ -33,9 +34,10 @@ public class Exam implements Parcelable {
     public Exam() {
     }
 
-    public Exam(int id, String identification, String serviceName,String clinicName, String patient, String executionDate, String status, String reportingPhysicianName, String reportingPhysicianProID, String referringPhysicianName, String referringPhysicianProID, String reportLink, ArrayList<ExamImage> images, ArrayList<Document> documents,Map<String, Object> additionalProperties) {
+    public Exam(int id, String identification, String isEmergency, String serviceName,String clinicName, String patient, String executionDate, String status, String reportingPhysicianName, String reportingPhysicianProID, String referringPhysicianName, String referringPhysicianProID, String reportLink, ArrayList<ExamImage> images, ArrayList<Document> documents,Map<String, Object> additionalProperties) {
         this.id = id;
         this.identification = identification;
+        this.isEmergency = isEmergency;
         this.serviceName = serviceName;
         this.clinicName = clinicName;
         this.patient = patient;
@@ -55,6 +57,7 @@ public class Exam implements Parcelable {
     public Exam(Parcel in){
         this.id = in.readInt();
         this.identification = in.readString();
+        this.isEmergency = in.readString();
         this.serviceName = in.readString();
         this.clinicName = in.readString();
         this.patient = in.readString();
@@ -259,6 +262,14 @@ public class Exam implements Parcelable {
     }
 
 
+    public String getIsEmergency() {
+        return isEmergency;
+    }
+
+    public void setIsEmergency(String isEmergency) {
+        this.isEmergency = isEmergency;
+    }
+
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -276,6 +287,7 @@ public class Exam implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.identification);
+        dest.writeString(this.isEmergency);
         dest.writeString(this.serviceName);
         dest.writeString(this.clinicName);
         dest.writeString(this.patient);

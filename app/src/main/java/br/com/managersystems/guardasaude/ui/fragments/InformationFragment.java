@@ -2,6 +2,7 @@ package br.com.managersystems.guardasaude.ui.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.test.espresso.core.deps.guava.io.Files;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -107,6 +110,9 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @Bind(R.id.documents_btn)
     ImageView documentsButton;
 
+    @Bind(R.id.fragment_information_layout)
+    RelativeLayout informationRelLayout;
+
     ExamPresenter presenter;
     SharedPreferences sp;
     CommentsAdapter adapter;
@@ -115,7 +121,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     boolean isPatient;
     boolean docAndImagesHidden;
     private Exam exam;
-    Base64Interactor base64Interactor = new Base64Interactor();
+    private Snackbar snackDocumentNotFound;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -243,30 +249,38 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void documentNotFound() {
-        //TODO SHOW ERROR
+        snackDocumentNotFound = Snackbar.make(informationRelLayout, getResources().getText(R.string.snackDocNotFound), Snackbar.LENGTH_LONG);
+        snackDocumentNotFound.getView().setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorError));
+        snackDocumentNotFound.show();
     }
 
     @Override
     public void showPdfDocument(DocumentResponse response) {
         try {
-            verifyStoragePermissions(getActivity());
+            verifyStoragePermissions();
+
+            byte[] pdfString = Base64.decode(response.getDocumentValue(), Base64.DEFAULT);
+
+            //Write pdf file to download directory
             File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), response.getExamDocumentIdentification());
             if (!pdfFile.exists()) {
                 pdfFile.getParentFile().mkdirs();
                 pdfFile.createNewFile();
             }
-            byte[] pdfString = Base64.decode(response.getDocumentValue(), Base64.DEFAULT);
-
             FileOutputStream os = new FileOutputStream(pdfFile, true);
             os.write(pdfString);
-
             Files.write(pdfString, pdfFile);
-
             Uri path = Uri.fromFile(pdfFile);
+
+            //Launch PDF reader
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(path, "application/pdf");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                new AlertDialog.Builder(getActivity()).setTitle(getResources().getText(R.string.noPdfReaderDialogTitle)).setMessage(getResources().getText(R.string.noPdfReaderDialogText)).setCancelable(true).create().show();
+            }
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -301,18 +315,20 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         presenter.retrieveDocuments(exam, sp);
     }
 
+    @Override
     public void setDocAndImagesHidden(boolean docAndImagesHidden) {
         this.docAndImagesHidden = docAndImagesHidden;
     }
 
-    public static void verifyStoragePermissions(Activity activity) {
+    @Override
+    public void verifyStoragePermissions() {
         // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
-                    activity,
+                    getActivity(),
                     PERMISSIONS_STORAGE,
                     REQUEST_EXTERNAL_STORAGE
             );

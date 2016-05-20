@@ -152,18 +152,9 @@
     <string name="patient_role">ROLE_PATIENT</string>
     <string name="pdf">Pdf icon</string>
     <string name="no_report">No report was found for this exam.</string>
-
-    <string-array name="image_ids">
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-    </string-array>
+    <string name="snackDocNotFound">Document not found!</string>
+    <string name="noPdfReaderDialogTitle">No Pdf Reader</string>
+    <string name="noPdfReaderDialogText">Could not find pdf reader to open document. Please install a pdf reader application!</string>
 
 
 </resources>

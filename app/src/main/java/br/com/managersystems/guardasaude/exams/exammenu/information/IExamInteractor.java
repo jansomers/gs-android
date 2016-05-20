@@ -48,5 +48,14 @@ public interface IExamInteractor {
      */
     void postNewComment(CharSequence exid, CharSequence comment, SharedPreferences sp);
 
+    /**
+     * Gets a document for an exam using the api
+     * Notifies the listener accordingly to success or failure
+     * Notifies the listener when all documents are retrieved
+     * @param exam Exam object
+     * @param exId CharSequence object representing the identification of the exam.
+     * @param exDocId CharSequence object representing the identification of the document.
+     * @param sp SharedPreferneces object passed with the other required parameters inside to make the call.
+     */
     void getDocument(Exam exam,final String exId,final String exDocId,SharedPreferences sp);
 }
