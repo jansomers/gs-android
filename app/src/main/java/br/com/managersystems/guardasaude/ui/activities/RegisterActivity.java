@@ -140,6 +140,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     String birth_month;
     String birth_day;
 
+    Snackbar invalidSnack;
+    Snackbar emptySnack;
+    Snackbar successSnack;
+    Snackbar failedSnack;
+
     DatePickerDialog.OnDateSetListener onDateSelectedListener;
     TextWatcher idTypeWatcher;
     TextWatcher cityWatcher;
@@ -177,6 +182,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             birthDateText.setText("03/05/1991");
             idInputText.setText("123.234.234-22");
         }
+        initiateSnacks();
         initiateAdapters();
         initiateListeners();
         addAllInputsToMap();
@@ -195,6 +201,16 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         languageText.setAdapter(languageAdapter);
         idTypeAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_id_type_row, getResources().getStringArray(R.array.id_types));
         idTypeText.setAdapter(idTypeAdapter);
+
+    }
+
+    public void initiateSnacks(){
+        emptySnack = Snackbar.make(coordinatorLayout, R.string.must_befilled_in, Snackbar.LENGTH_LONG);
+        emptySnack.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
+        invalidSnack = Snackbar.make(coordinatorLayout, R.string.invalid_entry, Snackbar.LENGTH_LONG);
+        invalidSnack.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
+        failedSnack = Snackbar.make(coordinatorLayout, R.string.register_failed, Snackbar.LENGTH_LONG);
+        failedSnack.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
 
     }
 
@@ -588,9 +604,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     @Override
     public void showFieldsCannotBeEmpty(final TextView textView) {
-        Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.must_befilled_in, Snackbar.LENGTH_LONG);
-        snackbar.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
-        snackbar.show();
+
+        emptySnack.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -607,9 +622,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         sb.append(textView.getText());
         sb.append(" ");
         sb.append(getResources().getString(R.string.invalid_entry));
-        final Snackbar snackbar = Snackbar.make(coordinatorLayout, sb.toString(), Snackbar.LENGTH_LONG);
-        snackbar.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
-        snackbar.show();
+        invalidSnack.setText(sb.toString());
+        invalidSnack.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -635,6 +649,17 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             cityIds = (ArrayList<String>) cityIdent;
         }
         cityAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showSuccesfulRegistration() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void showUnsuccesfulRegistration() {
+        failedSnack.show();
     }
 
     /**

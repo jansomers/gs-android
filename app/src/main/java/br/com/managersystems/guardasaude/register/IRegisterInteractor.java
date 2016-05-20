@@ -1,5 +1,7 @@
 package br.com.managersystems.guardasaude.register;
 
+import br.com.managersystems.guardasaude.register.domain.OnRegisteredListener;
+
 /**
  * This interface consists of methods needed to succesfully handle validation of new accounts,
  * including posting the final form to the server.
@@ -48,5 +50,5 @@ public interface IRegisterInteractor {
      * @param gender One Character string representing the gender of the new user.
      * @param birthDate String in dd/MM/yyyy format represting the date of birth of the new user.
      */
-    void addNewAccount(String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate);
+    void addNewAccount(OnRegisteredListener listener, String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate);
 }

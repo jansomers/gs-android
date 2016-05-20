@@ -27,7 +27,7 @@ public interface RegisterApi {
             @Query("city") String city,
             @Query("password")String password,
             @Query("confirmPassword")String verificationPw,
-            @Query("idNumber")String identification,
+            @Query("idnumber")String identification,
             @Query("identificationType")String idType,
             @Query("gender")String gender,
             @Query("dob")String birthDate);

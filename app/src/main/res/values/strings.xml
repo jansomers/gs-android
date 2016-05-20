@@ -61,9 +61,11 @@
     <string name="test_single_role_user">doctor2</string>
     <string name="test_single_role_password">Admin1</string>
     <string name="gs_role_option_pro">Professional</string>
-    <string name="ready">R</string>
+    <string name="ready_char">R</string>
+    <string name="ready">Ready</string>
     <string name="available">Available</string>
-    <string name="finished">F</string>
+    <string name="finished_char">F</string>
+    <string name="finished">Finished</string>
     <string name="exam_overview_failed">Failed to load exams…</string>
     <string name="noImages">No images available…</string>
     <string name="auth_failed">Wrong password or username entered</string>
@@ -152,6 +154,14 @@
     <string name="patient_role">ROLE_PATIENT</string>
     <string name="pdf">Pdf icon</string>
     <string name="no_report">No report was found for this exam.</string>
+    <string name="opening">Opening..</string>
+    <string name="loading">Loading</string>
+    <string name="in_progress">In progress</string>
+    <string name="register_failed">Failed to register</string>
+    <string name="register_success">Registration Success!</string>
+    <string name="future_login">You now can login with your user details.</string>
+    <string name="comment_failed">Something went wrong posting the comment</string>
+    <string name="comment_empty">You can\'t post empty comments.</string>
 
     <string-array name="image_ids">
         <item>@drawable/image_1</item>

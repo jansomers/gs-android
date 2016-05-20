@@ -29,7 +29,6 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.ILoginView;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.login.domain.AccessDomain;
-import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.ui.dialogs.ForgotPasswordDialog;
 import br.com.managersystems.guardasaude.ui.dialogs.NewAnonymousExamDialog;
 import br.com.managersystems.guardasaude.util.StringUtils;
@@ -59,6 +58,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Bind(R.id.btn_forgot_pwd)
     Button forgotPwdBtn;
+
+    @Bind(R.id.gs_login_btn)
+    Button loginBtn;
 
     @Bind(R.id.gs_login_coordinator_layout)
     CoordinatorLayout loginCoordinatorLayout;
@@ -155,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @OnClick(R.id.gs_login_btn)
     public void loginClicked(View view) {
         Log.d("LoginActivity: ", "Login button was clicked");
+        loginBtn.setEnabled(false);
         String email = gsUsernameEditText.getText().toString();
         String password = gsPasswordEditText.getText().toString();
         if (email.isEmpty() || password.isEmpty()) {
@@ -216,6 +219,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         hideProgressBar();
         showSuccessfulLogin();
         presenter.requestSaveInfo(patient);
+        loginBtn.setEnabled(true);
         navigateToOverviewActivity();
 
     }
@@ -294,6 +298,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         authenticatingFinishedImageView.startAnimation(animation);
         authenticatingProgressText.setTextColor(ContextCompat.getColor(this, R.color.colorError));
         authenticatingProgressText.setText(string);
+        loginBtn.setEnabled(true);
     }
 
     /**
