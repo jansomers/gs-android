@@ -1,14 +1,26 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
+import android.support.test.espresso.core.deps.guava.io.Files;
+import android.util.Base64;
 import android.util.Log;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.exams.domain.Comment;
+import br.com.managersystems.guardasaude.exams.domain.Document;
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
+import br.com.managersystems.guardasaude.util.Base64Interactor;
 
 /**
  * This class is an implementation of the IExamPresenter. It also implements the
@@ -28,11 +40,15 @@ import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
 public class ExamPresenter implements IExamPresenter, OnInformationRetrievedListener {
     
     IExamInformationView informationFragment;
+    Base64Interactor base64Interactor;
     ExamInteractor examInteractor;
+    List<DocumentResponse> documentFiles = new ArrayList<>();
+
 
     public ExamPresenter(InformationFragment informationFragment) {
         this.informationFragment = informationFragment;
         examInteractor = new ExamInteractor(this);
+        base64Interactor = new Base64Interactor();
     }
 
     @Override
@@ -93,4 +109,36 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
         Log.d(this.getClass().getSimpleName(), "Received comment post call success!... Notifying view!");
         informationFragment.showNewComment();
     }
+
+    @Override
+    public void onDocumentSuccess(DocumentResponse response) {
+        documentFiles.add(response);
+    }
+
+    @Override
+    public void onDocumentFailure() {
+        informationFragment.documentNotFound();
+    }
+
+    @Override
+    public void onAllDocumentsSuccess() throws IOException {
+
+        if (documentFiles.size() <= 0) {
+            informationFragment.documentNotFound();
+        } else {
+            for (DocumentResponse response : documentFiles) {
+                if(response.getDocumentValue()!=null) {
+                    informationFragment.showPdfDocument(response);
+                }
+            }
+        }
+    }
+
+    public void retrieveDocuments(Exam exam, SharedPreferences sp) {
+        for (Document document:exam.getDocuments()) {
+            examInteractor.getDocument(exam,document.getExamIdentification(),document.getDocIdentification(),sp);
+        }
+    }
+
+
 }

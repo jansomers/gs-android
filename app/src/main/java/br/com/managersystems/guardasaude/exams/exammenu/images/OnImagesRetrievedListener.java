@@ -1,8 +1,8 @@
 package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 
 public interface OnImagesRetrievedListener {
     /**
@@ -22,10 +22,10 @@ public interface OnImagesRetrievedListener {
     void onExamReceived(Exam exam);
 
     /**
-     * ExamImageResponse is added to the list of imagefiles after the image was successfully received
-     * @param response ExamImageResponse that represents the response of a request.
+     * DocumentResponse is added to the list of imagefiles after the image was successfully received
+     * @param response DocumentResponse that represents the response of a request.
      */
-    void onImageSuccess(ExamImageResponse response);
+    void onImageSuccess(DocumentResponse response);
 
     /**
      * Notifies the successful retrieval of all images to the fragment.

@@ -11,9 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamInteractor;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOverviewInteractor;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.OnAnonymousExamRetrievedListener;
 import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
@@ -45,7 +45,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     LoginInteractor loginInteractor;
     DomainInteractor domainInteractor;
     Base64Interactor base64Interactor;
-    ExamInteractor examInteractor;
+    ExamOverviewInteractor examOverviewInteractor;
 
     public LoginPresenter(LoginActivity loginActivity, SharedPreferences sp) {
         this.loginActivity = loginActivity;
@@ -53,7 +53,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
         loginInteractor = new LoginInteractor();
         domainInteractor = new DomainInteractor(new ArrayList<AccessDomain>());
         base64Interactor = new Base64Interactor();
-        examInteractor = new ExamInteractor();
+        examOverviewInteractor = new ExamOverviewInteractor();
     }
 
     public LoginPresenter(Activity logoutActivity, SharedPreferences sp) {
@@ -184,7 +184,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
 
     @Override
     public void retrieveAnonymousExam(String accessCodeString, String examIdString) {
-        examInteractor.getAnonymousExam(this,accessCodeString,examIdString);
+        examOverviewInteractor.getAnonymousExam(this,accessCodeString,examIdString);
     }
 
     @Override

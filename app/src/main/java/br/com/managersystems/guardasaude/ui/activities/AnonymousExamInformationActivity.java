@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.exams.exammenu.information.AnonymousExamInformationPresenter;
-import br.com.managersystems.guardasaude.exams.exammenu.information.IAnonymousExamInformationPresenter;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.AnonymousExamInformationPresenter;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.IAnonymousExamInformationPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

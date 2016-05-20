@@ -29,7 +29,7 @@ public class ExamOneTabPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                InformationFragment informationFragment = new InformationFragment();
-                informationFragment.setDocCommentImageButtonsNotVisible();
+                informationFragment.setDocAndImagesHidden(true);
                 return informationFragment;
         }
         return null;

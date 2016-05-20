@@ -13,7 +13,7 @@ import br.com.managersystems.guardasaude.util.Base64Interactor;
 
 
 public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExamListFinishedListener {
-    ExamInteractor examOverviewInteractor;
+    ExamOverviewInteractor examOverviewInteractor;
     ExamOverviewFragment examOverview;
     Base64Interactor base64Interactor;
     SharedPreferences sp;
@@ -24,7 +24,7 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
         this.examOverview = examOverview;
         this.sp = sharedPreferences;
         base64Interactor = new Base64Interactor();
-        examOverviewInteractor = new ExamInteractor();
+        examOverviewInteractor = new ExamOverviewInteractor();
     }
 
     @Override

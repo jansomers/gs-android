@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
      * Sets the credentials in both textinputs.
      *
      * @param username String that sets the username.
+     * @param username String that sets the username.
      * @param password String that sets the password.
      */
     private void setStartingCredentials(String username, String password) {
@@ -261,7 +262,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         roleOptionBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (adapter.getItem(which).equalsIgnoreCase(UserRoleEnum.ROLE_PATIENT.toString()))
+                if (adapter.getItem(which).equalsIgnoreCase("patient"))
                     loginSuccess(true);
                 else loginSuccess(false);
             }

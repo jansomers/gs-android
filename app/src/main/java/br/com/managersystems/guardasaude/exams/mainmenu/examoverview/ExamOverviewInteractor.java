@@ -10,8 +10,8 @@ import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamList;
 import br.com.managersystems.guardasaude.exams.domain.IndividualExamResponse;
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousExamRetrievedListener;
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousInformationRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.OnAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.OnAnonymousInformationRetrievedListener;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,13 +19,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ExamInteractor implements IExamListInteractor {
+public class ExamOverviewInteractor implements IExamListInteractor {
 
     private final String BASE_URL = "https://www.guardasaude.com.br/";
     private ExamApi examApi;
 
 
-    public ExamInteractor() {
+    public ExamOverviewInteractor() {
         examApi = initiateRetrofit();
     }
 

@@ -1,26 +1,18 @@
 package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.util.Base64;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
-import android.view.WindowManager;
-import android.widget.GridView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.ExamImage;
-import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.ui.fragments.ImagesFragment;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 
@@ -29,7 +21,7 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
     private ImagesInteractor interactor;
     Base64Interactor base64Interactor;
     SharedPreferences sp;
-    List<ExamImageResponse> imagesFiles = new ArrayList<>();
+    List<DocumentResponse> imagesFiles = new ArrayList<>();
 
 
     public ImagesPresenter(ImagesFragment imagesFragment, SharedPreferences sharedPreferences) {
@@ -47,7 +39,7 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
         if (imagesFiles.size() <= 0) {
             imagesFragment.noImagesFound();
         } else {
-            for (ExamImageResponse response : imagesFiles) {
+            for (DocumentResponse response : imagesFiles) {
                 if(response.getDocumentValue()!=null) {
                     byte[] decryptedResponse = Base64.decode(response.getDocumentValue(), Base64.DEFAULT);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decryptedResponse, 0, decryptedResponse.length);
@@ -95,7 +87,7 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
     }
 
     @Override
-    public void onImageSuccess(ExamImageResponse response) {
+    public void onImageSuccess(DocumentResponse response) {
         imagesFiles.add(response);
     }
 

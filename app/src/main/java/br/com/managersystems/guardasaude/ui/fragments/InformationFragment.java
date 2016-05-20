@@ -1,9 +1,17 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
-import android.app.FragmentTransaction;
+import android.Manifest;
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.test.espresso.core.deps.guava.io.Files;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -11,12 +19,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,16 +33,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Comment;
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.exammenu.information.CommentsAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.ExamPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.IExamInformationView;
-import br.com.managersystems.guardasaude.login.LoginPresenter;
 import br.com.managersystems.guardasaude.util.AnimationUtils;
+import br.com.managersystems.guardasaude.util.Base64Interactor;
 import br.com.managersystems.guardasaude.util.StringUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -89,17 +102,25 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     LinearLayout commentLayout;
 
     @Bind(R.id.doc_comment_image_btns_rel_layout)
-    LinearLayout docCommentImageButtons;
+    RelativeLayout docCommentImagesLayout;
+
+    @Bind(R.id.documents_btn)
+    ImageView documentsButton;
 
     ExamPresenter presenter;
     SharedPreferences sp;
     CommentsAdapter adapter;
     TextWatcher commentWatcher;
-    LoginPresenter loginPresenter;
     boolean commentsHidden;
     boolean isPatient;
-    private Menu menu;
-    private boolean docCommentImageButtonsVisible = true;
+    boolean docAndImagesHidden;
+    private Exam exam;
+    Base64Interactor base64Interactor = new Base64Interactor();
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
 
     @Override
@@ -134,9 +155,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     }
 
     private void init() {
-        if(!docCommentImageButtonsVisible){
-            docCommentImageButtons.setVisibility(View.INVISIBLE);
-        }
         isPatient = (sp.getString("role", "").equals("ROLE_PATIENT"));
         Log.d(getClass().getSimpleName(), "Initializing Information Fragment...");
         Log.d(getClass().getSimpleName(), "Organizing startup views...");
@@ -151,10 +169,13 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showInformation(Exam exam) {
+        this.exam = exam;
         Log.d(getClass().getSimpleName(), "Received success from Presenter... Showing Information");
         hideableLayout.setVisibility(View.VISIBLE);
         commentsBtn.setVisibility(isPatient ? View.GONE : View.VISIBLE);
-        imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().matches("finished | ready") ? View.GONE : View.VISIBLE);
+        documentsButton.setVisibility(exam.getDocuments().size() > 0 ? View.VISIBLE : View.GONE);
+        imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().equals("available") ? View.GONE : View.VISIBLE);
+        docCommentImagesLayout.setVisibility(isPatient&&docAndImagesHidden ? View.GONE:View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
         examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));
@@ -163,7 +184,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);
         examRepPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReportingPhysicianName()));
         examRefPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReferringPhysicianName()));
-
     }
 
     @Override
@@ -193,8 +213,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         imagesBtn.setVisibility(View.GONE);
         examIdTextView.setText(getText(R.string.information_error));
         examTypeTextView.setText(getText(R.string.information_error_response));
-
-
     }
 
     @Override
@@ -215,12 +233,43 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @Override
     public void showCommentPostError() {
         Toast.makeText(this.getContext(), "Failed to post comment, try again", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void showNewComment() {
         presenter.retrieveComments(examIdTextView.getText().toString(), sp);
+
+    }
+
+    @Override
+    public void documentNotFound() {
+        //TODO SHOW ERROR
+    }
+
+    @Override
+    public void showPdfDocument(DocumentResponse response) {
+        try {
+            verifyStoragePermissions(getActivity());
+            File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), response.getExamDocumentIdentification());
+            if (!pdfFile.exists()) {
+                pdfFile.getParentFile().mkdirs();
+                pdfFile.createNewFile();
+            }
+            byte[] pdfString = Base64.decode(response.getDocumentValue(), Base64.DEFAULT);
+
+            FileOutputStream os = new FileOutputStream(pdfFile, true);
+            os.write(pdfString);
+
+            Files.write(pdfString, pdfFile);
+
+            Uri path = Uri.fromFile(pdfFile);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(path, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -249,10 +298,24 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @OnClick(R.id.documents_btn)
     public void downloadDocuments(){
-        //TODO DOWNLOAD DOCUMENTS
+        presenter.retrieveDocuments(exam, sp);
     }
 
-    public void setDocCommentImageButtonsNotVisible() {
-        docCommentImageButtonsVisible=false;
+    public void setDocAndImagesHidden(boolean docAndImagesHidden) {
+        this.docAndImagesHidden = docAndImagesHidden;
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 }

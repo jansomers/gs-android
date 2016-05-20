@@ -1,9 +1,13 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.exams.domain.Comment;
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import retrofit2.Response;
 
 /**
  * This interface consists of methods that are implemented by the presenter and are called upon by
@@ -60,4 +64,10 @@ public interface OnInformationRetrievedListener {
     * Notifies the view that the comment was successfully posted.
     */
     void onCommentPostedSuccess();
+
+    void onDocumentSuccess(DocumentResponse response);
+
+    void onDocumentFailure();
+
+    void onAllDocumentsSuccess() throws IOException;
 }

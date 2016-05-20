@@ -4,8 +4,8 @@ package br.com.managersystems.guardasaude.exams.exammenu.images;
 import android.content.Intent;
 import android.util.Log;
 
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
-import br.com.managersystems.guardasaude.exams.domain.ExamImageResponse;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,10 +52,10 @@ public class ImagesInteractor implements IImagesInteractor{
         if (examApi == null) initiateRetrofit();
         else {
 
-                Call<ExamImageResponse> call = examApi.getExamImage(username, token, exId, exDocId);
-                call.enqueue(new Callback<ExamImageResponse>() {
+                Call<DocumentResponse> call = examApi.getExamImage(username, token, exId, exDocId);
+                call.enqueue(new Callback<DocumentResponse>() {
                     @Override
-                    public void onResponse(Call<ExamImageResponse> call, Response<ExamImageResponse> response) {
+                    public void onResponse(Call<DocumentResponse> call, Response<DocumentResponse> response) {
                         imagesCounter++;
                         if(response.body()!=null) {
                             listener.onImageSuccess(response.body());
@@ -66,7 +66,7 @@ public class ImagesInteractor implements IImagesInteractor{
                     }
 
                     @Override
-                    public void onFailure(Call<ExamImageResponse> call, Throwable t) {
+                    public void onFailure(Call<DocumentResponse> call, Throwable t) {
                         listener.onImageFailure();
 
                     }

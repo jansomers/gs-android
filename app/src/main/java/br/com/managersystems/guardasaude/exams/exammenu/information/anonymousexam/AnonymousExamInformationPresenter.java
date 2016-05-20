@@ -1,18 +1,18 @@
-package br.com.managersystems.guardasaude.exams.exammenu.information;
+package br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam;
 
 
 import android.content.Intent;
 
-import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamInteractor;
+import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamOverviewInteractor;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.ui.activities.AnonymousExamInformationActivity;
 
 public class AnonymousExamInformationPresenter implements OnAnonymousInformationRetrievedListener, IAnonymousExamInformationPresenter {
-    private ExamInteractor interactor;
+    private ExamOverviewInteractor interactor;
     private AnonymousExamInformationActivity activity;
 
     public AnonymousExamInformationPresenter(AnonymousExamInformationActivity anonymousExamInformationActivity) {
-        interactor = new ExamInteractor();
+        interactor = new ExamOverviewInteractor();
         this.activity = anonymousExamInformationActivity;
     }
     @Override

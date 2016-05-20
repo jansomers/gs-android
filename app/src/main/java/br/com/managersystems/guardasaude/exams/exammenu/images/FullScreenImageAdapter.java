@@ -58,7 +58,7 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = inflater.inflate(R.layout.fullscreen_image, container, false);
 
-        TouchImageView imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.imgDisplay);
+        TouchImageView imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.img_display);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -66,7 +66,7 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
         Bitmap bitmap = images.get(position);
         imgDisplay.setImageBitmap(bitmap);
 
-        ImageView btnClose = (ImageView) viewLayout.findViewById(R.id.btnClose);
+        ImageView btnClose = (ImageView) viewLayout.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

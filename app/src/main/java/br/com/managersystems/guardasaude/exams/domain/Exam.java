@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,14 +26,14 @@ public class Exam implements Parcelable {
     private String referringPhysicianProID;
     private String reportLink;
     private ArrayList<ExamImage> images = new ArrayList<ExamImage>();
+    private ArrayList<Document> documents = new ArrayList<Document>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
 
 
     public Exam() {
     }
 
-    public Exam(int id, String identification, String serviceName,String clinicName, String patient, String executionDate, String status, String reportingPhysicianName, String reportingPhysicianProID, String referringPhysicianName, String referringPhysicianProID, String reportLink, ArrayList<ExamImage> images, Map<String, Object> additionalProperties) {
+    public Exam(int id, String identification, String serviceName,String clinicName, String patient, String executionDate, String status, String reportingPhysicianName, String reportingPhysicianProID, String referringPhysicianName, String referringPhysicianProID, String reportLink, ArrayList<ExamImage> images, ArrayList<Document> documents,Map<String, Object> additionalProperties) {
         this.id = id;
         this.identification = identification;
         this.serviceName = serviceName;
@@ -46,6 +47,7 @@ public class Exam implements Parcelable {
         this.referringPhysicianProID = referringPhysicianProID;
         this.reportLink = reportLink;
         this.images = images;
+        this.documents = documents;
         this.additionalProperties = additionalProperties;
     }
 
@@ -64,6 +66,7 @@ public class Exam implements Parcelable {
         this.referringPhysicianProID = in.readString();
         this.reportLink = in.readString();
         this.images = in.createTypedArrayList(ExamImage.CREATOR);
+        this.documents = in.createTypedArrayList(Document.CREATOR);
     }
 
     public int getId() {
@@ -237,6 +240,25 @@ public class Exam implements Parcelable {
         this.images = images;
     }
 
+    /**
+     *
+     * @return
+     * The documents
+     */
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    /**
+     *
+     * @param documents
+     * The documents
+     */
+    public void setDocuments(ArrayList<Document> documents) {
+        this.documents = documents;
+    }
+
+
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -265,6 +287,7 @@ public class Exam implements Parcelable {
         dest.writeString(this.referringPhysicianProID);
         dest.writeString(this.reportLink);
         dest.writeTypedList(this.images);
+        dest.writeTypedList(this.documents);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

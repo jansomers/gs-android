@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamOneTabPagerAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
@@ -36,6 +37,7 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     private LoginPresenter loginPresenter;
     private boolean examStatusIsReady;
     private String role;
+    private Exam exam;
 
     @Override
     protected void onStart() {
@@ -60,8 +62,11 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         getSharedPref();
         examPresenter = new ExamTabPresenter(this);
         loginPresenter = new LoginPresenter(this, sp);
-        examPresenter.retrieveExamStatus(getIntent());
+        examPresenter.retrieveExam(getIntent());
+        setTabsPagerAdapter();
+    }
 
+    private void setTabsPagerAdapter() {
         if (role.equalsIgnoreCase(getResources().getString(R.string.patient_role))) {
             if (this.examStatusIsReady) {
                 setAllTabsPagerAdapter();
@@ -132,15 +137,15 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         startActivity(intent);
     }
 
-    public ExamTabsPagerAdapter getExamTabsPagerAdapter() {
-        return examTabPagerAdapter;
-    }
-
     public void setCurrentItem(int position) {
         examTabPagerAdapter.getItem(position);
     }
 
     public void setExamStatusIsReady(boolean isReady) {
         this.examStatusIsReady = isReady;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 }

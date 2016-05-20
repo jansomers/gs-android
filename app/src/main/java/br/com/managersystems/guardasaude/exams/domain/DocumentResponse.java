@@ -3,7 +3,7 @@ package br.com.managersystems.guardasaude.exams.domain;
 /**
  * POJO that holds information after retrieving an image.
  */
-public class ExamImageResponse {
+public class DocumentResponse {
 
     private String result;
     private String code;

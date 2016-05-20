@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude.exams.exammenu.information;
+package br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam;
 
 import android.content.Intent;
 

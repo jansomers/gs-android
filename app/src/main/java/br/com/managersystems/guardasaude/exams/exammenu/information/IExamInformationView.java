@@ -1,8 +1,11 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import br.com.managersystems.guardasaude.exams.domain.Comment;
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 /**
@@ -65,4 +68,8 @@ public interface IExamInformationView {
      * Shows the new comment in the list.
      */
     void showNewComment();
+
+    void documentNotFound();
+
+    void showPdfDocument(DocumentResponse response) throws IOException;
 }

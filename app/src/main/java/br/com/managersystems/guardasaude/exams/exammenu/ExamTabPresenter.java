@@ -15,9 +15,10 @@ public class ExamTabPresenter {
         this.activity = examTabActivity;
     }
 
-    public void retrieveExamStatus(Intent intent) {
+    public void retrieveExam(Intent intent) {
         Exam exam =intent.getParcelableExtra("exam");
         if (!(exam.getId() == 0)) {
+            activity.setExam(exam);
             if(exam.getStatus().equalsIgnoreCase(activity.getString(R.string.finished))||exam.getStatus().equalsIgnoreCase(activity.getString(R.string.ready))||exam.getStatus().equalsIgnoreCase(activity.getString(R.string.available))) {
                 activity.setExamStatusIsReady(true);
             }else{
@@ -28,4 +29,5 @@ public class ExamTabPresenter {
            //TODO HANDLE NO EXAM FOUND
         }
     }
+
 }

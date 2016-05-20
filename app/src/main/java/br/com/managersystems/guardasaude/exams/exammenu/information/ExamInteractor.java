@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.io.File;
+import java.io.IOException;
+
 import br.com.managersystems.guardasaude.exams.domain.CommentResponse;
+import br.com.managersystems.guardasaude.exams.domain.DocumentResponse;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.domain.PostCommentResponse;
 import br.com.managersystems.guardasaude.exams.mainmenu.examoverview.ExamApi;
@@ -27,9 +31,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ExamInteractor implements  IExamInteractor {
     private final String BASE_URL= "https://guardasaude.com.br/";
+    private int documentCounter = 0;
     OnInformationRetrievedListener examListener;
     Base64Interactor base64Interactor;
-
     ExamApi examApi;
 
     public ExamInteractor(OnInformationRetrievedListener examListener) {
@@ -101,7 +105,7 @@ public class ExamInteractor implements  IExamInteractor {
             examListener.onPostCommentCallFailed();
         }
         else {
-            Call<PostCommentResponse> call = examApi.postComment(user,token,exid.toString(),encodedMessage);
+            Call<PostCommentResponse> call = examApi.postComment(user, token, exid.toString(), encodedMessage);
             call.enqueue(new Callback<PostCommentResponse>() {
                 @Override
                 public void onResponse(Call<PostCommentResponse> call, Response<PostCommentResponse> response) {
@@ -120,6 +124,41 @@ public class ExamInteractor implements  IExamInteractor {
             });
 
         }
+    }
+
+
+
+    @Override
+    public void getDocument(final Exam exam,final String exId,final String exDocId,SharedPreferences sp) {
+        if (examApi == null) initiateRetrofit();
+        else {
+            String user = base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
+            String token = sp.getString("token", "");
+            Call<DocumentResponse> call = examApi.getDocument(user, token, exId, exDocId);
+            call.enqueue(new Callback<DocumentResponse>() {
+                @Override
+                public void onResponse(Call<DocumentResponse> call, Response<DocumentResponse> response) {
+                    if(response.body()!=null) {
+                        documentCounter++;
+                        examListener.onDocumentSuccess(response.body());
+                        if(documentCounter>=exam.getDocuments().size()){
+                            try {
+                                examListener.onAllDocumentsSuccess();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DocumentResponse> call, Throwable t) {
+                    examListener.onDocumentFailure();
+                }
+            });
+        }
+
     }
 
 }

@@ -3,6 +3,8 @@ package br.com.managersystems.guardasaude.exams.exammenu.information;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import br.com.managersystems.guardasaude.exams.domain.Exam;
+
 /**
  * This interface consists of methods needed to succesfully handle calls to obtain the comments,
  * associated to an exam, and to post new comments to the data base.
@@ -45,4 +47,6 @@ public interface IExamInteractor {
      * @param sp SharedPreferneces object passed with the other required parameters inside to make the call.
      */
     void postNewComment(CharSequence exid, CharSequence comment, SharedPreferences sp);
+
+    void getDocument(Exam exam,final String exId,final String exDocId,SharedPreferences sp);
 }

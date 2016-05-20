@@ -3,8 +3,8 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 import android.content.Intent;
 
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousInformationRetrievedListener;
-import br.com.managersystems.guardasaude.exams.exammenu.information.OnAnonymousExamRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.OnAnonymousInformationRetrievedListener;
+import br.com.managersystems.guardasaude.exams.exammenu.information.anonymousexam.OnAnonymousExamRetrievedListener;
 
 public interface IExamListInteractor {
     /**

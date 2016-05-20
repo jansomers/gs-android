@@ -9,6 +9,7 @@ package br.com.managersystems.guardasaude.exams.exammenu.images;
  * Updated By: @ipsilondev
  * Updated By: hank-cp
  * Updated By: singpolyma
+ * Updated By: Thanee Stevens (added double tap event)
  * -------------------
  * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
  */

@@ -15,7 +15,7 @@ public interface IImagesInteractor {
 
     /**
      * Makes a call to the examApi to get a certain image for an exam.
-     * If the image is received calls listener's onImageSuccess method and passes an ExamImageResponse
+     * If the image is received calls listener's onImageSuccess method and passes an DocumentResponse
      * If all images are received calls listener's onAllImagesSuccess method.
      * @param exam Exam object which the image belongs to.
      * @param username String object representing the username of the user.
