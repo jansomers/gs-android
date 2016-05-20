@@ -7,6 +7,10 @@ import java.util.Date;
  * Utility class that handles and/or returns Date objects.
  * Currently handles:
  * - Adding days to a date.
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
  */
 public class DateUtil
 {

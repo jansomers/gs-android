@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * POJO that hold the response of a location request.
+ */
 public class LocationResponse {
     private List<LocationRow> rows = new ArrayList<LocationRow>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();

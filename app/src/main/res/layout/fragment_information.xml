@@ -18,8 +18,7 @@
         android:elevation="2dp"
         android:orientation="vertical"
         android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        >
+        android:paddingRight="6dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -58,9 +57,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gs_exam_header_linearlayout"
                 android:layout_centerHorizontal="true"
-                android:padding="5dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:padding="5dp"
                 android:text="@string/exam_type"
                 android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
@@ -224,7 +223,15 @@
                     android:orientation="horizontal"
                     android:weightSum="1">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -232,8 +239,7 @@
                         android:layout_weight="0.4"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:padding="5dp"
-                        android:layout_marginTop="2dp">
+                        android:padding="5dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -245,7 +251,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
-                            android:paddingStart="2dp"
                             android:text="@string/exam_referring_phys"
                             android:textAlignment="viewStart"
                             android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
@@ -261,31 +266,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:background="@android:color/background_light"
-                android:orientation="horizontal"
                 android:layout_marginTop="6dp"
-                android:padding="5dp">
+                android:background="@android:color/background_light"
+                android:padding="0dp">
 
                 <ImageView
-                    android:id="@+id/documents_btn"
+                    android:id="@+id/pdf_image"
                     android:layout_width="wrap_content"
-                    android:src="@drawable/ic_pdf"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="42dp"
-                    android:contentDescription="@string/pdf"
-                    />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_pdf_24dp_red" />
+
+                <Button
+                    android:id="@+id/documents_btn"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/pdf_image"
+                    android:padding="5dp"
+                    android:text="@string/download_documents"
+
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorError300" />
+
 
                 <Button
                     android:id="@+id/comments_btn"
                     style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="6dp"
+                    android:layout_toStartOf="@+id/images_btn"
                     android:background="@android:color/transparent"
                     android:drawableRight="@drawable/ic_expand_more_24dp_primary"
                     android:text="@string/comments"
@@ -297,14 +317,16 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/comments_btn"
+                    android:layout_gravity="end"
                     android:background="@android:color/transparent"
                     android:drawableRight="@drawable/ic_chevron_right_24dp_primary"
                     android:text="@string/Images"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorPrimary" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 

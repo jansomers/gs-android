@@ -71,6 +71,10 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabView {
         return true;
     }
 
+    /**
+     * Shows or doen't show the overview_group, depending on the parameter.
+     * @param show
+     */
     private void showOverflowMenu(boolean show) {
         if (menu == null) return;
         menu.setGroupVisible(R.id.overview_group, show);

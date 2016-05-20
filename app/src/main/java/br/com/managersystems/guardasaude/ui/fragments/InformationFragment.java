@@ -102,7 +102,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     LinearLayout commentLayout;
 
     @Bind(R.id.doc_comment_image_btns_rel_layout)
-    RelativeLayout docCommentImagesLayout;
+    RelativeLayout docCommentImageButtons;
 
     @Bind(R.id.documents_btn)
     ImageView documentsButton;
@@ -175,7 +175,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         commentsBtn.setVisibility(isPatient ? View.GONE : View.VISIBLE);
         documentsButton.setVisibility(exam.getDocuments().size() > 0 ? View.VISIBLE : View.GONE);
         imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().equals("available") ? View.GONE : View.VISIBLE);
-        docCommentImagesLayout.setVisibility(isPatient&&docAndImagesHidden ? View.GONE:View.VISIBLE);
+        docCommentImageButtons.setVisibility(isPatient&&docAndImagesHidden ? View.GONE:View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
         examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));

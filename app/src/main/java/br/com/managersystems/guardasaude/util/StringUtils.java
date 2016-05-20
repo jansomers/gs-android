@@ -94,4 +94,8 @@ public class StringUtils {
         }
         return displayRoles.toArray(new String[displayRoles.size()]);
     }
+
+    public static String tryReformatCPF(String identification) {
+        return identification.replace(".", "").replace("-", "");
+    }
 }

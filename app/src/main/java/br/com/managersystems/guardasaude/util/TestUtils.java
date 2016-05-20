@@ -10,6 +10,13 @@ import org.hamcrest.Matcher;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
+/**
+ * Utility class written to check items of a recyclerview.
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ */
 public class TestUtils {
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {

@@ -12,11 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import br.com.managersystems.guardasaude.R;
-import br.com.managersystems.guardasaude.ui.fragments.FullScreenImageFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import br.com.managersystems.guardasaude.R;
+import br.com.managersystems.guardasaude.ui.fragments.FullScreenImageFragment;
 
 public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenImageAdapter {
 

@@ -23,11 +23,16 @@ public class ForgotPasswordDialog extends Dialog {
     Snackbar succes;
     Snackbar fail;
 
+    LoginActivity loginActivity;
+    ForgotPasswordDialog dialog;
+
 
     public ForgotPasswordDialog(LoginActivity loginActivity, Snackbar succesSnack, Snackbar failSnack) {
         super(loginActivity);
         super.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.setContentView(R.layout.dialog_forgot_pwd);
+        this.loginActivity = loginActivity;
+        dialog = this;
         this.succes = succesSnack;
         this.fail = failSnack;
         ButterKnife.bind(this);
@@ -47,20 +52,28 @@ public class ForgotPasswordDialog extends Dialog {
 
     public void activateRequestBtn() {
         requestPwdBtn.setOnClickListener(new View.OnClickListener() {
-            // TODO check email validity. If valid and request fails show snackbar, If invalid and no request happened stay in dialog.
+
             @Override
             public void onClick(View v) {
                 //Implement StringUtils.isValidEmail(forgotPwdEmail.getText()
                 if (!forgotPwdEmail.getEditableText().toString().isEmpty()) {
-                    succes.show();
-                    dismiss();
+                    loginActivity.getPresenter().requestPassWord(dialog,forgotPwdEmail.getEditableText().toString());
+
 
                 } else {
-                    fail.show();
-                    dismiss();
+                    showFailure();
 
                 }
             }
         });
+    }
+
+    public void showSuccess() {
+        succes.show();
+        dismiss();
+    }
+
+    public void showFailure() {
+        fail.show();
     }
 }

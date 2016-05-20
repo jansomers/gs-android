@@ -19,6 +19,7 @@ import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 import br.com.managersystems.guardasaude.login.domain.MobileToken;
 import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.ui.activities.LoginActivity;
+import br.com.managersystems.guardasaude.ui.dialogs.ForgotPasswordDialog;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 /**
  * This class is an implementation of the ILoginPresenter. It also implements the
@@ -37,7 +38,7 @@ import br.com.managersystems.guardasaude.util.Base64Interactor;
  * @see ILoginInteractor
  * @see LoginActivity
 */
-public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener,OnAnonymousExamRetrievedListener {
+public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListener, OnLoginFinishedListener,OnPasswordResetListener, OnAnonymousExamRetrievedListener {
 
     ILoginView loginActivity;
     Activity logoutActivity;
@@ -45,6 +46,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     LoginInteractor loginInteractor;
     DomainInteractor domainInteractor;
     Base64Interactor base64Interactor;
+    ForgotPasswordDialog forgotPasswordDialog;
     ExamOverviewInteractor examOverviewInteractor;
 
     public LoginPresenter(LoginActivity loginActivity, SharedPreferences sp) {
@@ -100,7 +102,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
                 return false;
             }
         } catch (ParseException e) {
-            //TODO implement exception
+            Log.d(this.getClass().getSimpleName(), "Parsing went wrong");
         }
         try {
             if (format.parse(expires).after(new Date())) {
@@ -108,7 +110,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
                 return true;
             }
         } catch (ParseException e) {
-            //TODO implement exception
+            Log.d(this.getClass().getSimpleName(), "Parsing went wrong");
         }
         Log.d(this.getClass().getSimpleName(), "HOW DID THE METHOD GET HERE UURGH?");
         return false;
@@ -174,7 +176,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
 
     @Override
     public void onDomainRetrieved(ArrayList<AccessDomain> domainList) {
-        loginActivity.domainRetrievedSuccesfully(domainList);
+        loginActivity.showDomainOptionDialog(domainList);
     }
 
     @Override
@@ -188,6 +190,12 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     }
 
     @Override
+    public void requestPassWord(ForgotPasswordDialog dialog, String forgotPwdEmail) {
+        forgotPasswordDialog = dialog;
+        loginInteractor.handlePasswordRequest(this, forgotPwdEmail);
+    }
+
+    @Override
     public void examRetrievedSucces(Exam exam) {
         loginActivity.showAnonymousExam(exam);
     }
@@ -195,5 +203,20 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     @Override
     public void examRetrievedFailure() {
         loginActivity.showAnonymousExamError();
+    }
+
+    @Override
+    public void onPassWordReset() {
+        if (forgotPasswordDialog != null) {
+            forgotPasswordDialog.showSuccess();
+        }
+        else {
+            forgotPasswordDialog.showFailure();
+        }
+    }
+
+    @Override
+    public void onPassWordResetFailed() {
+        forgotPasswordDialog.showFailure();
     }
 }
