@@ -68,14 +68,14 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         holder.patientName.setText(StringUtils.anyCaseToNameCase(current.getPatient()));
         holder.clinicName.setText(current.getClinicName());
         holder.executionDate.setText(removeHoursFromDate(current.getExecutionDate()));
+        holder.emergencyIcon.setVisibility(current.getIsEmergency().equalsIgnoreCase("true") ? View.VISIBLE : View.INVISIBLE);
+
         if (preferences.getString("role", "").equals(UserRoleEnum.ROLE_PATIENT.toString()) && !current.getStatus().equals("F")) {
             holder.statusText.setText(R.string.in_progress);
         }
         else {
             holder.statusText.setText(StatusUtils.showCorrespondingStatus(current.getStatus()));
         }
-
-
         //Set status icon
         if (current.getStatus().equalsIgnoreCase(finished) || current.getStatus().equalsIgnoreCase(ready) || current.getStatus().equalsIgnoreCase(available)) {
             holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp_accent));
@@ -121,6 +121,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         TextView executionDate;
         CardView cardView;
         ImageView statusImage;
+        ImageView emergencyIcon;
 
         public ExamViewHolder(View itemView) {
             super(itemView);
@@ -131,6 +132,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
             executionDate = (TextView) itemView.findViewById(R.id.execution_date);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             statusImage = (ImageView) itemView.findViewById(R.id.status_icon);
+            emergencyIcon = (ImageView) itemView.findViewById(R.id.emergencyIcon);
         }
     }
 }

@@ -6,6 +6,7 @@ public interface SortDialogListener {
      * Requests sorted exams to presenter
      * @param orderBy String object representing how to order
      * @param sortBy String object representing how to sort.
+     * @param isEmergency
      */
-    void sortExamListBy(String orderBy,String sortBy);
+    void sortExamListBy(String orderBy, String sortBy, String isEmergency);
 }

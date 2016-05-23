@@ -14,8 +14,8 @@ public class AuthorisationResult {
     private String success;
     private String code;
     private String token;
-    private List<String> roles = new ArrayList<String>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private List<String> roles = new ArrayList<>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * @return The success

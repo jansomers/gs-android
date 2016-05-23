@@ -15,7 +15,7 @@ public interface IExamListInteractor {
     /**
      * Makes a call to the examApi to retrieve the list of exams for one user for the first page
      */
-    void getFirstExamList(final OnCallExamListFinishedListener listener, final String userName, final String token,final String orderBy,final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accessRole);
+    void getFirstExamList(final OnCallExamListFinishedListener listener, final String userName, final String token,final String orderBy,final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole,final String isEmergency);
 
     /**
      * Makes a call to the examApi to retrieve the list of exams for one user for pagination

@@ -44,13 +44,19 @@ public class SortByDialogFragment extends DialogFragment {
     @Bind(R.id.radio_identification)
     TextView radioIdentification;
 
+    @Bind(R.id.emergency_button_layout)
+    View radioEmergencyLayout;
+
+    @Bind(R.id.radio_emergency)
+    TextView radioEmergency;
+
     private SortDialogListener listener;
     private String sortBy = null;
     private String orderBy = null;
     private int iconPatientCounter = 0;
     private int iconDateCounter = 0;
     private int iconIdentificationCounter = 0;
-
+    private String isEmergency="false";
 
     public SortByDialogFragment() {
     }
@@ -113,6 +119,12 @@ public class SortByDialogFragment extends DialogFragment {
             }
         });
         radioIdentificationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRadioButtonClicked(v);
+            }
+        });
+        radioEmergencyLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRadioButtonClicked(v);
@@ -182,6 +194,11 @@ public class SortByDialogFragment extends DialogFragment {
                 iconIdentificationCounter=0;
                 iconDateCounter++;
                 break;
+            case R.id.emergency_button_layout:
+                sortBy=null;
+                orderBy=null;
+                isEmergency="true";
+                radioEmergency.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
         }
     }
 
@@ -189,11 +206,12 @@ public class SortByDialogFragment extends DialogFragment {
         radioPatient.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
         radioDate.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
         radioIdentification.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
+        isEmergency="false";
     }
 
 
     private void sortAndOrderList() {
-        listener.sortExamListBy(orderBy, sortBy);
+        listener.sortExamListBy(orderBy, sortBy,isEmergency);
     }
 
 }

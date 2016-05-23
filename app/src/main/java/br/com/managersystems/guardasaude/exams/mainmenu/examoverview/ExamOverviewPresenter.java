@@ -28,18 +28,16 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     }
 
     @Override
-    public void getFirstSortedExamList(String sortBy, String orderBy){
-        byte [] encryptedUser =  sp.getString("user",null).getBytes();
-        String user= base64Interactor.decodeBase64ToString(encryptedUser);
+    public void getFirstSortedExamList(String sortBy, String orderBy, String isEmergency){
+        String user=base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
-        examOverviewInteractor.getFirstExamList(this, user, token, orderBy, sortBy, START_MAX_VALUE,START_OFFSET_VALUE, null, role);
+        examOverviewInteractor.getFirstExamList(this, user, token, orderBy, sortBy, START_MAX_VALUE,START_OFFSET_VALUE, null, role,isEmergency);
     }
 
     @Override
     public void getNextSortedExamList(String sortBy, String orderBy, String offsetValue) {
-        byte [] encryptedUser =  sp.getString("user",null).getBytes();
-        String user= base64Interactor.decodeBase64ToString(encryptedUser);
+        String user= base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
         examOverviewInteractor.getNextExamList(this,user,token,orderBy,sortBy,START_MAX_VALUE,offsetValue+5,null,role);
@@ -47,19 +45,17 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
 
     @Override
     public void findNewExam(String exId, String ePassCode) {
-        byte [] encryptedUser =  sp.getString("user",null).getBytes();
-        String user= base64Interactor.decodeBase64ToString(encryptedUser);
+        String user= base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token",null);
         examOverviewInteractor.associateNewExam(this,user,token,exId,ePassCode);
     }
 
     @Override
     public void getFilteredExamList(String filterBy) {
-        byte [] encryptedUser =  sp.getString("user",null).getBytes();
-        String user= base64Interactor.decodeBase64ToString(encryptedUser);
+        String user= base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
-        examOverviewInteractor.getFirstExamList(this,user,token,null,null,START_MAX_VALUE,START_OFFSET_VALUE,filterBy,role);
+        examOverviewInteractor.getFirstExamList(this,user,token,null,null,START_MAX_VALUE,START_OFFSET_VALUE,filterBy,role,"false");
     }
 
     @Override

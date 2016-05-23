@@ -58,8 +58,7 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
 
     @Override
     public void retrieveImages(Exam exam) {
-        byte[] encryptedUser = sp.getString("user", null).getBytes();
-        final String user = base64Interactor.decodeBase64ToString(encryptedUser);
+        String user= base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         final String token = sp.getString("token", null);
         if(exam.getImages().size()!=0) {
             for (final ExamImage examImage : exam.getImages()) {

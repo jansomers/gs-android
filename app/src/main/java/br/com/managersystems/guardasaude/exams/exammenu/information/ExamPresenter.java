@@ -115,7 +115,6 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
 
     @Override
     public void onAllDocumentsSuccess() throws IOException {
-
         if (documentFiles.size() <= 0) {
             informationFragment.documentNotFound();
         } else {
@@ -127,11 +126,11 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
         }
     }
 
+    @Override
     public void retrieveDocuments(Exam exam, SharedPreferences sp) {
         for (Document document:exam.getDocuments()) {
             examInteractor.getDocument(exam,document.getExamIdentification(),document.getDocIdentification(),sp);
         }
     }
-
 
 }

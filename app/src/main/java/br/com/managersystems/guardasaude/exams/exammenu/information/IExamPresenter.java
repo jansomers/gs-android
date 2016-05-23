@@ -3,6 +3,8 @@ package br.com.managersystems.guardasaude.exams.exammenu.information;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import br.com.managersystems.guardasaude.exams.domain.Exam;
+
 /**
  * This interface serves as a transportation layer between the view and the interactor.
  * In this case it handles request to retrieve exam information, retrieve exam comments and to save a new comment.
@@ -37,5 +39,13 @@ public interface IExamPresenter {
      * @param exId CharSequence object representing the  exam identification.
      * @param sp SharedPreferences object that contents required parameters that the interactor needs.
      */
-    void saveComment(CharSequence comment, CharSequence exId, SharedPreferences sp);
+    void saveComment(CharSequence comment, CharSequence exid, SharedPreferences sp);
+
+    /**
+     * For each document in the exam
+     * Forwards the request to retrieve document for this exam
+     * @param exam The exam that contains the documents
+     * @param sp SharedPreferences object that contents required parameters that the interactor needs.
+     */
+    void retrieveDocuments(Exam exam, SharedPreferences sp);
 }

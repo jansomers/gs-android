@@ -108,7 +108,6 @@ public class ExamOverviewTest {
 
 
 
-
     @Test
     public void shouldSortExamsOnIdentification() {
         onView(withId(R.id.action_sortby)).check(matches(isDisplayed()));
@@ -124,15 +123,19 @@ public class ExamOverviewTest {
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
     }
 
+
+
     @Test
     public void checkRecyclerView() throws InterruptedException {
         onView(withId(R.id.examOverviewList)).check(matches(isDisplayed()));
         while (!overViewLoaded)
         {
             RecyclerView examOverview = (RecyclerView) mainTab.getActivity().findViewById(R.id.examOverviewList);
-            if (examOverview.getAdapter().getItemCount() == 0) {
-                overViewLoaded = false;
-            } else overViewLoaded = true;
+            if(examOverview!=null) {
+                if (examOverview.getAdapter() != null) {
+                    overViewLoaded = examOverview.getAdapter().getItemCount() != 0;
+                }
+            }
         }
 
         //Sort on ID DESC
@@ -145,7 +148,7 @@ public class ExamOverviewTest {
 
         //LOOKUP GKS0004
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
-        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.status_text)).check(matches(withText("W")));
+        onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.status_text)).check(matches(withText("Writing")));
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.patient_name)).check(matches(withText("John Smith")));
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.status_icon)).check(matches(isDisplayed()));
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.clinic_name)).check(matches(isDisplayed()));
@@ -153,12 +156,6 @@ public class ExamOverviewTest {
 
         //GOTO GKS0004
         onView(withRecyclerView(R.id.examOverviewList).atPosition(0)).perform(click());
-    }
-
-    @Test
-    public void shouldShowActionGroup() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Logout")).check(ViewAssertions.matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {

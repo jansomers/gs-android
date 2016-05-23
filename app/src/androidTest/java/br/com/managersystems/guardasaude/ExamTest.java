@@ -77,14 +77,11 @@ public class ExamTest {
         mainTab.getActivity();
         while (!overViewLoaded) {
             RecyclerView examOverview = (RecyclerView) mainTab.getActivity().findViewById(R.id.examOverviewList);
-            if (examOverview.getAdapter() != null) {
-                if (examOverview.getAdapter().getItemCount() == 0) {
-                    overViewLoaded = false;
-                } else overViewLoaded = true;
+            if(examOverview!=null){
+                if(examOverview.getAdapter()!=null){
+                    overViewLoaded = examOverview.getAdapter().getItemCount() != 0;
+                }
             }
-
-
-
         }
         onView(withId(R.id.examOverviewList)).check(matches(isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 

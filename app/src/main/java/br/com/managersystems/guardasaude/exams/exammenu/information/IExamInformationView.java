@@ -1,6 +1,8 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
+import android.app.Activity;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -69,7 +71,29 @@ public interface IExamInformationView {
      */
     void showNewComment();
 
+    /**
+     * Shows error to the user when document could not be found
+     */
     void documentNotFound();
 
+    /**
+     * Decodes base64 string to pdf document string
+     * Saves the document in DOWNLOAD map
+     * Show pdf using a pdf reader application
+     * Prompts user to install application if not able to open pdf
+     * @param response: The documentresponse containing the value of the PDF document
+     */
     void showPdfDocument(DocumentResponse response) throws IOException;
+
+    /**
+     * Sets the layout that contains the document, comments and images buttons invisible
+     * @param docAndImagesHidden: If true the layout will be hidden
+     */
+    void setDocAndImagesHidden(boolean docAndImagesHidden);
+
+    /**
+     * Checks if we have writing permissions on the user's device
+     * If we don't have permission prompt the user to ask for permissions
+     */
+    void verifyStoragePermissions();
 }

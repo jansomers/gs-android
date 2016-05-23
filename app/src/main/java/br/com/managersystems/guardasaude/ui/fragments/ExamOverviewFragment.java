@@ -122,7 +122,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
         overviewPresenter = new ExamOverviewPresenter(this, sp);
-        overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
+        overviewPresenter.getFirstSortedExamList(sortBy, orderBy, "false");
 
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
             @Override
@@ -134,7 +134,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
+                overviewPresenter.getFirstSortedExamList(sortBy, orderBy, "false");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -204,10 +204,10 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     }
 
     @Override
-    public void sortExamListBy(String orderBy, String sortBy) {
+    public void sortExamListBy(String orderBy, String sortBy, String isEmergency) {
         this.sortBy = sortBy;
         this.orderBy = orderBy;
-        overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
+        overviewPresenter.getFirstSortedExamList(sortBy, orderBy,isEmergency);
     }
 
     @Override
@@ -239,7 +239,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
         if (associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")) {
                 snackSuccessfulNewExam.show();
-                overviewPresenter.getFirstSortedExamList(sortBy, orderBy);
+                overviewPresenter.getFirstSortedExamList(sortBy, orderBy, "false");
         } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_code")) {
             snackWrongACNewExam.show();
         }else if(associatedExamResponse.getCode().equalsIgnoreCase("access_already_exists")){
@@ -281,7 +281,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                overviewPresenter.getFirstSortedExamList(sortBy,orderBy);
+                overviewPresenter.getFirstSortedExamList(sortBy,orderBy, "false");
                 return false;
             }
         };

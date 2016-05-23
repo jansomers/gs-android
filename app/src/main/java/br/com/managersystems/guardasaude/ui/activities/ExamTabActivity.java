@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +34,7 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     private LoginPresenter loginPresenter;
     private boolean examStatusIsReady;
     private String role;
+    private Snackbar snackExamNotFound;
 
 
     @Override
@@ -140,4 +143,9 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         this.examStatusIsReady = isReady;
     }
 
+    public void noExamFound() {
+        snackExamNotFound = Snackbar.make(viewPager, R.string.comment_empty, Snackbar.LENGTH_SHORT);
+        snackExamNotFound.getView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorError));
+        snackExamNotFound.show();
+    }
 }

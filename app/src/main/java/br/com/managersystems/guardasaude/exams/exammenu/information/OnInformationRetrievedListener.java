@@ -56,7 +56,7 @@ public interface OnInformationRetrievedListener {
      */
     void onPostCommentCallFailed();
     /**
-     * Notifies the view that the comment was successfully posted.
+     * Notifies the view that the comment was not successfully posted.
      */
     void onCommentPostedFailure();
     /**
@@ -64,9 +64,20 @@ public interface OnInformationRetrievedListener {
     */
     void onCommentPostedSuccess();
 
+    /**
+     * Add documentresponse to 'documentFiles' array of documentresponse
+     * @param response: The successfull documentresponse
+     */
     void onDocumentSuccess(DocumentResponse response);
 
+    /**
+     * Notifies the view that the document was not successfully retrieved.
+     */
     void onDocumentFailure();
 
+    /**
+     * If the documentFiles array is empty, notifies the view that the document was not successfully retrieved.
+     * For each documentresponse in documentFiles array calls showPdfDocument method of informationfragment
+     */
     void onAllDocumentsSuccess() throws IOException;
 }

@@ -323,7 +323,6 @@
                     android:padding="3dp"
                     android:text="@string/download_documents"
                     android:textAlignment="viewStart"
-
                     android:textColor="@color/colorError300"
                     android:textSize="12sp" />
 
