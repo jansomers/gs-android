@@ -1,8 +1,6 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -134,6 +132,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     };
     private Snackbar emptyComment;
     private Snackbar commentError;
+    private Snackbar noPdfAppError;
 
 
     @Override
@@ -185,8 +184,11 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     private void initializeSnacks() {
         emptyComment = Snackbar.make(coordinatorLay, R.string.comment_empty, Snackbar.LENGTH_SHORT);
         emptyComment.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
-        commentError =  Snackbar.make(coordinatorLay, getText(R.string.comment_failed),Snackbar.LENGTH_LONG);
+        commentError = Snackbar.make(coordinatorLay, getText(R.string.comment_failed), Snackbar.LENGTH_LONG);
         commentError.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorAccent));
+        noPdfAppError = Snackbar.make(coordinatorLay, R.string.pdf_no_reader, Snackbar.LENGTH_INDEFINITE);
+        noPdfAppError.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
+
     }
 
     @Override
@@ -206,7 +208,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);
         examRepPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReportingPhysicianName()));
         examRefPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReferringPhysicianName()));
-        if (isPatient) extraTextView.setText(exam.getStatus().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
+        if (isPatient)
+            extraTextView.setText(exam.getStatus().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
         else extraTextView.setText(getText(StatusUtils.showCorrespondingStatus(exam.getStatus())));
     }
 
@@ -256,7 +259,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showCommentPostError() {
-       commentError.show();
+        commentError.show();
     }
 
     @Override
@@ -267,7 +270,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void documentNotFound() {
-        snackDocumentNotFound = Snackbar.make(informationRelLayout, getResources().getText(R.string.snackDocNotFound), Snackbar.LENGTH_LONG);
+        snackDocumentNotFound = Snackbar.make(informationRelLayout, getResources().getText(R.string.snack_doc_not_found), Snackbar.LENGTH_LONG);
         snackDocumentNotFound.getView().setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorError));
         snackDocumentNotFound.show();
         enableButton(documentsButton);
@@ -275,7 +278,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showPdfDocument(DocumentResponse response) {
-        boolean fileAndDirCreated =false;
+        boolean fileAndDirCreated;
+        boolean noPdfReader = false;
         try {
             verifyStoragePermissions();
 
@@ -284,12 +288,12 @@ public class InformationFragment extends Fragment implements IExamInformationVie
             //Write pdf file to download directory
             File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), response.getExamDocumentIdentification());
             if (!pdfFile.exists()) {
-                boolean dirCreated= pdfFile.getParentFile().mkdirs();
+                boolean dirCreated = pdfFile.getParentFile().mkdirs();
                 boolean fileCreated = pdfFile.createNewFile();
                 fileAndDirCreated = dirCreated && fileCreated;
-            }else fileAndDirCreated=true;
+            } else fileAndDirCreated = true;
 
-            if(fileAndDirCreated) {
+            if (fileAndDirCreated) {
                 FileOutputStream os = new FileOutputStream(pdfFile, true);
                 os.write(pdfString);
                 Files.write(pdfString, pdfFile);
@@ -302,18 +306,26 @@ public class InformationFragment extends Fragment implements IExamInformationVie
                 try {
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {
-                    new AlertDialog.Builder(getActivity()).setTitle(getResources().getText(R.string.noPdfReaderDialogTitle)).setMessage(getResources().getText(R.string.noPdfReaderDialogText)).setCancelable(true).create().show();
+                    noPdfReader = true;
+                    noPdfAppError.show();
                 }
             }
-        }catch (IOException e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            Snackbar.make(coordinatorLay, getText(R.string.pdf_no_perm), Snackbar.LENGTH_LONG).show();
         }
-        stopDocumentsProgress();
+
+        stopDocumentsProgress(noPdfReader);
+
 
     }
 
-    private void stopDocumentsProgress() {
-        documentsButton.setText(R.string.opening);
+
+    private void stopDocumentsProgress(boolean noPdfReader) {
+        if (!noPdfReader) documentsButton.setText(R.string.opened);
+        else {
+            documentsButton.setText(R.string.download_documents);
+            enableButton(documentsButton);
+        }
 
     }
 
@@ -330,7 +342,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @OnClick(R.id.save_comment_btn)
     public void clickSaveComment() {
         if (newCommentText.getEditableText().toString().isEmpty()) showCommentEmptyError();
-        else  presenter.saveComment(examIdTextView.getText(), newCommentText.getEditableText().toString(), sp);
+        else
+            presenter.saveComment(examIdTextView.getText(), newCommentText.getEditableText().toString(), sp);
 
 
     }
@@ -345,19 +358,19 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     }
 
     private void enableButton(Button button) {
-        button.setTextColor(ContextCompat.getColor(this.getActivity(),R.color.colorError));
+        button.setTextColor(ContextCompat.getColor(this.getActivity(), R.color.colorError));
         button.setEnabled(true);
     }
 
     @Override
     @OnClick(R.id.images_btn)
-    public void navigateToImages(){
-        ViewPager viewPager = (ViewPager)getActivity().findViewById(R.id.gs_maintab_activity_pager);
+    public void navigateToImages() {
+        ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.gs_maintab_activity_pager);
         viewPager.setCurrentItem(2);
     }
 
     @OnClick(R.id.documents_btn)
-    public void downloadDocuments(){
+    public void downloadDocuments() {
         showDocumentsProgress();
         presenter.retrieveDocuments(exam, sp);
     }
