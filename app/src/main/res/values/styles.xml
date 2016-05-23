@@ -20,6 +20,7 @@
     <!--Button Styles-->
     <style name="LoginButton" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorControlHighlight">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:colorButtonNormal">@color/colorAccent</item>
     </style>
     <style name="ViewButton" parent="Theme.AppCompat.Light.DarkActionBar">

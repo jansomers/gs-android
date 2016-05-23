@@ -515,7 +515,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
 
-    @OnClick(R.id.submit_new_account_btn)
+    @OnClick(R.id.btn_submit_new_account)
     public void clickCreateAccount() {
         boolean readyToRegister = validateFormClientSide();
         if (readyToRegister) {

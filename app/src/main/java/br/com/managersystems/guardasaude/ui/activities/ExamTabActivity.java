@@ -16,13 +16,12 @@ import br.com.managersystems.guardasaude.exams.exammenu.ExamOneTabPagerAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.IExamTabView;
-import br.com.managersystems.guardasaude.exams.exammenu.information.ExamPresenter;
 import br.com.managersystems.guardasaude.login.LoginPresenter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
-    @Bind(R.id.pager)
+    @Bind(R.id.gs_maintab_activity_pager)
     ViewPager viewPager;
 
     @Bind(R.id.toolbar)

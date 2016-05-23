@@ -228,7 +228,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/create_account_btn"
+                android:id="@+id/gs_anon_exam_create_account_btn"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

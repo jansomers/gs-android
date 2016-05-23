@@ -1,13 +1,10 @@
 package br.com.managersystems.guardasaude.ui.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
@@ -27,13 +24,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ImagesFragment extends Fragment implements IImagesView {
-    @Bind(R.id.progressBar)
+    @Bind(R.id.gs_exam_images_progress_bar)
     ProgressBar progressBar;
 
-    @Bind(R.id.grid_view)
+    @Bind(R.id.gs_exam_images_grid_view)
     GridView gridView;
 
-    @Bind(R.id.imagesFail)
+    @Bind(R.id.gs_exam_images_error_text)
     TextView failText;
 
     private ImagesPresenter imagesPresenter;

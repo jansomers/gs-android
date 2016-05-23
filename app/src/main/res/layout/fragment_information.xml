@@ -305,9 +305,10 @@
                     android:drawablePadding="4dp"
                     android:padding="5dp"
                     android:text="@string/download_documents"
-
                     android:textAlignment="viewStart"
-                    android:textColor="@color/colorError300" />
+
+                    android:textColor="@color/colorError300"
+                    android:textSize="13sp" />
 
 
                 <Button
@@ -317,13 +318,13 @@
                     android:layout_height="40dp"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="end"
-                    android:layout_marginRight="6dp"
                     android:layout_toStartOf="@+id/images_btn"
                     android:background="@android:color/transparent"
                     android:drawableRight="@drawable/ic_expand_more_24dp_primary"
                     android:text="@string/comments"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
 
                 <Button
                     android:id="@+id/images_btn"
@@ -337,7 +338,8 @@
                     android:drawableRight="@drawable/ic_chevron_right_24dp_primary"
                     android:text="@string/Images"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
 
             </RelativeLayout>
 

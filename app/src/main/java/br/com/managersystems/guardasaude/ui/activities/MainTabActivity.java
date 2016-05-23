@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainTabActivity extends AppCompatActivity implements IMainTabView {
-    @Bind(R.id.pager)
+    @Bind(R.id.gs_maintab_activity_pager)
     ViewPager viewPager;
 
     @Bind(R.id.toolbar)

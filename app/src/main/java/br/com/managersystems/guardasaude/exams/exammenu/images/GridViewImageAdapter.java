@@ -139,7 +139,7 @@ public class GridViewImageAdapter extends BaseAdapter implements IGridViewImageA
                 FullScreenImageFragment fullScreenImageFragment = new FullScreenImageFragment();
                 fullScreenImageFragment.setPosition(postion);
                 fullScreenImageFragment.setUris(resizeBitmaps());
-                activity.getFragmentManager().beginTransaction().replace(R.id.images_fragment,fullScreenImageFragment).addToBackStack(null).commit();
+                activity.getFragmentManager().beginTransaction().replace(R.id.gs_images_fragment_layout,fullScreenImageFragment).addToBackStack(null).commit();
         }
     }
 

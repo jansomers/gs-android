@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
 
 public class NewAnonymousExamDialog extends Dialog {
 
-    @Bind(R.id.add_anonymous_accesscode)
+    @Bind(R.id.gs_anonymous_exam_add_access_code)
     TextInputEditText accessCode;
 
-    @Bind(R.id.add_anonymous_examId)
+    @Bind(R.id.gs_anonymous_exam_add_exam_id)
     TextInputEditText examId;
 
-    @Bind(R.id.btn_find_anonymous_exam)
+    @Bind(R.id.gs_anonymous_exam_btn_find)
     Button findNewExamButton;
 
     @Bind(R.id.new_anon_exam_error_msg)

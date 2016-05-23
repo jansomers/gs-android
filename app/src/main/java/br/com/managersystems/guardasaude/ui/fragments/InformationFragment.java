@@ -47,7 +47,7 @@ import br.com.managersystems.guardasaude.exams.exammenu.information.CommentsAdap
 import br.com.managersystems.guardasaude.exams.exammenu.information.ExamPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.information.IExamInformationView;
 import br.com.managersystems.guardasaude.util.AnimationUtils;
-import br.com.managersystems.guardasaude.util.Base64Interactor;
+import br.com.managersystems.guardasaude.util.StatusUtils;
 import br.com.managersystems.guardasaude.util.StringUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -121,12 +121,13 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     boolean isPatient;
     boolean docAndImagesHidden;
     private Exam exam;
-    Base64Interactor base64Interactor = new Base64Interactor();
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    private Snackbar emptyComment;
+    private Snackbar commentError;
 
 
     @Override
@@ -162,6 +163,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     }
 
     private void init() {
+        initializeSnacks();
         isPatient = (sp.getString("role", "").equals("ROLE_PATIENT"));
         Log.d(getClass().getSimpleName(), "Initializing Information Fragment...");
         Log.d(getClass().getSimpleName(), "Organizing startup views...");
@@ -174,6 +176,13 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         presenter.retrieveInformation(getActivity().getIntent());
     }
 
+    private void initializeSnacks() {
+        emptyComment = Snackbar.make(coordinatorLay, R.string.comment_empty, Snackbar.LENGTH_SHORT);
+        emptyComment.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
+        commentError =  Snackbar.make(coordinatorLay, getText(R.string.comment_failed),Snackbar.LENGTH_LONG);
+        commentError.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorAccent));
+    }
+
     @Override
     public void showInformation(Exam exam) {
         this.exam = exam;
@@ -182,7 +191,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         commentsBtn.setVisibility(isPatient ? View.GONE : View.VISIBLE);
         documentsButton.setVisibility(exam.getDocuments().size() > 0 ? View.VISIBLE : View.GONE);
         imagesBtn.setVisibility(isPatient && exam.getStatus().toLowerCase().equals("available") ? View.GONE : View.VISIBLE);
-        docCommentImageButtons.setVisibility(isPatient&&docAndImagesHidden ? View.GONE:View.VISIBLE);
+        docCommentImageButtons.setVisibility(isPatient && docAndImagesHidden ? View.GONE : View.VISIBLE);
         examIdTextView.setText(exam.getIdentification());
         examTypeTextView.setText(exam.getServiceName());
         examStatusImageView.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.finished_char)) || exam.getStatus().equalsIgnoreCase(getContext().getString(R.string.ready_char)) ? R.drawable.ic_check_circle_36dp_accent : R.drawable.ic_clock_primary));
@@ -191,7 +200,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);
         examRepPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReportingPhysicianName()));
         examRefPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReferringPhysicianName()));
-        extraTextView.setText(exam.getStatus().toString().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
+        if (isPatient) extraTextView.setText(exam.getStatus().toString().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
+        else extraTextView.setText(getText(StatusUtils.showCorrespondingStatus(exam.getStatus().toString())));
     }
 
     @Override
@@ -240,7 +250,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showCommentPostError() {
-        Snackbar.make(coordinatorLay, getText(R.string.comment_failed),Snackbar.LENGTH_LONG).show();
+       commentError.show();
     }
 
     @Override
@@ -306,7 +316,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     }
 
     private void showCommentEmptyError() {
-        Snackbar.make(coordinatorLay, R.string.comment_empty, Snackbar.LENGTH_SHORT).show();
+        emptyComment.show();
     }
 
     private void disableButton(Button button) {
@@ -322,7 +332,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     @Override
     @OnClick(R.id.images_btn)
     public void navigateToImages(){
-        ViewPager viewPager = (ViewPager)getActivity().findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager)getActivity().findViewById(R.id.gs_maintab_activity_pager);
         viewPager.setCurrentItem(2);
     }
 

@@ -48,7 +48,7 @@ import butterknife.OnClick;
 
 
 public class ExamOverviewFragment extends Fragment implements IExamOverview, SortDialogListener, NewExamListener {
-    @Bind(R.id.progressBar)
+    @Bind(R.id.gs_exam_images_progress_bar)
     ProgressBar progressBar;
 
     @Bind(R.id.examOverviewList)

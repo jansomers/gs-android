@@ -162,6 +162,17 @@
     <string name="future_login">You now can login with your user details.</string>
     <string name="comment_failed">Something went wrong posting the comment</string>
     <string name="comment_empty">You can\'t post empty comments.</string>
+    <string name="writing">Writing</string>
+    <string name="waiting_rev">Waiting Review</string>
+    <string name="rev_rejected">Review Rejected</string>
+    <string name="delivered">Delivered</string>
+    <string name="blank">Blank</string>
+    <string name="unknown">Unknown</string>
+    <string name="test_forgot_pwd_email">patient2@gksis.com.br</string>
+    <string name="submitting">Submitting request..</string>
+    <string name="success">Success</string>
+    <string name="test_anon_patient">JOHN SMITH</string>
+    <string name="test_anon_reporting_phys">Médico Teste</string>
 
     <string-array name="image_ids">
         <item>@drawable/image_1</item>

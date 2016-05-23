@@ -60,7 +60,7 @@ public class AnonymousExamInformationActivity extends AppCompatActivity {
         presenter.retrieveExam(getIntent());
     }
 
-    @OnClick(R.id.create_account_btn)
+    @OnClick(R.id.gs_anon_exam_create_account_btn)
     void onCreateAccountClicked() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivityForResult(intent,1);

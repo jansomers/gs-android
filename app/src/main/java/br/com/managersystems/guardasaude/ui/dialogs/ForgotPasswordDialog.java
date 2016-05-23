@@ -1,6 +1,7 @@
 package br.com.managersystems.guardasaude.ui.dialogs;
 
 import android.app.Dialog;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
@@ -17,7 +18,7 @@ public class ForgotPasswordDialog extends Dialog {
     @Bind(R.id.forgot_pwd_email)
     TextInputEditText forgotPwdEmail;
 
-    @Bind(R.id.btn_request_pwd)
+    @Bind(R.id.btn_submit_password_request)
     Button requestPwdBtn;
 
     Snackbar succes;
@@ -57,6 +58,8 @@ public class ForgotPasswordDialog extends Dialog {
             public void onClick(View v) {
                 //Implement StringUtils.isValidEmail(forgotPwdEmail.getText()
                 if (!forgotPwdEmail.getEditableText().toString().isEmpty()) {
+                    requestPwdBtn.setEnabled(false);
+                    requestPwdBtn.setText(getContext().getText(R.string.submitting));
                     loginActivity.getPresenter().requestPassWord(dialog,forgotPwdEmail.getEditableText().toString());
 
 
@@ -70,10 +73,20 @@ public class ForgotPasswordDialog extends Dialog {
 
     public void showSuccess() {
         succes.show();
+        requestPwdBtn.setText(getContext().getText(R.string.success));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                requestPwdBtn.setText(getContext().getText(R.string.submit));
+                requestPwdBtn.setEnabled(true);
+            }
+        },250);
         dismiss();
     }
 
     public void showFailure() {
+        requestPwdBtn.setText(getContext().getText(R.string.submit));
+        requestPwdBtn.setEnabled(true);
         fail.show();
     }
 }
