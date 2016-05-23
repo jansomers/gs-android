@@ -1,7 +1,6 @@
 package br.com.managersystems.guardasaude.exams.exammenu.images;
 
 /*
-    TODO Wat met deze doc?
  * TouchImageView.java
  * By: Michael Ortiz
  * Updated By: Patrick Lackemacher
