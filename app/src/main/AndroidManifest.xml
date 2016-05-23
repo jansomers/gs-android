@@ -24,7 +24,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.MainTabActivity"></activity>
+        <activity android:name=".ui.activities.MainTabActivity">
+
+        </activity>
         <activity android:name=".ui.activities.ExamTabActivity">
 
         </activity>
@@ -32,7 +34,9 @@
         <activity android:name=".ui.activities.AnonymousExamInformationActivity">
 
         </activity>
-        <activity android:name=".ui.activities.RegisterActivity"></activity>
+        <activity android:name=".ui.activities.RegisterActivity">
+
+        </activity>
     </application>
 
 </manifest>

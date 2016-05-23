@@ -68,7 +68,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
-        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole,"false");
+        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accessRole,"false");
         call.enqueue(new Callback<ExamList>() {
 
             @Override

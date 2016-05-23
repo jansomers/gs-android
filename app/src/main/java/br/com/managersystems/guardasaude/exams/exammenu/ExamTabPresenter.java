@@ -23,7 +23,7 @@ public class ExamTabPresenter {
             }
         }
         else {
-           //TODO HANDLE NO EXAM FOUND
+           activity.noExamFound();
         }
     }
 

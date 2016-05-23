@@ -521,13 +521,13 @@ public class TouchImageView extends ImageView {
         }
 
         int drawableWidth = drawable.getIntrinsicWidth();
-        int drawableHeight = drawable.getIntrinsicHeight();
+        int drawableWidth2 = drawable.getIntrinsicHeight();
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         viewWidth = setViewSize(widthMode, widthSize, drawableWidth);
-        viewHeight = setViewSize(heightMode, heightSize, drawableHeight);
+        viewHeight = setViewSize(heightMode, heightSize, drawableWidth2);
 
         //
         // Set view dimensions

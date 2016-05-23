@@ -179,17 +179,4 @@
     <string name="test_anon_reporting_phys">Médico Teste</string>
     <string name="check_id_for_description">Check the id for a gist of what the view represents</string>
 
-    <string-array name="image_ids">
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-    </string-array>
-
-
 </resources>

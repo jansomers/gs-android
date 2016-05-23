@@ -13,7 +13,7 @@ public class AssociatedExamResponse {
     private String username;
     private String examAccessCode;
     private String examIdentification;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      *

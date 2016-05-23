@@ -12,7 +12,7 @@ public class Comment {
     private int authorId;
     private String authorName;
     private String commentText;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      *

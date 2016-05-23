@@ -275,6 +275,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void showPdfDocument(DocumentResponse response) {
+        boolean fileAndDirCreated =false;
         try {
             verifyStoragePermissions();
 
@@ -283,22 +284,26 @@ public class InformationFragment extends Fragment implements IExamInformationVie
             //Write pdf file to download directory
             File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), response.getExamDocumentIdentification());
             if (!pdfFile.exists()) {
-                pdfFile.getParentFile().mkdirs();
-                pdfFile.createNewFile();
-            }
-            FileOutputStream os = new FileOutputStream(pdfFile, true);
-            os.write(pdfString);
-            Files.write(pdfString, pdfFile);
-            Uri path = Uri.fromFile(pdfFile);
+                boolean dirCreated= pdfFile.getParentFile().mkdirs();
+                boolean fileCreated = pdfFile.createNewFile();
+                fileAndDirCreated = dirCreated && fileCreated;
+            }else fileAndDirCreated=true;
 
-            //Launch PDF reader
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(path, "application/pdf");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                new AlertDialog.Builder(getActivity()).setTitle(getResources().getText(R.string.noPdfReaderDialogTitle)).setMessage(getResources().getText(R.string.noPdfReaderDialogText)).setCancelable(true).create().show();
+            if(fileAndDirCreated) {
+                FileOutputStream os = new FileOutputStream(pdfFile, true);
+                os.write(pdfString);
+                Files.write(pdfString, pdfFile);
+                Uri path = Uri.fromFile(pdfFile);
+
+                //Launch PDF reader
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(path, "application/pdf");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    new AlertDialog.Builder(getActivity()).setTitle(getResources().getText(R.string.noPdfReaderDialogTitle)).setMessage(getResources().getText(R.string.noPdfReaderDialogText)).setCancelable(true).create().show();
+                }
             }
         }catch (IOException e){
             e.printStackTrace();
