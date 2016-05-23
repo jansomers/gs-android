@@ -38,8 +38,7 @@ public class AnonymousExamTest {
         onView(withId(R.id.add_anonymous_accesscode)).perform(ViewActions.typeText(login.getActivity().getText(R.string.test_add_exam_accesscode_wrong).toString()));
         onView(withId(R.id.btn_find_anonymous_exam)).perform(ViewActions.click());
         onView(withText(login.getActivity().getText(R.string.test_add_exam_id).toString()));
-        Thread.sleep(200
-        );
+        Thread.sleep(500);
         pressBack();
         pressBack();
         onView(allOf(withId(android.support.design.R.id.snackbar_text), withText(R.string.exam_associated_internalfail))).check(matches(isDisplayed()));

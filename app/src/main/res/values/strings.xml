@@ -165,7 +165,7 @@
     <string name="future_login">You now can login with your user details.</string>
     <string name="comment_failed">Something went wrong posting the comment</string>
     <string name="comment_empty">You can\'t post empty comments.</string>
-
+    <string name="emergencyExams">Emergency Exams</string>
 
 
 </resources>

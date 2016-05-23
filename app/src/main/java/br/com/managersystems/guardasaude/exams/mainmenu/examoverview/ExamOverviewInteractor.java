@@ -41,11 +41,11 @@ public class ExamOverviewInteractor implements IExamListInteractor {
 
 
     @Override
-    public void getFirstExamList(final OnCallExamListFinishedListener listener, final String userName, final String token, final String orderBy, final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole) {
+    public void getFirstExamList(final OnCallExamListFinishedListener listener, final String userName, final String token, final String orderBy, final String sortBy, final String maxValue, final String offsetValue, final String filterBy, final String accesRole,final String isEmergency) {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
-        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole);
+        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole,isEmergency);
         call.enqueue(new Callback<ExamList>() {
             @Override
             public void onResponse(Call<ExamList> call, Response<ExamList> response) {
@@ -68,7 +68,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
-        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole);
+        Call<ExamList> call = examApi.getExamsList(userName, token, orderBy, sortBy, maxValue, offsetValue, filterBy, accesRole,"false");
         call.enqueue(new Callback<ExamList>() {
 
             @Override

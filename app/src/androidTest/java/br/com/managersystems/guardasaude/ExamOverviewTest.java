@@ -121,7 +121,6 @@ public class ExamOverviewTest {
 
 
 
-
     @Test
     public void shouldSortExamsOnIdentification() {
         onView(withId(R.id.action_sortby)).check(matches(isDisplayed()));
@@ -136,6 +135,8 @@ public class ExamOverviewTest {
 
         onView(withRecyclerView(R.id.examOverviewList).atPositionOnView(0, R.id.exam_id)).check(matches(withText(login.getActivity().getText(R.string.test_add_exam_id).toString())));
     }
+
+
 
     @Test
     public void checkRecyclerview() throws InterruptedException {
@@ -166,12 +167,6 @@ public class ExamOverviewTest {
 
         //GOTO GKS0004
         onView(withRecyclerView(R.id.examOverviewList).atPosition(0)).perform(click());
-    }
-
-    @Test
-    public void shouldShowActionGroup() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Logout")).check(ViewAssertions.matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {

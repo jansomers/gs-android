@@ -26,7 +26,8 @@ public interface ExamApi {
             @Query("maxValue") String maxValue,
             @Query("offsetValue")String offsetValue,
             @Query("filterBy")String filterBy,
-            @Query("accessRole") String accessRole);
+            @Query("accessRole") String accessRole,
+            @Query("isEmergency") String isEmergency);
 
     @GET("mobile/getExamReport")
     Call<ReportResponse> getReport(

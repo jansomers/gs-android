@@ -28,12 +28,12 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     }
 
     @Override
-    public void getFirstSortedExamList(String sortBy, String orderBy){
+    public void getFirstSortedExamList(String sortBy, String orderBy, String isEmergency){
         byte [] encryptedUser =  sp.getString("user",null).getBytes();
         String user= base64Interactor.decodeBase64ToString(encryptedUser);
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
-        examOverviewInteractor.getFirstExamList(this, user, token, orderBy, sortBy, START_MAX_VALUE,START_OFFSET_VALUE, null, role);
+        examOverviewInteractor.getFirstExamList(this, user, token, orderBy, sortBy, START_MAX_VALUE,START_OFFSET_VALUE, null, role,isEmergency);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
         String user= base64Interactor.decodeBase64ToString(encryptedUser);
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
-        examOverviewInteractor.getFirstExamList(this,user,token,null,null,START_MAX_VALUE,START_OFFSET_VALUE,filterBy,role);
+        examOverviewInteractor.getFirstExamList(this,user,token,null,null,START_MAX_VALUE,START_OFFSET_VALUE,filterBy,role,"false");
     }
 
     @Override

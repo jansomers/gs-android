@@ -5,10 +5,11 @@ public interface IExamOverviewPresenter  {
      * The first time the exam list is loaded, before pagination
      * Gets user, token and role from shared preferences
      * addresses the examOverviewInteractor
-     * @param sortBy: patient, identification or date
-     * @param orderBy: asc or desc
+     * @param sortBy : patient, identification or date
+     * @param orderBy : asc or desc
+     * @param isEmergency
      */
-    void getFirstSortedExamList(String sortBy, String orderBy);
+    void getFirstSortedExamList(String sortBy, String orderBy, String isEmergency);
 
     /**
      * The first time the exam list is loaded, before pagination

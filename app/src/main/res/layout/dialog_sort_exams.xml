@@ -94,6 +94,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/emergency_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/radio_emergency"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:text="@string/emergencyExams"
+            android:textColor="@color/colorTextColorLight"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
