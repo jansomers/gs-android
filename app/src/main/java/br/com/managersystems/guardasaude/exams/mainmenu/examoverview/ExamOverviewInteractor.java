@@ -64,7 +64,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
     }
 
     @Override
-    public void getNextExamList(final OnCallExamListFinishedListener listener, String userName, String token, String orderBy, String sortBy, String maxValue, String offsetValue, String filterBy, String accesRole) {
+    public void getNextExamList(final OnCallExamListFinishedListener listener, String userName, String token, String orderBy, String sortBy, String maxValue, String offsetValue, String filterBy, String accessRole) {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
@@ -87,11 +87,11 @@ public class ExamOverviewInteractor implements IExamListInteractor {
     }
 
     @Override
-    public void associateNewExam(final OnCallExamListFinishedListener listener, String user, String token, String exid, String ePassCode) {
+    public void associateNewExam(final OnCallExamListFinishedListener listener, String user, String token, String exId, String ePassCode) {
         if (examApi == null) {
             examApi = initiateRetrofit();
         }
-        Call<AssociatedExamResponse> call = examApi.associateNewExam(user, token, exid, ePassCode);
+        Call<AssociatedExamResponse> call = examApi.associateNewExam(user, token, exId, ePassCode);
         call.enqueue(new Callback<AssociatedExamResponse>() {
             @Override
             public void onResponse(Call<AssociatedExamResponse> call, Response<AssociatedExamResponse> response) {
@@ -119,7 +119,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
             @Override
             public void onResponse(Call<IndividualExamResponse> call, Response<IndividualExamResponse> response) {
                 if (response.body().getRows().size()!=0) {
-                    listener.examRetrievedSucces(response.body().getRows().get(0));
+                    listener.examRetrievedSuccess(response.body().getRows().get(0));
                 } else {
                     listener.examRetrievedFailure();
                 }
@@ -140,7 +140,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");
             listener.onExamFailure();
         } else {
-            Log.d(getClass().getSimpleName(), "Exam was retrieved succesfully... notifying listener!");
+            Log.d(getClass().getSimpleName(), "Exam was retrieved successfully... notifying listener!");
             listener.onExamReceived(exam);
         }
     }

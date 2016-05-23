@@ -59,7 +59,7 @@ public interface ILoginView {
 
     /**
      * Shows the option dialog to choose a role.
-     * Forwards the selected option to the loginSucces() method.
+     * Forwards the selected option to the loginSuccess() method.
      *
      * @param roles ArrayList that represents the roles to choose from.
      */
@@ -83,7 +83,7 @@ public interface ILoginView {
      */
     void showAnonymousExamError();
     /**
-     * Calls retrieveAnonymousExam method from preseneter and passes accesCode and examId
+     * Calls retrieveAnonymousExam method from presenter and passes accessCode and examId
      */
     void findAnonymousExam(String accessCodeString, String examIdString);
 }

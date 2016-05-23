@@ -22,8 +22,6 @@ import br.com.managersystems.guardasaude.login.domain.AccessDomain;
 public class DomainInteractor implements IDomainInteractor {
 
     private ArrayList<AccessDomain> domainList;
-    private AccessDomain liveDomain;
-    private AccessDomain demoDomain;
 
     public DomainInteractor(ArrayList<AccessDomain> domainList) {
         this.domainList = domainList;
@@ -34,9 +32,9 @@ public class DomainInteractor implements IDomainInteractor {
      * Initiates the list of possible AccessDomains.
      */
     private void initList() {
-        liveDomain = new AccessDomain(1, "Live", "managersystems.com.br");
+        AccessDomain liveDomain = new AccessDomain(1, "Live", "managersystems.com.br");
         domainList.add(liveDomain);
-        demoDomain = new AccessDomain(2, "Demo", "demo.managersystems.com.br");
+        AccessDomain demoDomain = new AccessDomain(2, "Demo", "demo.managersystems.com.br");
         domainList.add(demoDomain);
     }
 

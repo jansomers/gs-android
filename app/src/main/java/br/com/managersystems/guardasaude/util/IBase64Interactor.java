@@ -4,7 +4,7 @@ package br.com.managersystems.guardasaude.util;
  * Utility class that handles and/or returns base64 encoded objects.
  * Currently handles:
  * - Encoding a string to a base64 string.
- * - Decoding a base64 bytestream to a string.
+ * - Decoding a base64 byte stream to a string.
  *
  * Authors:
  * @author Jan Somers
@@ -23,8 +23,8 @@ public interface IBase64Interactor {
     String encodeStringToBase64(String decodedString);
 
     /**
-     * Decodse a string from base64.
-     * @param encodedBytes Bytestream that represent the base64.
+     * Decodes a string from base64.
+     * @param encodedBytes Byte stream that represent the base64.
      * @return String object that represents the decoded string.
      */
     String decodeBase64ToString(byte[] encodedBytes);

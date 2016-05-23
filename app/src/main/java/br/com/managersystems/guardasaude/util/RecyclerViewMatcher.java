@@ -7,7 +7,10 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-
+/**
+ * Test Utility class
+ * that allows you to test items at a certain position in a RecyclerView.
+ */
 public class RecyclerViewMatcher {
     private final int recyclerViewId;
 
@@ -15,10 +18,21 @@ public class RecyclerViewMatcher {
         this.recyclerViewId = recyclerViewId;
     }
 
+    /**
+     * Matches a position with the item in the recyclerView
+     * @param position int representing the position you want to check.
+     * @return returns a Matcher for the view.
+     */
     public Matcher<View> atPosition(final int position) {
         return atPositionOnView(position, -1);
     }
 
+    /**
+     * Matches the view of the adapter with the requested position.
+     * @param position position of the item
+     * @param targetViewId id of the view
+     * @return returns a Matcher for the view
+     */
     public Matcher<View> atPositionOnView(final int position, final int targetViewId) {
 
         return new TypeSafeMatcher<View>() {
@@ -32,8 +46,7 @@ public class RecyclerViewMatcher {
                         idDescription = this.resources.getResourceName(recyclerViewId);
                     } catch (Resources.NotFoundException var4) {
                         idDescription = String.format("%s (resource name not found)",
-                                new Object[] { Integer.valueOf
-                                        (recyclerViewId) });
+                                recyclerViewId);
                     }
                 }
 

@@ -10,7 +10,7 @@ public interface OnLoginFinishedListener {
     /**
      * Passes the information to the interactor for further authorization in case of a  successful request.
      * @param listener OnLoginFinishedListener that represents the expecting listener.
-     * @param authorisationResult Authorisationresult that is received by the request.
+     * @param authorisationResult Authorisation result that is received by the request.
      * @param username64 String that represents the encoded username.
      */
     void onHandleRequestLoginAttemptSuccess(OnLoginFinishedListener listener, AuthorisationResult authorisationResult, String username64);

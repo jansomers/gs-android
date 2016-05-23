@@ -1,5 +1,6 @@
 package br.com.managersystems.guardasaude.login;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -85,7 +86,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     @Override
     public boolean validateToken(String expires) {
         //dd/MM/yyyy(HH:mm:ss)
-        DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        @SuppressLint("SimpleDateFormat") DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
         try {
             Log.d(this.getClass().getSimpleName(), "expires: " + format.parse(expires));
         } catch (ParseException e) {
@@ -112,10 +113,11 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
         } catch (ParseException e) {
             Log.d(this.getClass().getSimpleName(), "Parsing went wrong");
         }
-        Log.d(this.getClass().getSimpleName(), "HOW DID THE METHOD GET HERE UURGH?");
+        Log.d(this.getClass().getSimpleName(), "HOW DID THE METHOD GET HERE?");
         return false;
     }
-
+    //Apply happens in called method. Warning isn't valid.
+    @SuppressLint("CommitPrefEdits")
     @Override
     public void logout() {
         loginInteractor.deleteUserInfo(this, sp.edit());
@@ -196,7 +198,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     }
 
     @Override
-    public void examRetrievedSucces(Exam exam) {
+    public void examRetrievedSuccess(Exam exam) {
         loginActivity.showAnonymousExam(exam);
     }
 
@@ -207,11 +209,10 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
 
     @Override
     public void onPassWordReset() {
-        if (forgotPasswordDialog != null) {
+        try {
             forgotPasswordDialog.showSuccess();
-        }
-        else {
-            forgotPasswordDialog.showFailure();
+        } catch (NullPointerException e){
+            onPassWordResetFailed();
         }
     }
 

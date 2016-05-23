@@ -128,16 +128,16 @@ public class GridViewImageAdapter extends BaseAdapter implements IGridViewImageA
 
     class OnImageClickListener implements View.OnClickListener {
 
-        int postion;
+        int position;
 
         public OnImageClickListener(int position) {
-            this.postion = position;
+            this.position = position;
         }
 
         @Override
         public void onClick(View v) {
                 FullScreenImageFragment fullScreenImageFragment = new FullScreenImageFragment();
-                fullScreenImageFragment.setPosition(postion);
+                fullScreenImageFragment.setPosition(position);
                 fullScreenImageFragment.setUris(resizeBitmaps());
                 activity.getFragmentManager().beginTransaction().replace(R.id.gs_images_fragment_layout,fullScreenImageFragment).addToBackStack(null).commit();
         }

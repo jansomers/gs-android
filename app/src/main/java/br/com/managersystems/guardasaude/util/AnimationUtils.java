@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 public class AnimationUtils {
 
     /**
-     * Measures the height for the view and sets it as the targetheight.
+     * Measures the height for the view and sets it as the targetHeight.
      * Sets the wanted height it should be after the animation is complete.
      * Shows the view.
      * Creates the animation and makes is so the height is no longer increased after reaching full size.

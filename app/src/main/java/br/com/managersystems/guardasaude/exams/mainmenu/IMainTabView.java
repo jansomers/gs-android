@@ -3,8 +3,8 @@ package br.com.managersystems.guardasaude.exams.mainmenu;
 
 public interface IMainTabView {
     /**
-     * Sets supportactiontoolbar
-     * Initializes loginpresenter
+     * Sets supportActionToolbar
+     * Initializes loginPresenter
      * Sets adapter for viewpager
      */
     void init();

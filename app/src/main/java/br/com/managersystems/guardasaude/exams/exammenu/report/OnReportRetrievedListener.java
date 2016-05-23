@@ -35,7 +35,7 @@ public interface OnReportRetrievedListener {
 
     /**
      * Calls the method to retrieve a report in the presenter.
-     * @param exam Exam object representng the exam that needs the report.
+     * @param exam Exam object representing the exam that needs the report.
      */
     void onExamReceived(Exam exam);
 }

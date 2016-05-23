@@ -1,7 +1,6 @@
 package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 
-import java.io.File;
 
 import br.com.managersystems.guardasaude.exams.domain.AssociatedExamResponse;
 import br.com.managersystems.guardasaude.exams.domain.CommentResponse;

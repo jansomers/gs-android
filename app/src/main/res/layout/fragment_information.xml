@@ -10,7 +10,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/gs_exam_coordinator_lay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.design.widget.CoordinatorLayout>
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -19,6 +19,7 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:background="@android:color/background_light"
         android:elevation="2dp"
         android:orientation="vertical"
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:contentDescription="@string/check_id_for_description"
                 android:padding="5dp"
                 android:src="@drawable/ic_check_circle_36dp_accent" />
 
@@ -96,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
+                    android:baselineAligned="false"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -109,8 +112,10 @@
                         android:padding="5dp">
 
                         <ImageView
+                            android:id="@+id/icon_hospital"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/check_id_for_description"
                             android:src="@drawable/ic_local_hospital_24dp_primarylight" />
 
                         <TextView
@@ -133,8 +138,10 @@
                         android:padding="5dp">
 
                         <ImageView
+                            android:id="@+id/icon_patient"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/check_id_for_description"
                             android:src="@drawable/ic_person_24dp_primarylight" />
 
                         <TextView
@@ -159,6 +166,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:baselineAligned="false"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -172,8 +180,10 @@
                         android:padding="5dp">
 
                         <ImageView
+                            android:id="@+id/icon_calendar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/check_id_for_description"
                             android:src="@drawable/ic_today_24dp_primarylight" />
 
                         <TextView
@@ -196,8 +206,10 @@
                         android:padding="5dp">
 
                         <ImageView
+                            android:id="@+id/icon_reporting_phys"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/check_id_for_description"
                             android:src="@drawable/ic_report_account_24dp_primarylight" />
 
                         <TextView
@@ -225,6 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:baselineAligned="false"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -238,8 +251,10 @@
                         android:padding="5dp">
 
                         <ImageView
+                            android:id="@+id/icon_progress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/check_id_for_description"
                             android:src="@drawable/ic_history_24dp" />
 
                         <TextView
@@ -261,8 +276,10 @@
                         android:padding="5dp">
 
                         <ImageView
+                            android:id="@+id/icon_referring_phys"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/check_id_for_description"
                             android:src="@drawable/ic_doctor" />
 
                         <TextView
@@ -303,11 +320,11 @@
                     android:layout_centerVertical="true"
                     android:drawableLeft="@drawable/ic_pdf_24dp_red"
                     android:drawablePadding="4dp"
-                    android:padding="5dp"
+                    android:padding="3dp"
                     android:text="@string/download_documents"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorError300"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
 
                 <Button
@@ -322,8 +339,8 @@
                     android:drawableRight="@drawable/ic_expand_more_24dp_primary"
                     android:text="@string/comments"
                     android:textAlignment="textEnd"
-                    android:textSize="13sp"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/images_btn"
@@ -337,8 +354,8 @@
                     android:drawableRight="@drawable/ic_chevron_right_24dp_primary"
                     android:text="@string/Images"
                     android:textAlignment="textEnd"
-                    android:textSize="13sp"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 

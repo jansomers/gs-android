@@ -9,7 +9,7 @@ public interface IGridViewImageAdapter {
     /**
      * Converts each bitmap inside an array of images into a Uri making use of the
      * bitmapToUriConverter. Adds Uris to an ArrayList.
-     * @return ArrayList object containg Uri objects.
+     * @return ArrayList object containing Uri objects.
      */
     ArrayList<Uri> resizeBitmaps();
 

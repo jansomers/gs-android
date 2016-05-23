@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     SharedPreferences sp;
 
 
-    private Snackbar snackSuccesfulPwdReq;
+    private Snackbar snackSuccessfulPwdReq;
     private Snackbar snackFailedPwdReq;
     private Snackbar snackInternalFailNewExam;
 
@@ -111,8 +111,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
      * Initiates snackbars.
      */
     private void initSnacks() {
-        snackSuccesfulPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackReqPwd), Snackbar.LENGTH_LONG);
-        snackSuccesfulPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        snackSuccessfulPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackReqPwd), Snackbar.LENGTH_LONG);
+        snackSuccessfulPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         snackFailedPwdReq = Snackbar.make(loginCoordinatorLayout, getResources().getText(R.string.snackNoReqPwd), Snackbar.LENGTH_LONG);
         snackFailedPwdReq.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorError));
         snackInternalFailNewExam = Snackbar.make(loginCoordinatorLayout,getResources().getText(R.string.exam_associated_internalfail),Snackbar.LENGTH_LONG);
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     /**
-     * Fades in the Guardasaude logo.
+     * Fades in the GuardaSaude logo.
      */
     private void activateLogo() {
         Animation logoAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slow_fade_in_animation);
@@ -129,9 +129,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     /**
-     * Sets the credentials in both textinputs.
+     * Sets the credentials in both textInputs.
      *
-     * @param username String that sets the username.
      * @param username String that sets the username.
      * @param password String that sets the password.
      */
@@ -172,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Override
     public void navigateToOverviewActivity() {
         Intent intent = new Intent(this, MainTabActivity.class);
-        Log.d(this.getClass().getSimpleName(), "Navigating to Maintabactivity as: " + sp.getString("role", "NOROLE"));
+        Log.d(this.getClass().getSimpleName(), "Navigating to MainTabActivity as: " + sp.getString("role", "NO_ROLE"));
         startActivity(intent);
     }
 
@@ -208,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @OnClick(R.id.gs_login_btn_forgot_password)
     public void forgotPwdBtnClicked() {
         String username = gsUsernameEditText.getText().toString();
-        final ForgotPasswordDialog dialog = new ForgotPasswordDialog(this, snackSuccesfulPwdReq, snackFailedPwdReq);
+        final ForgotPasswordDialog dialog = new ForgotPasswordDialog(this, snackSuccessfulPwdReq, snackFailedPwdReq);
         dialog.setPwdText(username);
         dialog.activateRequestBtn();
         dialog.show();

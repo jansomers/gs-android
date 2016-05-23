@@ -67,8 +67,8 @@ public class RegisterInteractor implements IRegisterInteractor {
         call.enqueue(new Callback<RegistrationResponse>() {
             @Override
             public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                RegistrationResponse registrationResponse = response.body();
-                listener.onRegistered();
+                if (response.body().getResult().equalsIgnoreCase("Success"))listener.onRegistered();
+                else listener.onFailedToRegister();
             }
 
             @Override

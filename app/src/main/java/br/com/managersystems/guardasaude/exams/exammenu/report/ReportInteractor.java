@@ -59,7 +59,7 @@ public class ReportInteractor implements IReportInteractor {
                     Log.d(getClass().getSimpleName(), "report response body was empty.. alerting listener!");
                     reportListener.onFailure();
                 } else {
-                    Log.d(getClass().getSimpleName(), "report response succesful... notifying listener!");
+                    Log.d(getClass().getSimpleName(), "report response successful... notifying listener!");
                     reportListener.onReportSuccess(response.body().getReportContent());
                 }
             }
@@ -82,7 +82,7 @@ public class ReportInteractor implements IReportInteractor {
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");
             reportListener.onFailure();
         } else {
-            Log.d(getClass().getSimpleName(), "Exam was retrieved succesfully... notifying listener!");
+            Log.d(getClass().getSimpleName(), "Exam was retrieved successfully... notifying listener!");
             reportListener.onExamReceived(exam);
         }
     }

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import br.com.managersystems.guardasaude.login.domain.AuthorisationResult;
 
 /**
- * This interface consists of methods needed to succesfully handle authorization and login requests.
+ * This interface consists of methods needed to successfully handle authorization and login requests.
  *
  * In every method, the listener is called, which is, in this case, an instance of the LoginPresenter.
  *
@@ -27,7 +27,7 @@ public interface ILoginInteractor {
      * Handles the request to login and alerts the login presenter (who's listening):
      *    The request can fail if the response holds no information or if the call was unsuccessful.
      *    If the request is successful, the result is passed onto the the listener.
-     * @param listener The OnloginFinishedListener that is expecting a notification when the call has finished.
+     * @param listener The OnLoginFinishedListener that is expecting a notification when the call has finished.
      * @param username64 String that represents the base64 encoded username.
      * @param password64 String that represents the base64 encoded password.
      */

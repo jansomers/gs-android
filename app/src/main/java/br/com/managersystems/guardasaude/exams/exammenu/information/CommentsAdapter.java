@@ -15,8 +15,8 @@ import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Comment;
 
 /**
- * This is class represents an adapter for Comment objects and extends Recyclerview.Adapter.
- * It includes a viewholder innerclass for the visual representation of a Comment.
+ * This is class represents an adapter for Comment objects and extends RecyclerView.Adapter.
+ * It includes a ViewHolder innerclass for the visual representation of a Comment.
  *
  * Authors:
  * @author Jan Somers
@@ -40,8 +40,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public CommentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_comment, parent, false);
-        CommentsViewHolder holder = new CommentsViewHolder(v);
-        return holder;
+        return new CommentsViewHolder(v);
     }
 
     @Override

@@ -143,7 +143,7 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         View view = inflater.inflate(R.layout.fragment_information, container, false);
         ButterKnife.bind(this, view);
         presenter = new ExamPresenter(this);
-        sp = PreferenceManager.getDefaultSharedPreferences(this.getActivity());;
+        sp = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         commentWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -206,8 +206,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
         examDateTextView.setText(exam.getExecutionDate().split(" ")[0]);
         examRepPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReportingPhysicianName()));
         examRefPhysTextView.setText(StringUtils.anyCaseToNameCase(exam.getReferringPhysicianName()));
-        if (isPatient) extraTextView.setText(exam.getStatus().toString().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
-        else extraTextView.setText(getText(StatusUtils.showCorrespondingStatus(exam.getStatus().toString())));
+        if (isPatient) extraTextView.setText(exam.getStatus().equals(getText(R.string.finished_char)) ? getText(R.string.finished) : getText(R.string.in_progress));
+        else extraTextView.setText(getText(StatusUtils.showCorrespondingStatus(exam.getStatus())));
     }
 
     @Override
@@ -353,11 +353,11 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @OnClick(R.id.documents_btn)
     public void downloadDocuments(){
-        showDocummentsProgress();
+        showDocumentsProgress();
         presenter.retrieveDocuments(exam, sp);
     }
 
-    private void showDocummentsProgress() {
+    private void showDocumentsProgress() {
         disableButton(documentsButton);
         documentsButton.setText(R.string.loading);
     }

@@ -11,13 +11,13 @@ import br.com.managersystems.guardasaude.login.LoginPresenter;
 
 public interface IExamOverview {
     /**
-     * The examlist was received successfully
+     * The exam list was received successfully
      * @param exams = The list of exams
      */
     void showExamList(ArrayList<Exam> exams);
 
     /**
-     * The examlist was not received successfully
+     * The exam list was not received successfully
      */
     void showLoadingExamsError();
 
@@ -38,13 +38,13 @@ public interface IExamOverview {
     void navigateToExamDetail(Exam exam);
 
     /**
-     * Initiate the searchviewlistener
+     * Initiates the searchViewListener
      * makes it possible for the user to search through the list of exams
      */
     SearchView.OnQueryTextListener getSearchViewListener();
 
     /**
-     * Sets swipeRefreshLayout to call presenter to refresh examlist
+     * Sets swipeRefreshLayout to call presenter to refresh the exam list.
      */
     void init();
 
@@ -64,9 +64,13 @@ public interface IExamOverview {
     void setSharedPreferences(SharedPreferences sharedPreferences);
 
     /**
-     * Sets the loginpresenter for the fragment
+     * Sets the loginPresenter for the fragment
      */
     void setLoginPresenter(LoginPresenter loginPresenter);
 
+    /**
+     * Shows the following exams
+     * @param rows List of exams to show
+     */
     void showNextExamList(ArrayList<Exam> rows);
 }

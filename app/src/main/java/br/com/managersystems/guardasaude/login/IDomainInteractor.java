@@ -6,7 +6,7 @@ package br.com.managersystems.guardasaude.login;
  * This interface consists of methods that are need to successfully handle domain requests,
  * called by the presenter.
  * <p/>
- * In every method, the listener is called, which is, in this case, the loginpresenter.
+ * In every method, the listener is called, which is, in this case, the loginPresenter.
  * <p/>
  * The documentation briefly explains what the method does.
  *

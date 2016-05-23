@@ -11,13 +11,13 @@ import java.util.Map;
 public interface IRegisterView {
 
     /**
-     * Initiates the adapters for the AutoCompleteTextviews.
+     * Initiates the adapters for the AutoCompleteTextViews.
      * It will add a list of suggestions to the views.
      */
     void initiateAdapters();
 
     /**
-     * Initiates most listeners and textwatchers which behave uniquely for the TextViews.
+     * Initiates most listeners and TextWatchers which behave uniquely for the TextViews.
      * For example: It forces certain input rules or formats.
      */
     void initiateListeners();
@@ -31,8 +31,8 @@ public interface IRegisterView {
     void addAllInputsToMap();
 
     /**
-     * Adds a 'Clear text' button to the right of the textview, which is only shown when
-     * the textview is focused. Also adds a focuschangelistener to each textview.
+     * Adds a 'Clear text' button to the right of the textView, which is only shown when
+     * the textview is focused. Also adds a FocusChangeListener to each textView.
      * In the implementation we've made it so that after a view has left focus , without text.
      * The hint asterix changes color to alert the user.
      * For fields like password, where the input is hidden, a more visible alert is shown.
@@ -41,7 +41,7 @@ public interface IRegisterView {
     void addFocusChangeListeners(Map<TextInputLayout, TextView> inputs);
 
     /**
-     * Revalidates all forms after the create account button is clicked. As soon as one of the
+     * Revalidate all forms after the create account button is clicked. As soon as one of the
      * inputs is marked as invalid or empty it will show the corresponding alert.
      * @return If all fields are valid this method returns true, otherwise it returns false.
      */
@@ -70,12 +70,12 @@ public interface IRegisterView {
      * Shows the filtered suggestions for the input of a city and is called upon by the presenter,
      * after successfully retrieving the locations.
      * @param cityText  AutoCompleteTextView representing the city textview.
-     * @param cityids
+     * @param cityIdNumbers List of strings representing the city ids
      * @param cities List of strings representing the cities that are suggested to the user.
      */
-    void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityids, List<String> cities);
+    void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityIdNumbers, List<String> cities);
 
-    void showSuccesfulRegistration();
+    void showSuccessfulRegistration();
 
-    void showUnsuccesfulRegistration();
+    void showUnsuccessfulRegistration();
 }

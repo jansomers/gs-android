@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
 
 /**
- * Custom AutoCompleteTextview that allows suggestions to be shown without having to write any text.
+ * Custom AutoCompleteTextView that allows suggestions to be shown without having to write any text.
  */
 public class InstantAutoComplete extends AutoCompleteTextView {
 

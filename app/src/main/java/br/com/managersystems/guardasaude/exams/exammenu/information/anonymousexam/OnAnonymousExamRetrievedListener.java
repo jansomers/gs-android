@@ -6,9 +6,9 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 public interface OnAnonymousExamRetrievedListener {
     /**
      * TODO rename view method (view is not a "listener")
-     * Calls anonymousExamSucces method from activity and passes exam
+     * Calls anonymousExamSuccess method from activity and passes exam
      */
-    void examRetrievedSucces(Exam exam);
+    void examRetrievedSuccess(Exam exam);
 
     /**
      * TODO rename view method (view is not a "listener")

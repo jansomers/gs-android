@@ -26,7 +26,7 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabView {
     
     Menu menu;
     private SharedPreferences sp;
-    private String[] tabtitles;
+    private String[] tabTitles;
     private LoginPresenter loginPresenter;
     private TabsPagerAdapter tabsPagerAdapter;
 
@@ -44,7 +44,7 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabView {
         setTabTitles();
         getSharedPref();
         loginPresenter = new LoginPresenter(this, sp);
-        tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabtitles, sp);
+        tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), new LoginPresenter(this, sp), tabTitles, sp);
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
@@ -72,8 +72,8 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabView {
     }
 
     /**
-     * Shows or doen't show the overview_group, depending on the parameter.
-     * @param show
+     * Shows or doesn't show the overview_group, depending on the parameter.
+     * @param show boolean object if true = shows menu, if false = doesn't show menu
      */
     private void showOverflowMenu(boolean show) {
         if (menu == null) return;
@@ -87,7 +87,7 @@ public class MainTabActivity extends AppCompatActivity implements IMainTabView {
 
     @Override
     public void setTabTitles() {
-        tabtitles = new String[]{(String) getResources().getText(R.string.exams)};
+        tabTitles = new String[]{(String) getResources().getText(R.string.exams)};
     }
 
     @Override

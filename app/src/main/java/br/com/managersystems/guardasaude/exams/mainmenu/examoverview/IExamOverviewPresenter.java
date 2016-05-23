@@ -23,10 +23,10 @@ public interface IExamOverviewPresenter  {
     /**
      * Gets user and token from shared preferences
      * addresses the examOverviewInteractor
-     * @param exid: identification of the exam
-     * @param ePassCode: accesscode or password of the exam
+     * @param exId: identification of the exam
+     * @param ePassCode: access code or password of the exam
      */
-    void findNewExam(final String exid, final String ePassCode);
+    void findNewExam(final String exId, final String ePassCode);
 
     void getFilteredExamList(String filterBy);
 }

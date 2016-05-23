@@ -3,7 +3,7 @@ package br.com.managersystems.guardasaude.register;
 import br.com.managersystems.guardasaude.register.domain.OnRegisteredListener;
 
 /**
- * This interface consists of methods needed to succesfully handle validation of new accounts,
+ * This interface consists of methods needed to successfully handle validation of new accounts,
  * including posting the final form to the server.
  *
  * In every method, the listener is called, which is, in this case, an instance of the RegisterPresenter.
@@ -46,9 +46,9 @@ public interface IRegisterInteractor {
      * @param password String representing the password of the new user.
      * @param verificationPw String representing the matching verification password of the new user.
      * @param identification String representing the identification code that matches the idType.
-     * @param idType String repesenting the type of identification of the new user.
+     * @param idType String representing the type of identification of the new user.
      * @param gender One Character string representing the gender of the new user.
-     * @param birthDate String in dd/MM/yyyy format represting the date of birth of the new user.
+     * @param birthDate String in dd/MM/yyyy format representing the date of birth of the new user.
      */
     void addNewAccount(OnRegisteredListener listener, String firstName, String lastName, String email, String country, String city, String password, String verificationPw, String identification, String idType, String gender, String birthDate);
 }

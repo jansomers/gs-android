@@ -74,10 +74,10 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private List<Exam> examList = Collections.EMPTY_LIST;
     private String sortBy = null;
     private String orderBy = null;
-    private Snackbar snackSuccesfulNewExam;
+    private Snackbar snackSuccessfulNewExam;
     private Snackbar snackWrongACNewExam;
     private Snackbar snackInternalFailNewExam;
-    private Snackbar snackalreadyAssociatedExam;
+    private Snackbar snackAlreadyAssociatedExam;
     private LinearLayoutManager llm;
 
     public ExamOverviewFragment() {
@@ -148,10 +148,10 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void initSnackBars() {
-        snackSuccesfulNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_succesful), Snackbar.LENGTH_LONG);
-        snackSuccesfulNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        snackalreadyAssociatedExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_already_associated), Snackbar.LENGTH_LONG);
-        snackalreadyAssociatedExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        snackSuccessfulNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_succesful), Snackbar.LENGTH_LONG);
+        snackSuccessfulNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        snackAlreadyAssociatedExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_already_associated), Snackbar.LENGTH_LONG);
+        snackAlreadyAssociatedExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         snackWrongACNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_fail), Snackbar.LENGTH_LONG);
         snackWrongACNewExam.getView().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorError));
         snackInternalFailNewExam = Snackbar.make(examOverviewCoordinatorLayout, getResources().getText(R.string.exam_associated_internalfail), Snackbar.LENGTH_LONG);
@@ -192,8 +192,8 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         builder.setView(R.layout.dialog_add_exam);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        Button findbtn = (Button) alertDialog.findViewById(R.id.ass_exam_oke_btn);
-        findbtn.setOnClickListener(new NewExamDialogListener(this,alertDialog));
+        Button findBtn = (Button) alertDialog.findViewById(R.id.ass_exam_oke_btn);
+        findBtn.setOnClickListener(new NewExamDialogListener(this, alertDialog));
     }
 
     @Override
@@ -238,12 +238,12 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     @Override
     public void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse) {
         if (associatedExamResponse.getCode().equalsIgnoreCase("exam_and_account_associated")) {
-                snackSuccesfulNewExam.show();
+                snackSuccessfulNewExam.show();
                 overviewPresenter.getFirstSortedExamList(sortBy, orderBy, "false");
         } else if (associatedExamResponse.getCode().equalsIgnoreCase("exam_not_found_or_wrong_access_code")) {
             snackWrongACNewExam.show();
         }else if(associatedExamResponse.getCode().equalsIgnoreCase("access_already_exists")){
-            snackalreadyAssociatedExam.show();
+            snackAlreadyAssociatedExam.show();
         }
     }
 

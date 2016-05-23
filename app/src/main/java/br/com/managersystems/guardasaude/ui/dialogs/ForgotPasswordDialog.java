@@ -21,20 +21,20 @@ public class ForgotPasswordDialog extends Dialog {
     @Bind(R.id.btn_submit_password_request)
     Button requestPwdBtn;
 
-    Snackbar succes;
+    Snackbar success;
     Snackbar fail;
 
     LoginActivity loginActivity;
     ForgotPasswordDialog dialog;
 
 
-    public ForgotPasswordDialog(LoginActivity loginActivity, Snackbar succesSnack, Snackbar failSnack) {
+    public ForgotPasswordDialog(LoginActivity loginActivity, Snackbar successSnack, Snackbar failSnack) {
         super(loginActivity);
         super.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.setContentView(R.layout.dialog_forgot_pwd);
         this.loginActivity = loginActivity;
         dialog = this;
-        this.succes = succesSnack;
+        this.success = successSnack;
         this.fail = failSnack;
         ButterKnife.bind(this);
     }
@@ -72,7 +72,7 @@ public class ForgotPasswordDialog extends Dialog {
     }
 
     public void showSuccess() {
-        succes.show();
+        success.show();
         requestPwdBtn.setText(getContext().getText(R.string.success));
         new Handler().postDelayed(new Runnable() {
             @Override

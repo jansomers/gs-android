@@ -103,10 +103,11 @@
                 >
 
                 <ImageView
+                    android:id="@+id/image_chevron_right"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_chevron_right_16dp_primary"
-                    />
+                    android:contentDescription="@string/check_id_for_description"
+                    android:src="@drawable/ic_chevron_right_16dp_primary" />
 
                 <ImageView
                     android:id="@+id/emergencyIcon"
