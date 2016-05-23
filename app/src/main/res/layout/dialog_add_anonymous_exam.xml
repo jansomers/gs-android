@@ -17,7 +17,7 @@
         android:layout_marginBottom="12dp">
 
     <android.support.design.widget.TextInputEditText
-        android:id="@+id/add_anonymous_examId"
+        android:id="@+id/gs_anonymous_exam_add_exam_id"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:hint="@string/exam_id"
@@ -25,7 +25,7 @@
         android:textAlignment="center" />
 
     <android.support.design.widget.TextInputEditText
-        android:id="@+id/add_anonymous_accesscode"
+        android:id="@+id/gs_anonymous_exam_add_access_code"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:hint="@string/accessCode"
@@ -33,7 +33,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/btn_find_anonymous_exam"
+        android:id="@+id/gs_anonymous_exam_btn_find"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

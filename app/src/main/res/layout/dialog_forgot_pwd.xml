@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/forgot_pwd_textview"
+        android:id="@+id/gs_forgot_pwd_textview"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -19,7 +19,7 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/forgot_pwd_instruction"
+        android:id="@+id/gs_forgot_pwd_instruction"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:padding="3dp"
@@ -27,7 +27,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/forgot_pwd_instruction2"
+        android:id="@+id/gs_forgot_pwd_instruction2"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:padding="3dp"
@@ -51,7 +51,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/btn_request_pwd"
+        android:id="@+id/btn_submit_password_request"
         android:layout_width="260sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

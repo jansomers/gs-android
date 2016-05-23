@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
@@ -30,6 +29,8 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -51,6 +52,7 @@ public class InformationTest {
     private static final String PATIENT = "ROLE_PATIENT";
     private Activity currentActivity;
     private boolean overViewLoaded = false;
+    private boolean imagesLoaded = false;
 
     @ClassRule
     public static final ActivityTestRule<LoginActivity> login = new ActivityTestRule<LoginActivity>(LoginActivity.class);
@@ -65,7 +67,7 @@ public class InformationTest {
         onView(withId(R.id.gs_login_username)).perform(ViewActions.clearText()).perform(ViewActions.typeText(TESTUSER));
         onView(withId(R.id.gs_login_password)).perform(ViewActions.clearText()).perform(ViewActions.typeText(TESTPASSWORD));
         onView(withId(R.id.gs_login_btn)).perform(click());
-        onView(withId(R.id.maintablayout)).check(matches(isDisplayed()));
+        onView(withId(R.id.gs_maintab_activity_layout)).check(matches(isDisplayed()));
 
     }
 
@@ -75,9 +77,11 @@ public class InformationTest {
         maintab.getActivity();
         while (!overViewLoaded) {
             RecyclerView examOverview = (RecyclerView) maintab.getActivity().findViewById(R.id.examOverviewList);
-            if (examOverview.getAdapter().getItemCount() == 0) {
-                overViewLoaded = false;
-            } else overViewLoaded = true;
+            if (examOverview.getAdapter() != null) {
+                if (examOverview.getAdapter().getItemCount() == 0) {
+                    overViewLoaded = false;
+                } else overViewLoaded = true;
+            }
 
 
 
@@ -153,24 +157,29 @@ public class InformationTest {
 
     @Test
     public void showsImagesButton() {
-        onView(withId(R.id.images_btn)).check(ViewAssertions.matches(isDisplayed()));
+        onView(withId(R.id.images_btn)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void showsDocumentsButton() {
+        onView(withId(R.id.documents_btn)).check(matches(isDisplayed()));
     }
 
     @Test
     public void commentLayoutIsHiddenAtStart(){
-        onView(withId(R.id.gs_exam_comment_section_layout)).check(ViewAssertions.matches(not(isDisplayed())));
+        onView(withId(R.id.gs_exam_comment_section_layout)).check(matches(not(isDisplayed())));
     }
 
     @Test
     public void commentLayoutIsShownWhenButtonIsClicked() {
         onView(withId(R.id.comments_btn)).perform(ViewActions.click());
-        onView(withId(R.id.gs_exam_comment_section_layout)).check(ViewAssertions.matches(isDisplayed()));
+        onView(withId(R.id.gs_exam_comment_section_layout)).check(matches(isDisplayed()));
     }
 
     @Test
     public void informationIsHiddenWhenButtonsAreShown() {
         onView(withId(R.id.comments_btn)).perform(ViewActions.click());
-        onView(withId(R.id.hideable_information_layout)).check(ViewAssertions.matches(not(isDisplayed())));
+        onView(withId(R.id.hideable_information_layout)).check(matches(not(isDisplayed())));
     }
 
     @Test
@@ -180,36 +189,54 @@ public class InformationTest {
         boolean areCommentsLoaded = false;
         RecyclerView commentList = (RecyclerView) getActivityInstance().findViewById(R.id.gs_exam_comment_recycler_view);
         onView(withId(R.id.comments_btn)).perform(ViewActions.click());
-        onView(withId(R.id.gs_exam_comment_section_layout)).check(ViewAssertions.matches(isDisplayed()));
+        onView(withId(R.id.gs_exam_comment_section_layout)).check(matches(isDisplayed()));
         while (!(tries > MAXTRIES) && areCommentsLoaded == false) {
-            if (commentList.getAdapter().getItemCount() == 0) {
-                areCommentsLoaded = false;
-            } else areCommentsLoaded = true;
-            tries++;
+            if (commentList.getAdapter() != null) {
+                {
+                    if (commentList.getAdapter().getItemCount() == 0) {
+                        areCommentsLoaded = false;
+                    } else areCommentsLoaded = true;
+                    tries++;
+                }
+            }
+                else {
+                    onView(withId(R.id.comments_btn)).perform(ViewActions.click());
+                    onView(withId(R.id.comments_btn)).perform(ViewActions.click());
+                }
+
         }
         if (areCommentsLoaded) onView(withId(R.id.gs_exam_comment_recycler_view)).check(matches(TestUtils.atPosition(0, withId(R.id.comment_item_layout))));
     }
 
     @Test
     public void showsReportAfterRightSwipe() {
-        onView(withId(R.id.maintablayout)).perform(ViewActions.swipeRight());
-        onView(withId(R.id.fragment_report_layout)).check(ViewAssertions.matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.gs_maintab_activity_layout)).perform(swipeLeft());
+        onView(withId(R.id.fragment_report_layout)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     @Test
     public void showsReport(){
-        onView(withId(R.id.maintablayout)).perform(ViewActions.swipeRight());
-        onView(withId(R.id.report_test_textview)).check(ViewAssertions.matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.gs_maintab_activity_layout)).perform(swipeLeft());
+        onView(withId(R.id.report_test_textview)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     @Test
     public void showsInformationAfterLeftSwipe() {
-        onView(withId(R.id.maintablayout)).perform(ViewActions.swipeRight());
-        onView(withId(R.id.maintablayout)).perform(ViewActions.swipeLeft());
-        onView(withId(R.id.hideable_information_layout)).check(ViewAssertions.matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.gs_maintab_activity_layout)).perform(swipeRight());
+        onView(withId(R.id.hideable_information_layout)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
+    @Test
+    public void showsImageFragmentAfterButtonClick() {
+        onView(withId(R.id.images_btn)).perform(click());
+        onView(withId(R.id.gs_images_fragment_layout)).check(matches(isDisplayed()));
 
+    }
+
+    /**
+     * Gets the current activity that the screen is on
+     * @return Activity object representing the current activity
+     */
     public Activity getActivityInstance(){
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {

@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Bind(R.id.gs_login_logo)
     ImageView gsLogo;
 
-    @Bind(R.id.btn_forgot_pwd)
+    @Bind(R.id.gs_login_btn_forgot_password)
     Button forgotPwdBtn;
 
     @Bind(R.id.gs_login_btn)
@@ -205,7 +205,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     /**
      * Shows the dialog to retrieve your password
      */
-    @OnClick(R.id.btn_forgot_pwd)
+    @OnClick(R.id.gs_login_btn_forgot_password)
     public void forgotPwdBtnClicked() {
         String username = gsUsernameEditText.getText().toString();
         final ForgotPasswordDialog dialog = new ForgotPasswordDialog(this, snackSuccesfulPwdReq, snackFailedPwdReq);
@@ -353,7 +353,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     }
 
-    @OnClick(R.id.btn_anonymous_exam)
+    @OnClick(R.id.gs_login_btn_anonymous_exam)
     public void showNewAnonymousExamDialog(){
         final NewAnonymousExamDialog dialog = new NewAnonymousExamDialog(this);
         dialog.activateRequestBtn();

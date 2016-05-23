@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_material_special_primary"
     android:orientation="vertical"
-    android:id="@+id/images_fragment">
+    android:id="@+id/gs_images_fragment_layout">
 
     <TextView
-        android:id="@+id/imagesFail"
+        android:id="@+id/gs_exam_images_error_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
@@ -18,7 +18,7 @@
         android:textColor="@color/colorError" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/gs_exam_images_progress_bar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_centerVertical="true" />
 
     <GridView
-        android:id="@+id/grid_view"
+        android:id="@+id/gs_exam_images_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

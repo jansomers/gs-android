@@ -5,14 +5,14 @@
     android:background="#000000">
 
     <br.com.managersystems.guardasaude.exams.exammenu.images.TouchImageView
-        android:id="@+id/img_display"
+        android:id="@+id/fullscreen_img_touch_display"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter" />
 
 
     <ImageView
-        android:id="@+id/btn_close"
+        android:id="@+id/gs_fullscreen_image_btn_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_close_clear_cancel"

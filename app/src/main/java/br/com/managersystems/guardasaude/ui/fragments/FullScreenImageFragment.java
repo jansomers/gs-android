@@ -19,7 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FullScreenImageFragment extends Fragment{
-    @Bind(R.id.pager)
+    @Bind(R.id.gs_maintab_activity_pager)
     ViewPager viewPager;
 
     private View view;

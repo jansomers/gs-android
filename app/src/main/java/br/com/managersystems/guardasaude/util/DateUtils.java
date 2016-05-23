@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Jan Somers
  * @author Thanee Stevens
  */
-public class DateUtil
+public class DateUtils
 {
     /**
      * Adds days.

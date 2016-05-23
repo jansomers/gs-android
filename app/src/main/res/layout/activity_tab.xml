@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-    android:id="@+id/maintablayout"
+    android:id="@+id/gs_maintab_activity_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
     </include>
     <android.support.v4.view.ViewPager
 
-    android:id="@+id/pager"
+    android:id="@+id/gs_maintab_activity_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

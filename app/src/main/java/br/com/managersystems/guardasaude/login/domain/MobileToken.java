@@ -2,7 +2,7 @@ package br.com.managersystems.guardasaude.login.domain;
 
 import java.util.Date;
 
-import br.com.managersystems.guardasaude.util.DateUtil;
+import br.com.managersystems.guardasaude.util.DateUtils;
 
 /**
  * POJO Class that holds all information that needs to be know for further authorization.
@@ -31,7 +31,7 @@ public class MobileToken {
     }
 
     public static void setEndDate(Date startDate) {
-        MobileToken.endDate = DateUtil.addDays(startDate, 7);
+        MobileToken.endDate = DateUtils.addDays(startDate, 7);
     }
 
     public static Date getEndDate() {

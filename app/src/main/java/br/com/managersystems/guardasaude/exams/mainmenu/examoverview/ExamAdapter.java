@@ -2,9 +2,12 @@ package br.com.managersystems.guardasaude.exams.mainmenu.examoverview;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,9 @@ import java.util.List;
 
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
+import br.com.managersystems.guardasaude.login.domain.UserRoleEnum;
 import br.com.managersystems.guardasaude.ui.fragments.ExamOverviewFragment;
+import br.com.managersystems.guardasaude.util.StatusUtils;
 import br.com.managersystems.guardasaude.util.StringUtils;
 
 public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder> implements IExamAdapter {
@@ -23,7 +28,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
     List<Exam> examList;
     Context context;
     ExamOverviewFragment examOverview;
-
+    SharedPreferences preferences;
     private String finished;
     private String ready;
     private String available;
@@ -33,6 +38,8 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         inflater = LayoutInflater.from(context);
         this.examList = examList;
         this.context = context;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.d(this.getClass().getSimpleName(), preferences.getString("role", ""));
         this.examOverview = examOverview;
         initialiseStrings();
     }
@@ -56,26 +63,32 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
 
     @Override
     public void onBindViewHolder(ExamViewHolder holder, int position) {
-            final Exam current = examList.get(position);
-            holder.examId.setText(current.getIdentification());
-            holder.patientName.setText(StringUtils.anyCaseToNameCase(current.getPatient()));
-            holder.clinicName.setText(current.getClinicName());
-            holder.executionDate.setText(removeHoursFromDate(current.getExecutionDate()));
-            holder.statusText.setText(current.getStatus());
-            holder.emergencyIcon.setVisibility(current.getIsEmergency().equalsIgnoreCase("true")?View.VISIBLE:View.INVISIBLE);
-            //Set status icon
-            if (current.getStatus().equalsIgnoreCase(finished) || current.getStatus().equalsIgnoreCase(ready) || current.getStatus().equalsIgnoreCase(available)) {
-                holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp_accent));
-            } else {
-                holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_clock_primary));
-            }
+        final Exam current = examList.get(position);
+        holder.examId.setText(current.getIdentification());
+        holder.patientName.setText(StringUtils.anyCaseToNameCase(current.getPatient()));
+        holder.clinicName.setText(current.getClinicName());
+        holder.executionDate.setText(removeHoursFromDate(current.getExecutionDate()));
+        holder.emergencyIcon.setVisibility(current.getIsEmergency().equalsIgnoreCase("true") ? View.VISIBLE : View.INVISIBLE);
 
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    examOverview.navigateToExamDetail(current);
-                }
-            });
+        if (preferences.getString("role", "").equals(UserRoleEnum.ROLE_PATIENT.toString()) && !current.getStatus().equals("F")) {
+            holder.statusText.setText(R.string.in_progress);
+        }
+        else {
+            holder.statusText.setText(StatusUtils.showCorrespondingStatus(current.getStatus()));
+        }
+        //Set status icon
+        if (current.getStatus().equalsIgnoreCase(finished) || current.getStatus().equalsIgnoreCase(ready) || current.getStatus().equalsIgnoreCase(available)) {
+            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_check_circle_36dp_accent));
+        } else {
+            holder.statusImage.setImageDrawable(ContextCompat.getDrawable(examOverview.getContext(), R.drawable.ic_clock_primary));
+        }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                examOverview.navigateToExamDetail(current);
+            }
+        });
     }
 
     @Override
@@ -83,23 +96,6 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         return examList.size();
     }
 
-/*    @Override
-    public String toCamelCase(String string) {
-        if (string == null)
-            return null;
-
-        final StringBuilder ret = new StringBuilder(string.length());
-
-        for (final String word : string.split(" ")) {
-            if (!word.isEmpty()) {
-                ret.append(word.substring(0, 1).toUpperCase());
-                ret.append(word.substring(1).toLowerCase());
-            }
-            if (!(ret.length() == string.length()))
-                ret.append(" ");
-        }
-        return ret.toString();
-    }*/
 
     @Override
     public String removeHoursFromDate(String date) {

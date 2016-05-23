@@ -19,9 +19,10 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 public class RegistrationTest {
@@ -79,13 +80,12 @@ public class RegistrationTest {
             onView(withId(view.getId())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
         }
     }
-
     @Test
-    public void showsAllInputsAsEmpty(){
-        for (TextView view : textFields) {
-            onView(withId(view.getId())).check(matches(withText("")));
-        }
+    public void showCreateAccountButton(){
+        onView(withId(R.id.btn_submit_new_account)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.btn_submit_new_account)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
+
 
     @Test
     public void showsWrongPasswordFormatNotification() {
@@ -154,6 +154,7 @@ public class RegistrationTest {
             assert false;
         }
     }
+
     @Test
     public void showsSpinners() {
         onView(withId(R.id.gender_input)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));

@@ -1,4 +1,4 @@
-package br.com.managersystems.guardasaude;
+package br.com.managersystems.guardasaude.util;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
