@@ -93,6 +93,6 @@ public class ImagesPresenter implements IImagesPresenter, OnImagesRetrievedListe
 
     @Override
     public void onAllImagesSuccess(){
-        imagesFragment.imagesReceivedSucces();
+        imagesFragment.imagesReceivedSuccess();
     }
 }

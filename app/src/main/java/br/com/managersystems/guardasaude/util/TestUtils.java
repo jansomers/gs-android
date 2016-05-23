@@ -11,7 +11,7 @@ import org.hamcrest.Matcher;
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 /**
- * Utility class written to check items of a recyclerview.
+ * Utility class written to check items of a recycler view.
  *
  * Authors:
  * @author Jan Somers

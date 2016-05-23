@@ -1,10 +1,15 @@
 package br.com.managersystems.guardasaude.register.domain;
 
-/**
- * Created by Jan on 20/05/2016.
- */
+
 public interface OnRegisteredListener {
 
+    /**
+     * Notifies view that registration was successful.
+     */
     void onRegistered();
+
+    /**
+     * Alerts the view that registration failed.
+     */
     void onFailedToRegister();
 }

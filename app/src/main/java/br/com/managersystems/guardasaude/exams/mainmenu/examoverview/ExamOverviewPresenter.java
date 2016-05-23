@@ -46,11 +46,11 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
     }
 
     @Override
-    public void findNewExam(String exid, String ePassCode) {
+    public void findNewExam(String exId, String ePassCode) {
         byte [] encryptedUser =  sp.getString("user",null).getBytes();
         String user= base64Interactor.decodeBase64ToString(encryptedUser);
         String token = sp.getString("token",null);
-        examOverviewInteractor.associateNewExam(this,user,token,exid,ePassCode);
+        examOverviewInteractor.associateNewExam(this,user,token,exId,ePassCode);
     }
 
     @Override

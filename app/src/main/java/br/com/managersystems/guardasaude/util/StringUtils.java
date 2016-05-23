@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * Utility class handles and/or returns String objects.
  * Currently handles:
- * - String to namecase
- * - String to formalcase
+ * - String to name case
+ * - String to formal case
  * - Html Strings to plain text
  * - Email validation <b>TODO validate emails based on...</b>
  * - Password validation
@@ -65,10 +65,7 @@ public class StringUtils {
     }
 
     public static boolean isValidEmail(String email) {
-        if (email.isEmpty()) return false;
-        else {
-            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        }
+        return email.isEmpty()? false : Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public static boolean isValidPassword(String password) {

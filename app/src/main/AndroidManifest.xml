@@ -3,9 +3,11 @@
     package="br.com.managersystems.guardasaude">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Most of these to do's refer to ANDROID LINT inspections. I decided to add them here for future references-->
+    <!-- TODO : add a backup configuration  https://developer.android.com/training/backup/autosyncapi.html-->
+    <!-- TODO : deep linking for indexing -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,9 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.activities.MainTabActivity">
-        </activity>
+        <activity android:name=".ui.activities.MainTabActivity"></activity>
         <activity android:name=".ui.activities.ExamTabActivity">
 
         </activity>
@@ -32,7 +32,7 @@
         <activity android:name=".ui.activities.AnonymousExamInformationActivity">
 
         </activity>
-       <activity android:name=".ui.activities.RegisterActivity"></activity>
+        <activity android:name=".ui.activities.RegisterActivity"></activity>
     </application>
 
 </manifest>

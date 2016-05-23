@@ -11,14 +11,14 @@ import br.com.managersystems.guardasaude.ui.fragments.ExamOverviewFragment;
 public class TabsPagerAdapter extends FragmentPagerAdapter{
 
     final int PAGE_COUNT = 1;
-    private String tabtitles[];
+    private String tabTitles[];
     SharedPreferences sharedPreferences;
     LoginPresenter loginPresenter;
 
-    public TabsPagerAdapter(FragmentManager fm, LoginPresenter loginPresenter, String[] tabtitles, SharedPreferences sp) {
+    public TabsPagerAdapter(FragmentManager fm, LoginPresenter loginPresenter, String[] tabTitles, SharedPreferences sp) {
         super(fm);
         this.loginPresenter = loginPresenter;
-        this.tabtitles = tabtitles;
+        this.tabTitles = tabTitles;
         this.sharedPreferences = sp;
     }
 
@@ -43,6 +43,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabtitles[position];
+        return tabTitles[position];
     }
 }

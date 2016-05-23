@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.io.File;
 import java.io.IOException;
 
 import br.com.managersystems.guardasaude.exams.domain.CommentResponse;
@@ -60,7 +59,7 @@ public class ExamInteractor implements  IExamInteractor {
         Log.d(getClass().getSimpleName(), "Getting the exam...");
         Exam exam =intent.getParcelableExtra("exam");
         if (!(exam.getId() == 0)) {
-            Log.d(getClass().getSimpleName(), "Exam retrieved succesfully... Notifying the listener");
+            Log.d(getClass().getSimpleName(), "Exam retrieved successfully... Notifying the listener");
             examListener.onExamSuccess(exam);
         }
         else {
@@ -71,15 +70,15 @@ public class ExamInteractor implements  IExamInteractor {
     }
 
     @Override
-    public void getCommentsForExam(final CharSequence exid, SharedPreferences sp) {
+    public void getCommentsForExam(final CharSequence exId, SharedPreferences sp) {
         if (examApi == null) initiateRetrofit();
         String user = base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token", "");
-        if (user.isEmpty() || token.isEmpty() ||exid.toString().isEmpty()) {
+        if (user.isEmpty() || token.isEmpty() || exId.toString().isEmpty()) {
             examListener.onCommentsRetrievedFailure();
         }
         else {
-            Call<CommentResponse> call = examApi.getComments(user,token, exid.toString());
+            Call<CommentResponse> call = examApi.getComments(user,token, exId.toString());
             call.enqueue(new Callback<CommentResponse>() {
                 @Override
                 public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
@@ -96,16 +95,16 @@ public class ExamInteractor implements  IExamInteractor {
     }
 
     @Override
-    public void postNewComment(CharSequence exid, CharSequence comment, SharedPreferences sp) {
+    public void postNewComment(CharSequence exId, CharSequence comment, SharedPreferences sp) {
         if (examApi == null) initiateRetrofit();
         String user = base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token", "");
         String encodedMessage = base64Interactor.encodeStringToBase64(comment.toString());
-        if (comment.toString().isEmpty() || exid.toString().isEmpty() || user.isEmpty() || token.isEmpty()) {
+        if (comment.toString().isEmpty() || exId.toString().isEmpty() || user.isEmpty() || token.isEmpty()) {
             examListener.onPostCommentCallFailed();
         }
         else {
-            Call<PostCommentResponse> call = examApi.postComment(user, token, exid.toString(), encodedMessage);
+            Call<PostCommentResponse> call = examApi.postComment(user, token, exId.toString(), encodedMessage);
             call.enqueue(new Callback<PostCommentResponse>() {
                 @Override
                 public void onResponse(Call<PostCommentResponse> call, Response<PostCommentResponse> response) {

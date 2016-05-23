@@ -70,7 +70,7 @@ public class ImagesFragment extends Fragment implements IImagesView {
     }
 
     @Override
-    public void imagesReceivedSucces() {
+    public void imagesReceivedSuccess() {
         failText.setVisibility(View.GONE);
         gridView.setAdapter(new GridViewImageAdapter(getActivity(), imagesPresenter.getImagesForExam(), columnWidth));
         progressBar.setVisibility(View.GONE);

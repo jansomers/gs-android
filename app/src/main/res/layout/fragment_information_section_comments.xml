@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/gs_exam_comment_section_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    android:id="@+id/gs_exam_comment_section_layout"
-    android:visibility="gone"
-    >
+    android:orientation="vertical"
+    android:visibility="gone">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gs_exam_comment_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -20,30 +19,30 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/new_comment_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
+            android:layout_marginLeft="14dp"
+            android:layout_toStartOf="@+id/save_comment_btn"
             android:gravity="top"
             android:hint="@string/gs_exam_write_comment_hint"
-            android:textColorHint="@color/colorPrimary100"
-            android:textAppearance="@android:style/TextAppearance.Material.Caption"
-            android:layout_toStartOf="@+id/save_comment_btn"
-            android:layout_marginLeft="14dp"
+            android:inputType="textMultiLine"
             android:maxLines="5"
             android:paddingTop="8dp"
-            android:id="@+id/new_comment_input" />
+            android:textAppearance="@android:style/TextAppearance.Material.Caption"
+            android:textColorHint="@color/colorPrimary100" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:padding="12dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:id="@+id/save_comment_btn"
-            android:src="@drawable/ic_send_24dp_primary"
-            android:layout_alignParentEnd="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/check_id_for_description"
+            android:padding="12dp"
+            android:src="@drawable/ic_send_24dp_primary" />
 
     </RelativeLayout>
-    
 
 
 </LinearLayout>

@@ -16,7 +16,6 @@ public class ExamTabPresenter {
     public void retrieveExam(Intent intent) {
         Exam exam =intent.getParcelableExtra("exam");
         if (!(exam.getId() == 0)) {
-            activity.setExam(exam);
             if(exam.getStatus().equalsIgnoreCase(activity.getString(R.string.finished_char))||exam.getStatus().equalsIgnoreCase(activity.getString(R.string.ready_char))||exam.getStatus().equalsIgnoreCase(activity.getString(R.string.available))) {
                 activity.setExamStatusIsReady(true);
             }else{

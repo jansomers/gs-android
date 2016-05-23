@@ -3,7 +3,7 @@ package br.com.managersystems.guardasaude.exams.exammenu;
 
 public interface IExamTabView {
     /**
-     * Calls setTabtitles and getSharedPref methods
+     * Calls setTabTitles and getSharedPref methods
      */
     void init();
 

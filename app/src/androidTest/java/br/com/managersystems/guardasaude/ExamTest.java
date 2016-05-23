@@ -40,13 +40,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.not;
 
-;
+
 
 @RunWith(AndroidJUnit4.class)
-public class InformationTest {
+public class ExamTest {
 
-    private static final String TESTUSER = "doctor2";
-    private static final String TESTPASSWORD = "Admin1";
+    private static final String TEST_USER = "doctor2";
+    private static final String TEST_PASSWORD = "Admin1";
     private static final int MAX_LOAD_TIME_IN_MS = 1000;
     private static final String PROFESSIONAL = "ROLE_HEALTH_PROFESSIONAL";
     private static final String PATIENT = "ROLE_PATIENT";
@@ -58,14 +58,14 @@ public class InformationTest {
     public static final ActivityTestRule<LoginActivity> login = new ActivityTestRule<LoginActivity>(LoginActivity.class);
 
     @Rule
-    public  final ActivityTestRule<MainTabActivity> maintab = new ActivityTestRule<MainTabActivity>(MainTabActivity.class);
+    public  final ActivityTestRule<MainTabActivity> mainTab = new ActivityTestRule<MainTabActivity>(MainTabActivity.class);
 
 
     @BeforeClass
     public static void onceExecutedBeforeAll() {
         login.getActivity();
-        onView(withId(R.id.gs_login_username)).perform(ViewActions.clearText()).perform(ViewActions.typeText(TESTUSER));
-        onView(withId(R.id.gs_login_password)).perform(ViewActions.clearText()).perform(ViewActions.typeText(TESTPASSWORD));
+        onView(withId(R.id.gs_login_username)).perform(ViewActions.clearText()).perform(ViewActions.typeText(TEST_USER));
+        onView(withId(R.id.gs_login_password)).perform(ViewActions.clearText()).perform(ViewActions.typeText(TEST_PASSWORD));
         onView(withId(R.id.gs_login_btn)).perform(click());
         onView(withId(R.id.gs_maintab_activity_layout)).check(matches(isDisplayed()));
 
@@ -74,9 +74,9 @@ public class InformationTest {
 
     @Before
     public void beforeEachTest() {
-        maintab.getActivity();
+        mainTab.getActivity();
         while (!overViewLoaded) {
-            RecyclerView examOverview = (RecyclerView) maintab.getActivity().findViewById(R.id.examOverviewList);
+            RecyclerView examOverview = (RecyclerView) mainTab.getActivity().findViewById(R.id.examOverviewList);
             if (examOverview.getAdapter() != null) {
                 if (examOverview.getAdapter().getItemCount() == 0) {
                     overViewLoaded = false;
@@ -106,28 +106,28 @@ public class InformationTest {
     public void showsExamId() {
         onView(withId(R.id.gs_exam_information_exam_id))
                 .check(matches(not(withText
-                        (maintab.getActivity().getResources().getText(R.string.exam_id).toString()))));
+                        (mainTab.getActivity().getResources().getText(R.string.exam_id).toString()))));
     }
 
     @Test
     public void showsExamType() {
         onView(withId(R.id.gs_exam_information_exam_type))
                 .check(matches(not(withText
-                        (maintab.getActivity().getResources().getText(R.string.exam_type).toString()))));
+                        (mainTab.getActivity().getResources().getText(R.string.exam_type).toString()))));
     }
 
     @Test
     public void showsClinicId() {
         onView(withId(R.id.gs_exam_information_clinic_id))
                 .check(matches(not(withText
-                        (maintab.getActivity().getResources().getText(R.string.exam_clinic).toString()))));
+                        (mainTab.getActivity().getResources().getText(R.string.exam_clinic).toString()))));
     }
 
     @Test
     public void showsPatientName() {
         onView(withId(R.id.gs_exam_information_patient))
                 .check(matches(not(withText
-                        (maintab.getActivity().getResources().getText(R.string.exam_patient).toString()))));
+                        (mainTab.getActivity().getResources().getText(R.string.exam_patient).toString()))));
 
     }
 
@@ -135,12 +135,12 @@ public class InformationTest {
     public void showsReportingPhys() {
         onView(withId(R.id.gs_exam_information_exam_reporting_phys))
                 .check(matches(not(withText
-                        (maintab.getActivity().getResources().getText(R.string.exam_reporting_phys).toString()))));
+                        (mainTab.getActivity().getResources().getText(R.string.exam_reporting_phys).toString()))));
     }
 
     @Test
     public void showsCommentButtonToProf() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(maintab.getActivity().getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mainTab.getActivity().getApplicationContext());
         String role = preferences.getString("role", "");
 
         if (role.equals(PROFESSIONAL)) {
@@ -184,13 +184,13 @@ public class InformationTest {
 
     @Test
     public void commentsAreShownInLayoutSection() {
-        final int MAXTRIES = 50;
+        final int MAX_TRIES = 50;
         int tries = 0;
         boolean areCommentsLoaded = false;
         RecyclerView commentList = (RecyclerView) getActivityInstance().findViewById(R.id.gs_exam_comment_recycler_view);
         onView(withId(R.id.comments_btn)).perform(ViewActions.click());
         onView(withId(R.id.gs_exam_comment_section_layout)).check(matches(isDisplayed()));
-        while (!(tries > MAXTRIES) && areCommentsLoaded == false) {
+        while (!(tries > MAX_TRIES) && !areCommentsLoaded) {
             if (commentList.getAdapter() != null) {
                 {
                     if (commentList.getAdapter().getItemCount() == 0) {

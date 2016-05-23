@@ -10,7 +10,7 @@ import br.com.managersystems.guardasaude.ui.fragments.ReportFragment;
 import br.com.managersystems.guardasaude.util.Base64Interactor;
 
 /**
- * This class is an implementation of the IReportPreseneter. It also implements the
+ * This class is an implementation of the IReportPresenter. It also implements the
  * OnReportRetrievedListener
  *
  * Authors:

@@ -27,15 +27,15 @@ public interface IExamPresenter {
     void retrieveInformation(Intent intent);
     /**
      * Forwards the request to retrieve comments for an exam.
-     * @param exid CharSequence object representing the  exam identification.
+     * @param exId CharSequence object representing the  exam identification.
      * @param sp SharedPreferences object that contents required parameters that the interactor needs.
      */
-    void retrieveComments(CharSequence exid, SharedPreferences sp);
+    void retrieveComments(CharSequence exId, SharedPreferences sp);
     /**
      * Forwards the request to retrieve comments for an exam.
-     * @param comment Charsequence object representing the comment message.
-     * @param exid CharSequence object representing the  exam identification.
+     * @param comment CharsSequence object representing the comment message.
+     * @param exId CharSequence object representing the  exam identification.
      * @param sp SharedPreferences object that contents required parameters that the interactor needs.
      */
-    void saveComment(CharSequence comment, CharSequence exid, SharedPreferences sp);
+    void saveComment(CharSequence comment, CharSequence exId, SharedPreferences sp);
 }

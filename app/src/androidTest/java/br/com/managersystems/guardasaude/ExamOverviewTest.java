@@ -125,7 +125,7 @@ public class ExamOverviewTest {
     }
 
     @Test
-    public void checkRecyclerview() throws InterruptedException {
+    public void checkRecyclerView() throws InterruptedException {
         onView(withId(R.id.examOverviewList)).check(matches(isDisplayed()));
         while (!overViewLoaded)
         {

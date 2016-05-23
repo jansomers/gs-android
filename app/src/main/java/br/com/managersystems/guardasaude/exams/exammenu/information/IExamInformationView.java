@@ -1,6 +1,6 @@
 package br.com.managersystems.guardasaude.exams.exammenu.information;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.List;
 

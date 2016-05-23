@@ -41,7 +41,7 @@ public class ImagesInteractor implements IImagesInteractor{
             Log.d(getClass().getSimpleName(), "Exam has no identification.. alerting listener!");
             listener.onExamFailure();
         } else {
-            Log.d(getClass().getSimpleName(), "Exam was retrieved succesfully... notifying listener!");
+            Log.d(getClass().getSimpleName(), "Exam was retrieved successfully... notifying listener!");
             listener.onExamReceived(exam);
         }
     }

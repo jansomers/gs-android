@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.managersystems.guardasaude.R;
-import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamOneTabPagerAdapter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabPresenter;
 import br.com.managersystems.guardasaude.exams.exammenu.ExamTabsPagerAdapter;
@@ -28,15 +27,12 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     Toolbar toolbar;
 
     private SharedPreferences sp;
-    private ExamTabsPagerAdapter examTabPagerAdapter;
-    private ExamOneTabPagerAdapter examOneTabPagerAdapter;
-    private String[] tabtitles;
-    private ExamTabPresenter examPresenter;
+    private String[] tabTitles;
     private Menu menu;
     private LoginPresenter loginPresenter;
     private boolean examStatusIsReady;
     private String role;
-    private Exam exam;
+
 
     @Override
     protected void onStart() {
@@ -59,7 +55,7 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     public void init() {
         setSupportActionBar(toolbar);
         getSharedPref();
-        examPresenter = new ExamTabPresenter(this);
+        ExamTabPresenter examPresenter = new ExamTabPresenter(this);
         loginPresenter = new LoginPresenter(this, sp);
         examPresenter.retrieveExam(getIntent());
         setTabsPagerAdapter();
@@ -79,23 +75,23 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
 
     private void setOneTabsPagerAdapter() {
         setOneTabTitle();
-        examOneTabPagerAdapter = new ExamOneTabPagerAdapter(getSupportFragmentManager(), tabtitles);
+        ExamOneTabPagerAdapter examOneTabPagerAdapter = new ExamOneTabPagerAdapter(getSupportFragmentManager(), tabTitles);
         viewPager.setAdapter(examOneTabPagerAdapter);
     }
 
     private void setAllTabsPagerAdapter() {
         setAllTabTitles();
-        examTabPagerAdapter = new ExamTabsPagerAdapter(getSupportFragmentManager(), tabtitles, sp);
+        ExamTabsPagerAdapter examTabPagerAdapter = new ExamTabsPagerAdapter(getSupportFragmentManager(), tabTitles, sp);
         viewPager.setAdapter(examTabPagerAdapter);
     }
 
     @Override
     public void setAllTabTitles() {
-        tabtitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
+        tabTitles = new String[]{(String) getResources().getText(R.string.Information), (String) getResources().getText(R.string.Report), (String) getResources().getText(R.string.Images)};
     }
 
     public void setOneTabTitle() {
-        tabtitles = new String[]{(String) getResources().getText(R.string.Information)};
+        tabTitles = new String[]{(String) getResources().getText(R.string.Information)};
     }
 
     @Override
@@ -106,8 +102,8 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         return true;
     }
     /**
-     * Shows or doen't show the overview_group, depending on the parameter.
-     * @param show
+     * Shows or doesn't show the overview_group, depending on the parameter.
+     * @param show boolean with true = show, false = don't show
      */
     private void showOverflowMenu(boolean show) {
         if (menu == null) return;
@@ -128,7 +124,7 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
     @Override
     public void getSharedPref() {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        role = sp.getString("role", null);
+        role = sp.getString("role", "");
     }
 
     @Override
@@ -139,15 +135,9 @@ public class ExamTabActivity extends AppCompatActivity implements IExamTabView {
         startActivity(intent);
     }
 
-    public void setCurrentItem(int position) {
-        examTabPagerAdapter.getItem(position);
-    }
 
     public void setExamStatusIsReady(boolean isReady) {
         this.examStatusIsReady = isReady;
     }
 
-    public void setExam(Exam exam) {
-        this.exam = exam;
-    }
 }

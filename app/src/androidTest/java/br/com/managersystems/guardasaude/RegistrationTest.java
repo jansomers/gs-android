@@ -71,7 +71,7 @@ public class RegistrationTest {
         idInput = (TextView) register.getActivity().findViewById(R.id.id_input);
         textFields.add(idInput);
         passwordNotification = (TextView) register.getActivity().findViewById(R.id.password_input_notification);
-        matchingNotification = (TextView) register.getActivity().findViewById(R.id.password_verification_input);
+        matchingNotification = (TextView) register.getActivity().findViewById(R.id.password_verification_notification);
     }
 
     @Test

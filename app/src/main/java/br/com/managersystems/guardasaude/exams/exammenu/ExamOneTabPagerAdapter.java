@@ -1,22 +1,20 @@
 package br.com.managersystems.guardasaude.exams.exammenu;
 
 
-import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import br.com.managersystems.guardasaude.ui.fragments.ImagesFragment;
 import br.com.managersystems.guardasaude.ui.fragments.InformationFragment;
-import br.com.managersystems.guardasaude.ui.fragments.ReportFragment;
+
 
 public class ExamOneTabPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 1;
-    private String tabtitles[];
+    private String tabTitles[];
 
-    public ExamOneTabPagerAdapter(FragmentManager fm, String[] tabtitles) {
+    public ExamOneTabPagerAdapter(FragmentManager fm, String[] tabTitles) {
         super(fm);
-        this.tabtitles = tabtitles;
+        this.tabTitles = tabTitles;
     }
 
     @Override
@@ -37,6 +35,6 @@ public class ExamOneTabPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabtitles[position];
+        return tabTitles[position];
     }
 }

@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class AnonymousExamTest {
     @Rule
-    public final ActivityTestRule<LoginActivity> login = new ActivityTestRule<LoginActivity>(LoginActivity.class);
+    public final ActivityTestRule<LoginActivity> login = new ActivityTestRule<>(LoginActivity.class);
 
     @Before
     public void OpenDialog() {

@@ -62,7 +62,7 @@ public class LoginInteractor implements ILoginInteractor {
             @Override
             public void onResponse(Call<AuthorisationResult> call, Response<AuthorisationResult> response) {
                 if (response.body() == null) {
-                    Log.d(this.getClass().getSimpleName(), "Response has an empty body, unauthorizing");
+                    Log.d(this.getClass().getSimpleName(), "Response has an empty body, unauthorized");
                     listener.onHandleRequestLoginAttemptFailure();
                 } else {
                     AuthorisationResult authorisationResult = response.body();
@@ -73,7 +73,7 @@ public class LoginInteractor implements ILoginInteractor {
 
             @Override
             public void onFailure(Call<AuthorisationResult> call, Throwable t) {
-                Log.d(this.getClass().getSimpleName(), "IN ONFAILURE CALL", t.getCause());
+                Log.d(this.getClass().getSimpleName(), "IN ON_FAILURE CALL", t.getCause());
                 listener.onHandleRequestLoginAttemptFailure();
             }
         });
@@ -95,10 +95,10 @@ public class LoginInteractor implements ILoginInteractor {
 
     @Override
     public void saveUserInfo(OnLoginFinishedListener listener, SharedPreferences.Editor editor, boolean patient) {
-        Log.d(this.getClass().getSimpleName(), "Succesful Auhorization... Saving token, user, expiredate");
+        Log.d(this.getClass().getSimpleName(), "Successful Authorization... Saving token, user, expireDate");
         editor.putString("token", MobileToken.getToken());
         editor.putString("user", MobileToken.getBaseUser().getIdentifierB64());
-        Log.d(this.getClass().getSimpleName(), "Mobile token enddate" + MobileToken.getEndDate().toString());
+        Log.d(this.getClass().getSimpleName(), "Mobile token endDate" + MobileToken.getEndDate().toString());
         editor.putString("expires", MobileToken.getEndDate().toString());
         editor.putString("role", patient ? UserRoleEnum.ROLE_PATIENT.toString() : UserRoleEnum.ROLE_HEALTH_PROFESSIONAL.toString());
         editor.apply();

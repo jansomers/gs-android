@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 /**
- * This interface consists of methods needed to succesfully handle calls to obtain the comments,
+ * This interface consists of methods needed to successfully handle calls to obtain the comments,
  * associated to an exam, and to post new comments to the data base.
  *
  * In every method, the listener is called, which is, in this case, an instance of the ExamPresenter.
@@ -34,19 +34,19 @@ public interface IExamInteractor {
     /**
      * Gets the comments for an exam using the api.
      * Notifies the listener accordingly to success or failure.
-     * @param exid CharSequence object representing the identifcation of the exam.
-     * @param sp SharedPreferneces object passed with the other  required parameters inside to make the call.
+     * @param exId CharSequence object representing the identification of the exam.
+     * @param sp SharedPreferences object passed with the other  required parameters inside to make the call.
      */
-    void getCommentsForExam(CharSequence exid, SharedPreferences sp);
+    void getCommentsForExam(CharSequence exId, SharedPreferences sp);
 
     /**
      * Posts a new comment for an exam using the api.
      * Notifies the listener according to success or failure.
-     * @param exid CharSequence object representing the identification of the exam.
+     * @param exId CharSequence object representing the identification of the exam.
      * @param comment CharSequence object representing the comment message.
-     * @param sp SharedPreferneces object passed with the other required parameters inside to make the call.
+     * @param sp SharedPreferences object passed with the other required parameters inside to make the call.
      */
-    void postNewComment(CharSequence exid, CharSequence comment, SharedPreferences sp);
+    void postNewComment(CharSequence exId, CharSequence comment, SharedPreferences sp);
 
     void getDocument(Exam exam,final String exId,final String exDocId,SharedPreferences sp);
 }

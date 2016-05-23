@@ -24,7 +24,6 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
     private FullScreenImageFragment fragment;
     private ArrayList<Uri> uris;
     private ArrayList<Bitmap> images = new ArrayList<>();
-    private LayoutInflater inflater;
     private Activity activity;
 
     public FullScreenImageAdapter(FullScreenImageFragment fragment,
@@ -56,7 +55,7 @@ public class FullScreenImageAdapter extends PagerAdapter implements IFullScreenI
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = inflater.inflate(R.layout.fullscreen_image, container, false);
 
         TouchImageView imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.fullscreen_img_touch_display);

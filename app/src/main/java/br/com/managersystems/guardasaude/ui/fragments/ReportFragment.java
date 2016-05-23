@@ -43,7 +43,6 @@ public class ReportFragment extends Fragment implements IExamReportView {
 
     @Override
     public void showReport(String report) {
-        Log.d(getClass().getSimpleName(), "Received report from presenter.. Showing webview!");
         String text = String.valueOf(Html.fromHtml(report));
         // Tried to remove any comments from the html string.
         String withOutComments = text.replaceAll("<!--*-->", " ");

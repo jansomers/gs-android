@@ -51,13 +51,13 @@ public class ExamPresenter implements IExamPresenter, OnInformationRetrievedList
     }
 
     @Override
-    public void retrieveComments(CharSequence exid, SharedPreferences sp) {
-        examInteractor.getCommentsForExam(exid, sp);
+    public void retrieveComments(CharSequence exId, SharedPreferences sp) {
+        examInteractor.getCommentsForExam(exId, sp);
     }
 
     @Override
-    public void saveComment(CharSequence comment, CharSequence exid, SharedPreferences sp) {
-        examInteractor.postNewComment(comment, exid, sp);
+    public void saveComment(CharSequence comment, CharSequence exId, SharedPreferences sp) {
+        examInteractor.postNewComment(comment, exId, sp);
     }
 
 

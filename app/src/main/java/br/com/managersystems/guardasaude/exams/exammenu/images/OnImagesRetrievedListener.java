@@ -6,7 +6,7 @@ import br.com.managersystems.guardasaude.exams.domain.Exam;
 
 public interface OnImagesRetrievedListener {
     /**
-     * Notofies the fragment to show an error when the exam can't be retrieved.
+     * Notifies the fragment to show an error when the exam can't be retrieved.
      */
     void onExamFailure();
 
@@ -22,7 +22,7 @@ public interface OnImagesRetrievedListener {
     void onExamReceived(Exam exam);
 
     /**
-     * DocumentResponse is added to the list of imagefiles after the image was successfully received
+     * DocumentResponse is added to the list of imageFiles after the image was successfully received
      * @param response DocumentResponse that represents the response of a request.
      */
     void onImageSuccess(DocumentResponse response);

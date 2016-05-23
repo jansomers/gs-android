@@ -54,12 +54,12 @@ public class RegisterPresenter implements IRegisterPresenter, OnRegisteredListen
     @Override
     public void onSuccessfulLocationResponse(LocationResponse locationResponse) {
         List<String> cities = new ArrayList<>();
-        List<String> cityids = new ArrayList<>();
+        List<String> cityIds = new ArrayList<>();
         for (LocationRow row : locationResponse.getRows()) {
             cities.add(row.getLocationValue());
-            cityids.add(row.getLocationID());
+            cityIds.add(row.getLocationID());
         }
-        activity.showCitySuggestions(cityText,cityids, cities);
+        activity.showCitySuggestions(cityText,cityIds, cities);
     }
 
     @Override
@@ -69,11 +69,11 @@ public class RegisterPresenter implements IRegisterPresenter, OnRegisteredListen
 
     @Override
     public void onRegistered() {
-        activity.showSuccesfulRegistration();
+        activity.showSuccessfulRegistration();
     }
 
     @Override
     public void onFailedToRegister() {
-        activity.showUnsuccesfulRegistration();
+        activity.showUnsuccessfulRegistration();
     }
 }

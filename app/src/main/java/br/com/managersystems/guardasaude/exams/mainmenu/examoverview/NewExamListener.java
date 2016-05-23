@@ -4,7 +4,7 @@ public interface NewExamListener {
     /**
      * Retrieves the exam information from the dialog window redirects it to the presenter
      * @param identification: the identification code of the exam
-     * @param accessCode: the accesscode or password for the exam
+     * @param accessCode: the access code or password for the exam
      */
     void onNewExamInformationRetrieved(String identification,String accessCode);
 }

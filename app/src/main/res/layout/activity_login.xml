@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gs_login_coordinator_layout"
@@ -27,10 +26,11 @@
                 android:id="@+id/gs_login_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleY="0.85"
-                android:scaleX="0.85"
                 android:layout_centerInParent="true"
+                android:contentDescription="@string/check_id_for_description"
                 android:gravity="center"
+                android:scaleX="0.85"
+                android:scaleY="0.85"
                 android:src="@drawable/thumbnail_gs_logo_and_text_small"
                 android:visibility="invisible" />
 
@@ -84,41 +84,41 @@
                 android:text="@string/login"
                 android:theme="@style/LoginButton" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:weightSum="1"
                 android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/gs_login_btn_anonymous_exam"
                     style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:textAlignment="textStart"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="0dp"
                     android:text="@string/anonymous_exam"
+                    android:textAlignment="viewStart"
                     android:textAppearance="@android:style/TextAppearance.Material.Widget.DropDownHint"
                     android:textColor="@color/colorPrimary300"
-                    android:textSize="12sp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:paddingLeft="6dp"
-                    android:paddingTop="0dp"
-                    android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/gs_login_btn_forgot_password"
                     style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:padding="0dp"
+                    android:textAlignment="viewEnd"
                     android:text="@string/forgot_pwd"
                     android:textAppearance="@android:style/TextAppearance.Material.Widget.DropDownHint"
                     android:textColor="@color/colorPrimaryLight"
-                    android:textSize="12sp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true" />
+                    android:textSize="12sp" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/gs_login_progressbar"
@@ -133,7 +133,8 @@
                 android:layout_width="48sp"
                 android:layout_height="48sp"
                 android:layout_gravity="center"
-                android:layout_marginTop="16sp" />
+                android:layout_marginTop="16sp"
+                android:contentDescription="@string/check_id_for_description" />
 
             <TextView
                 android:id="@+id/gs_login_progress_text"

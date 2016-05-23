@@ -3,7 +3,7 @@ package br.com.managersystems.guardasaude.exams.exammenu.report;
 import android.content.Intent;
 
 /**
- * This interface consists of methods needed to succesfully handle calls to obtain the report,
+ * This interface consists of methods needed to successfully handle calls to obtain the report,
  * associated to an exam.
  *
  * In every method, the listener is called, which is, in this case, an instance of the ReportPresenter.

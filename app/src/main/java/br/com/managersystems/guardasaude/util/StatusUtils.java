@@ -3,6 +3,13 @@ package br.com.managersystems.guardasaude.util;
 
 import br.com.managersystems.guardasaude.R;
 
+/**
+ * Utility class to handle Status definitions
+ *
+ * Authors:
+ * @author Jan Somers
+ * @author Thanee Stevens
+ */
 public class StatusUtils {
 
 

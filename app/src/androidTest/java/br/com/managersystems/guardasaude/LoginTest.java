@@ -48,7 +48,7 @@ public class LoginTest {
     }
 
     @Test
-    public void showsUnsuccesfulLoginResultWithWrongPassword() {
+    public void showsUnsuccessfulLoginResultWithWrongPassword() {
         onView(withId(R.id.gs_login_username)).perform(clearText());
         onView(withId(R.id.gs_login_password)).perform(clearText());
         onView(withId(R.id.gs_login_username)).perform(typeText(login.getActivity().getText(R.string.test_multi_role_user).toString()));
@@ -89,7 +89,7 @@ public class LoginTest {
     }
 
     @Test
-     public void showsExamOverviewAfterSuccesfulSingeRoleLogin() {
+     public void showsExamOverviewAfterSuccessfulSingeRoleLogin() {
         try {
             onView(withId(R.id.gs_role_choose_title)).check(matches(not(isDisplayed())));
             fail();

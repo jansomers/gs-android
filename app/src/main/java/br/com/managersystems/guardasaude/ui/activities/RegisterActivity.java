@@ -38,7 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.register.IRegisterView;
 import br.com.managersystems.guardasaude.register.RegisterPresenter;
@@ -154,8 +153,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     RegisterPresenter presenter;
     Context context;
     private String cpfNo = "";
-    private final InputFilter[] CPFFILTER = new InputFilter[]{new InputFilter.LengthFilter(14)};
-    private final InputFilter[] NONCPFFILTER = new InputFilter[]{new InputFilter.LengthFilter(20)};
+    private final InputFilter[] CPF_FILTER = new InputFilter[]{new InputFilter.LengthFilter(14)};
+    private final InputFilter[] NON_CPF_FILTER = new InputFilter[]{new InputFilter.LengthFilter(20)};
     private ArrayAdapter<String> cityAdapter;
     private ArrayAdapter<String> genderAdapter;
     private ArrayAdapter<String> countryAdapter;
@@ -173,7 +172,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         cityIds = new ArrayList<>();
         inputs = new HashMap<>();
 
-        if (BuildConfig.DEBUG) {
+        /*if (BuildConfig.DEBUG) {
             emailText.setText("jan@gmail.com");
             firstNameText.setText("jan");
             lastNameText.setText("somers");
@@ -181,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             vPasswordText.setText("Abcde1");
             birthDateText.setText("03/05/1991");
             idInputText.setText("123.234.234-22");
-        }
+        }*/
         initiateSnacks();
         initiateAdapters();
         initiateListeners();
@@ -222,7 +221,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                 birth_year = year <10 ? "0" + String.valueOf(year) : String.valueOf(year);
                 birth_month = monthOfYear < 10 ? "0" + String.valueOf(monthOfYear) : String.valueOf(monthOfYear);
                 birth_day = dayOfMonth < 10 ? "0" +  String.valueOf(dayOfMonth): String.valueOf(dayOfMonth);
-                StringBuilder dateStringBuilder = new StringBuilder(10);
 
                 birthDateText.setText(birth_day + "/" + birth_month + "/" + birth_year);
             }
@@ -340,7 +338,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                     } catch (Exception e) {
                         Log.d(this.getClass().getSimpleName(), "nonCpfTextWatcher wasn't attached yet, expected exception");
                     }
-                    idInputText.setFilters(CPFFILTER);
+                    idInputText.setFilters(CPF_FILTER);
                     idInputText.addTextChangedListener(cpfTextWatcher);
                 } else {
                     try {
@@ -348,7 +346,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                     } catch (Exception e) {
                         Log.d(this.getClass().getSimpleName(), "CpfTextWatcher wasn't attached yet, expected exception");
                     }
-                    idInputText.setFilters(NONCPFFILTER);
+                    idInputText.setFilters(NON_CPF_FILTER);
                     idInputText.addTextChangedListener(nonCpfTextWatcher);
                 }
             }
@@ -416,7 +414,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
             sb.setSpan(fcs, strLength - 1, strLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             sb.setSpan(bss, strLength - 1, strLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            final View.OnTouchListener oncrossTouchListener = new View.OnTouchListener() {
+            final View.OnTouchListener onCrossTouchListener = new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     final int DRAWABLE_LEFT = 0;
@@ -449,7 +447,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                             editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
                             editText.setOnTouchListener(onNoCrossTouchListener);
                             layout.setHint("");
-                            layout.getEditText().setHint(sb);
+                            if (layout.getEditText() != null) {
+                                layout.getEditText().setHint(sb);
+                            }
+
                         } else {
                             if (passWordField) {
                                 String password = passwordText.getEditableText().toString();
@@ -484,8 +485,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                             }
                         }
                         editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, crossDrawable, null);
-                        editText.setOnTouchListener(oncrossTouchListener);
-                        layout.getEditText().setHint("");
+                        editText.setOnTouchListener(onCrossTouchListener);
+                        if (layout.getEditText() != null)layout.getEditText().setHint("");
                         layout.setHint(sb);
                     }
                 }
@@ -532,8 +533,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                     genderSpinner.getSelectedItem().toString().substring(0,1).toUpperCase(),
                     birthDateText.getText().toString());
 
-        /* get all input values and forward to presenter.requestNewAccount */} else {
-        } /* do nothing */
+        /* get all input values and forward to presenter.requestNewAccount */}
+        else {
+            failedSnack.show();
+        }
 
     }
 
@@ -594,7 +597,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     /**
      * Displays a dialog where users can select their birth date.
-     * Sets the starting / maxdate to tthe current date.
+     * Sets the starting / max date to the current date.
      */
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSelectedListener, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
@@ -618,11 +621,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     @Override
     public void showsInvalidFieldEntry(final TextView textView) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(textView.getText());
-        sb.append(" ");
-        sb.append(getResources().getString(R.string.invalid_entry));
-        invalidSnack.setText(sb.toString());
+        invalidSnack.setText(String.valueOf(textView.getText()) + " " + getResources().getString(R.string.invalid_entry));
         invalidSnack.show();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -641,30 +640,30 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
 
     @Override
-    public void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityIdent, List<String> cities) {
+    public void showCitySuggestions(AutoCompleteTextView cityText, List<String> cityIdNumbers, List<String> cities) {
         ArrayAdapter<String> cityAdapter = (ArrayAdapter<String>) cityText.getAdapter();
-        cityAdapter.clear();;
+        cityAdapter.clear();
         cityAdapter.addAll(cities);
-        if (cityIdent.size() > 0) {
-            cityIds = (ArrayList<String>) cityIdent;
+        if (cityIdNumbers.size() > 0) {
+            cityIds = (ArrayList<String>) cityIdNumbers;
         }
         cityAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showSuccesfulRegistration() {
+    public void showSuccessfulRegistration() {
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
-    public void showUnsuccesfulRegistration() {
+    public void showUnsuccessfulRegistration() {
         failedSnack.show();
     }
 
     /**
-     * Requests focus on a textview and scrolls to the bottom of the textview.
-     * @param textView Textview object that needs to be focused.
+     * Requests focus on a textView and scrolls to the bottom of the textView.
+     * @param textView TextView object that needs to be focused.
      */
     private void focusText(TextView textView) {
         textView.setFocusableInTouchMode(true);

@@ -18,7 +18,7 @@ import br.com.managersystems.guardasaude.ui.dialogs.ForgotPasswordDialog;
 public interface ILoginPresenter {
 
     /**
-     * Passes the credentials encoded to the logininteractor
+     * Passes the credentials encoded to the loginInteractor
      *
      * @param username String that represents the username.
      * @param password String that represents the password.

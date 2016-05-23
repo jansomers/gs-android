@@ -6,19 +6,19 @@ import br.com.managersystems.guardasaude.exams.domain.ExamList;
 
 public interface OnCallExamListFinishedListener {
     /**
-     * The examlist was successfully retrieved and handed over to the preseneter
+     * The exam list was successfully retrieved and handed over to the presenter
      * @param examList: the list of exams for one user
      */
     void onSuccessGetExamList(ExamList examList);
 
     /**
-     * The examlist was not successfully retrieved
+     * The exam list was not successfully retrieved
      */
     void onFailureGetExamList();
 
     /**
      * The exam was successfully associated to the user and handed over to the presenter
-     * @param associatedExamResponse
+     * @param associatedExamResponse Response object with the associated exam
      */
     void onSuccessFindNewExam(AssociatedExamResponse associatedExamResponse);
 
