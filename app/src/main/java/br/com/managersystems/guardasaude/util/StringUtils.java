@@ -14,7 +14,7 @@ import java.util.List;
  * - String to name case
  * - String to formal case
  * - Html Strings to plain text
- * - Email validation <b>TODO validate emails based on...</b>
+ * - Email validation
  * - Password validation
  * - Checking if a string is found in an array
  *

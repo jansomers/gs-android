@@ -17,15 +17,16 @@
         <activity
             android:name=".ui.activities.LoginActivity"
             android:theme="@style/LoginTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".ui.activities.MainTabActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activities.ExamTabActivity">
 
@@ -34,9 +35,7 @@
         <activity android:name=".ui.activities.AnonymousExamInformationActivity">
 
         </activity>
-        <activity android:name=".ui.activities.RegisterActivity">
-
-        </activity>
+        <activity android:name=".ui.activities.RegisterActivity"></activity>
     </application>
 
 </manifest>
