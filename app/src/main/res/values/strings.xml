@@ -109,33 +109,6 @@
     <string name="country">Country *</string>
     <string name="brazil">Brazil</string>
     <string name="other">Other</string>
-
-
-    <!--Arrays -->
-    <string-array name="genders">
-        <item>@string/male</item>
-        <item>@string/female</item>
-    </string-array>
-
-    <string-array name="countries">
-        <item>@string/brazil</item>
-        <item>@string/other</item>
-    </string-array>
-
-    <string-array name="languages">
-        <item>Português</item>
-        <item>Español</item>
-        <item>English</item>
-    </string-array>
-
-    <string-array name="id_types">
-        <item>CPF</item>
-        <item>Passport</item>
-        <item>ID</item>
-        <item>ExternalSystem</item>
-        <item>Professional</item>
-        <item>ClinicInternalID</item>
-    </string-array>
     <string name="createAccount">Create an account</string>
     <string name="moreInfo">To get more information</string>
     <string name="exam_associated_succesful">Exam successfully associated</string>
@@ -176,7 +149,35 @@
     <string name="test_anon_patient">JOHN SMITH</string>
     <string name="test_anon_reporting_phys">Médico Teste</string>
     <string name="check_id_for_description">Check the id for a gist of what the view represents</string>
-    <string name="pdf_no_perm">Document could not be added to your download folder</string>
-    <string name="pdf_no_reader">No PDF Reader found on this phone. Please install one and try again.</string>
+    <string name="pdf_no_perm">The document could not be added to your download folder</string>
+    <string name="pdf_no_reader">No PDF Reader was found on this phone. Please install one and try again.</string>
+    <string name="searching_for_exam">Searching for the exam...</string>
+
+    <!--Arrays-->
+    <string-array name="genders">
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>@string/brazil</item>
+        <!--<item>@string/other</item>-->
+    </string-array>
+
+    <string-array name="languages">
+        <item>Português</item>
+        <!--<item>Español</item>-->
+        <item>English</item>
+    </string-array>
+
+    <string-array name="id_types">
+        <item>CPF</item>
+        <item>Passport</item>
+  <!--  <item>ID</item>
+        <item>ExternalSystem</item>
+        <item>Professional</item>
+        <item>ClinicInternalID</item>-->
+    </string-array>
+
 
 </resources>

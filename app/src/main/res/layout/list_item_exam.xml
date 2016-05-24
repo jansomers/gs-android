@@ -113,7 +113,7 @@
                     android:id="@+id/emergencyIcon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_warning_24dp"
+                    android:src="@drawable/ic_emergency_24dp_error"
                     android:layout_marginTop="52dp"/>
             </LinearLayout>
 

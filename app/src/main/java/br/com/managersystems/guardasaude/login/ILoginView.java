@@ -1,5 +1,7 @@
 package br.com.managersystems.guardasaude.login;
 
+import android.widget.Button;
+
 import java.util.ArrayList;
 
 /**
@@ -85,5 +87,5 @@ public interface ILoginView {
     /**
      * Calls retrieveAnonymousExam method from presenter and passes accessCode and examId
      */
-    void findAnonymousExam(String accessCodeString, String examIdString);
+    void findAnonymousExam(Button findNewExamButton, String accessCodeString, String examIdString);
 }

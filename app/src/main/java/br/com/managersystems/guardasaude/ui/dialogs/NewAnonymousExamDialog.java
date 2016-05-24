@@ -60,7 +60,7 @@ public class NewAnonymousExamDialog extends Dialog {
                     errorText.setText(loginActivity.getResources().getString(R.string.accesscode_required));
                     errorText.setVisibility(View.VISIBLE);
                 } else {
-                    loginActivity.findAnonymousExam(accessCodeString, examIdString);
+                    loginActivity.findAnonymousExam(findNewExamButton,accessCodeString, examIdString);
                 }
             }
         });

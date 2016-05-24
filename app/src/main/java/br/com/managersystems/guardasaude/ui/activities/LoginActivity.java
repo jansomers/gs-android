@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Bind(R.id.gs_login_coordinator_layout)
     CoordinatorLayout loginCoordinatorLayout;
 
-
+    Button findNewExamButton;
     private LoginPresenter presenter;
 
     SharedPreferences sp;
@@ -309,15 +310,41 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     @Override
-    public void showAnonymousExam(Exam exam) {
-        Intent intent = new Intent(this, AnonymousExamInformationActivity.class);
-        intent.putExtra("exam", exam);
-        startActivity(intent);
+    public void showAnonymousExam(final Exam exam) {
+        final LoginActivity activity = this;
+        if (findNewExamButton != null) {
+            findNewExamButton.setText(getText(R.string.opened));
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(activity, AnonymousExamInformationActivity.class);
+                intent.putExtra("exam", exam);
+                enableFindExamButton(findNewExamButton);
+                startActivity(intent);
+            }
+        }, 250);
+
     }
 
     @Override
     public void showAnonymousExamError() {
+        if (findNewExamButton != null) enableFindExamButton(findNewExamButton);
         snackInternalFailNewExam.show();
+
+    }
+
+    private void enableFindExamButton(Button findNewExamButton) {
+        findNewExamButton.setEnabled(true);
+        findNewExamButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
+        findNewExamButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        findNewExamButton.setText(getText(R.string.find_new_exam));
+    }
+    private void disableFindExamButton(Button findNewExamButton) {
+        findNewExamButton.setEnabled(false);
+        findNewExamButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.cardview_light_background));
+        findNewExamButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary300));
+        findNewExamButton.setText(getText(R.string.searching_for_exam));
     }
 
     /**
@@ -361,9 +388,19 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     }
 
     @Override
-    public void findAnonymousExam(String accessCodeString, String examIdString) {
-        presenter.retrieveAnonymousExam(accessCodeString, examIdString);
+    public void findAnonymousExam(Button findNewExamButton, final String accessCodeString, final String examIdString) {
+        this.findNewExamButton = findNewExamButton;
+        disableFindExamButton(findNewExamButton);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                presenter.retrieveAnonymousExam(accessCodeString, examIdString);
+            }
+        },300);
+
     }
+
+
 
 
     public LoginPresenter getPresenter() {
