@@ -35,7 +35,7 @@ public class FullScreenImageFragment extends Fragment{
         try {
             adapter = new FullScreenImageAdapter(FullScreenImageFragment.this, uris);
         } catch (IOException e) {
-            e.printStackTrace();
+           //TODO what to do with exception
         }
 
         viewPager.setAdapter(adapter);

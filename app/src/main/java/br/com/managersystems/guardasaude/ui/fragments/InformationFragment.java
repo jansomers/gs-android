@@ -184,6 +184,8 @@ public class InformationFragment extends Fragment implements IExamInformationVie
     private void initializeSnacks() {
         emptyComment = Snackbar.make(coordinatorLay, R.string.comment_empty, Snackbar.LENGTH_SHORT);
         emptyComment.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
+        snackDocumentNotFound = Snackbar.make(informationRelLayout, getResources().getText(R.string.snack_doc_not_found), Snackbar.LENGTH_LONG);
+        snackDocumentNotFound.getView().setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorError));
         commentError = Snackbar.make(coordinatorLay, getText(R.string.comment_failed), Snackbar.LENGTH_LONG);
         commentError.getView().setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorAccent));
         noPdfAppError = Snackbar.make(coordinatorLay, R.string.pdf_no_reader, Snackbar.LENGTH_INDEFINITE);
@@ -270,8 +272,6 @@ public class InformationFragment extends Fragment implements IExamInformationVie
 
     @Override
     public void documentNotFound() {
-        snackDocumentNotFound = Snackbar.make(informationRelLayout, getResources().getText(R.string.snack_doc_not_found), Snackbar.LENGTH_LONG);
-        snackDocumentNotFound.getView().setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorError));
         snackDocumentNotFound.show();
         enableButton(documentsButton);
     }

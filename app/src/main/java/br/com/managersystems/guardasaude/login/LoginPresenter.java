@@ -90,7 +90,7 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
         try {
             Log.d(this.getClass().getSimpleName(), "expires: " + format.parse(expires));
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d(this.getClass().getSimpleName(), "Parsing went wrong");
         }
         Log.d(this.getClass().getSimpleName(), "date: " + new Date().toString());
         if (expires.isEmpty()) {

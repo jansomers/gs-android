@@ -144,7 +144,7 @@ public class ExamInteractor implements  IExamInteractor {
                             try {
                                 examListener.onAllDocumentsSuccess();
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                examListener.onDocumentFailure();
                             }
                         }
 
