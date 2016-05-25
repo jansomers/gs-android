@@ -399,12 +399,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     }
 
-
-
-
     public LoginPresenter getPresenter() {
         return presenter;
     }
+
     @Override
     public void onBackPressed() {
         //Don't press back
