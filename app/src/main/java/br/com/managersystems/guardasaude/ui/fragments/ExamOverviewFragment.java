@@ -79,7 +79,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
     private Snackbar snackInternalFailNewExam;
     private Snackbar snackAlreadyAssociatedExam;
     private LinearLayoutManager llm;
-    private boolean startLoadingMore;
+    private int examListSize=0;
 
     public ExamOverviewFragment() {
 
@@ -117,7 +117,11 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                if (totalItemsCount > 5) overviewPresenter.getNextSortedExamList(sortBy, orderBy, String.valueOf(page));
+                if (examListSize > 5){
+                    if(page<examListSize){
+                        overviewPresenter.getNextSortedExamList(sortBy, orderBy, String.valueOf(page));
+                    }
+                }
             }
         });
     }
@@ -212,6 +216,7 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void showExamList(ArrayList<Exam> exams, Integer total) {
+        this.examListSize=total;
         progressBar.setVisibility(View.GONE);
         failText.setVisibility(View.GONE);
         this.examList = exams;
