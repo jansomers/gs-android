@@ -55,7 +55,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         // the VISIBLE_THRESHOLD and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + VISIBLE_THRESHOLD)) {
-            currentPage++;
+            currentPage=currentPage+VISIBLE_THRESHOLD;
             onLoadMore(currentPage, totalItemCount);
             loading = true;
         }

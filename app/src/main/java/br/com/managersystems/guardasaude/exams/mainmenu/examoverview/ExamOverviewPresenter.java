@@ -40,7 +40,7 @@ public class ExamOverviewPresenter implements IExamOverviewPresenter, OnCallExam
         String user= base64Interactor.decodeBase64ToString(sp.getString("user", "").getBytes());
         String token = sp.getString("token",null);
         String role = sp.getString("role",null);
-        examOverviewInteractor.getNextExamList(this,user,token,orderBy,sortBy,START_MAX_VALUE,offsetValue+5,null,role);
+        examOverviewInteractor.getNextExamList(this,user,token,orderBy,sortBy,START_MAX_VALUE,offsetValue,null,role);
     }
 
     @Override
