@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     /* ********************************************
     TODO implement domain chooser
     TODO implement profile switcher
-
     ******************************************** */
 
     @Override
@@ -310,9 +309,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public void showAnonymousExam(Exam exam) {
-        Intent intent = new Intent(this, AnonymousExamInformationActivity.class);
-        intent.putExtra("exam", exam);
-        startActivity(intent);
+            Intent intent = new Intent(this, AnonymousExamInformationActivity.class);
+            intent.putExtra("exam", exam);
+            startActivity(intent);
+
     }
 
     @Override
@@ -369,6 +369,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     public LoginPresenter getPresenter() {
         return presenter;
     }
+
     @Override
     public void onBackPressed() {
         //Don't press back

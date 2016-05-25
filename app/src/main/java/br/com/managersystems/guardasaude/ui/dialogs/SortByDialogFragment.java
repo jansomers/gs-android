@@ -3,10 +3,13 @@ package br.com.managersystems.guardasaude.ui.dialogs;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -140,8 +143,6 @@ public class SortByDialogFragment extends DialogFragment {
                 radioPatient.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
 
                 iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
-                iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
-                iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
 
                 if ((iconPatientCounter & 1) == 0) {
                     iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
@@ -160,8 +161,6 @@ public class SortByDialogFragment extends DialogFragment {
                 radioIdentification.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
 
                 iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
-                iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
-                iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
 
                 if ((iconIdentificationCounter & 1) == 0) {
                     iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az_accent));
@@ -179,8 +178,6 @@ public class SortByDialogFragment extends DialogFragment {
                 sortBy = "executionDate";
                 radioDate.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorAccent300));
                 iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
-                iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
-                iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
 
                 if ((iconDateCounter & 1) == 0) {
                     iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09_accent));
@@ -206,7 +203,11 @@ public class SortByDialogFragment extends DialogFragment {
         radioPatient.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
         radioDate.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
         radioIdentification.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
+        radioEmergency.setTextColor(ContextCompat.getColor(this.getActivity().getApplicationContext(), R.color.colorTextColorLight));
         isEmergency="false";
+        iconPatient.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
+        iconDate.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_09));
+        iconIdentification.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_sort_az));
     }
 
 

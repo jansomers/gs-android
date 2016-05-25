@@ -90,7 +90,7 @@
     <string name="personal_info">Personal Information</string>
     <string name="first_name">First name *</string>
     <string name="last_name">Last name *</string>
-    <string name="password_info">Your password has to be at least 5 characters long and include at least 1 number, upprcase letter and lowercase letter (e.g: Abcd1)</string>
+    <string name="password_info">Your password has to be at least 5 characters long and include at least 1 number, uppercase letter and lowercase letter (e.g: Abcd1)</string>
     <string name="gender">Gender</string>
     <string name="female_abbr">F</string>
     <string name="male_abbr">M</string>
@@ -140,7 +140,7 @@
     <string name="moreInfo">To get more information</string>
     <string name="exam_associated_succesful">Exam successfully associated</string>
     <string name="exam_already_associated">Exam already associated</string>
-    <string name="exam_associated_fail">Exam not found or Wrong accesscode</string>
+    <string name="exam_associated_fail">Exam not found or wrong access code</string>
     <string name="exam_associated_internalfail">Exam not found</string>
     <string name="identification_required">Identification is required!</string>
     <string name="accesscode_required">Access code is required!</string>

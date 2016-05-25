@@ -23,8 +23,6 @@ public class ExamOverviewInteractor implements IExamListInteractor {
 
     private final String BASE_URL = "https://www.guardasaude.com.br/";
     private ExamApi examApi;
-
-
     public ExamOverviewInteractor() {
         examApi = initiateRetrofit();
     }
