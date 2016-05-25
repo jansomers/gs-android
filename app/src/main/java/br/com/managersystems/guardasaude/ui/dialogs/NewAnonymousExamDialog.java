@@ -47,6 +47,7 @@ public class NewAnonymousExamDialog extends Dialog {
         findNewExamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                errorText.setText("");
                 String accessCodeString = accessCode.getEditableText().toString();
                 String examIdString = examId.getEditableText().toString();
 

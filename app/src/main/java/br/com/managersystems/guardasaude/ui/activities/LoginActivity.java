@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.managersystems.guardasaude.BuildConfig;
 import br.com.managersystems.guardasaude.R;
 import br.com.managersystems.guardasaude.exams.domain.Exam;
 import br.com.managersystems.guardasaude.login.ILoginView;
@@ -79,7 +78,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     /* ********************************************
     TODO implement domain chooser
     TODO implement profile switcher
-
     ******************************************** */
 
     @Override
@@ -102,9 +100,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     public void init() {
         activateLogo();
         initSnacks();
-        if (BuildConfig.DEBUG) {
-            setStartingCredentials("doctor2", "Admin1");
-        }
         instantiateProgressBar();
     }
 
@@ -231,6 +226,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         Log.d(this.getClass().getSimpleName(), "Login request Failed! Communication went wrong");
         hideProgressBar();
         showFailedLogin(getResources().getString(R.string.server_error));
+        loginBtn.setEnabled(true);
     }
 
 
@@ -238,6 +234,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     public void loginFailed(String code) {
         Log.d(this.getClass().getSimpleName(), "Login failed! Reason: " + code);
         hideProgressBar();
+
         if (code.equals("auth_failed"))
             showFailedLogin(getResources().getString(R.string.auth_failed));
         else showFailedLogin(code);
@@ -283,7 +280,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
      */
     private void showEmptyCredentials() {
         hideProgressBar();
+        authenticatingProgressText.setVisibility(View.VISIBLE);
         showFailedLogin(getResources().getString(R.string.empty_creds));
+
     }
 
     /**

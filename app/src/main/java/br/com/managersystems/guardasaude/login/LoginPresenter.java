@@ -47,8 +47,9 @@ public class LoginPresenter implements ILoginPresenter, OnDomainRetrievedListene
     LoginInteractor loginInteractor;
     DomainInteractor domainInteractor;
     Base64Interactor base64Interactor;
-    ForgotPasswordDialog forgotPasswordDialog;
     ExamOverviewInteractor examOverviewInteractor;
+    ForgotPasswordDialog forgotPasswordDialog;
+
 
     public LoginPresenter(LoginActivity loginActivity, SharedPreferences sp) {
         this.loginActivity = loginActivity;
