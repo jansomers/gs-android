@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -133,6 +134,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     @Bind(R.id.birth_date_input_wrapper)
     TextInputLayout birthDateInputWrapper;
 
+    @Bind(R.id.btn_submit_new_account)
+    Button submitAccount;
+
 
     Map<TextInputLayout, TextView> inputs;
     String birth_year;
@@ -203,10 +207,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     }
 
-    public void initiateSnacks(){
-        emptySnack = Snackbar.make(coordinatorLayout, R.string.must_befilled_in, Snackbar.LENGTH_LONG);
+    public void initiateSnacks() {
+        emptySnack = Snackbar.make(coordinatorLayout, R.string.must_befilled_in, Snackbar.LENGTH_SHORT);
         emptySnack.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
-        invalidSnack = Snackbar.make(coordinatorLayout, R.string.invalid_entry, Snackbar.LENGTH_LONG);
+        invalidSnack = Snackbar.make(coordinatorLayout, R.string.invalid_entry, Snackbar.LENGTH_SHORT);
         invalidSnack.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
         failedSnack = Snackbar.make(coordinatorLayout, R.string.register_failed, Snackbar.LENGTH_LONG);
         failedSnack.getView().setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
@@ -218,9 +222,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         onDateSelectedListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                birth_year = year <10 ? "0" + String.valueOf(year) : String.valueOf(year);
+                birth_year = year < 10 ? "0" + String.valueOf(year) : String.valueOf(year);
                 birth_month = monthOfYear < 10 ? "0" + String.valueOf(monthOfYear) : String.valueOf(monthOfYear);
-                birth_day = dayOfMonth < 10 ? "0" +  String.valueOf(dayOfMonth): String.valueOf(dayOfMonth);
+                birth_day = dayOfMonth < 10 ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
 
                 birthDateText.setText(birth_day + "/" + birth_month + "/" + birth_year);
             }
@@ -480,13 +484,13 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                     }
                     if (hasFocus) {
                         if (v.getId() == R.id.forced_city_input) {
-                            if (!countrySpinner.getSelectedItem().toString().toLowerCase().equals("brazil".toLowerCase())){
+                            if (!countrySpinner.getSelectedItem().toString().toLowerCase().equals("brazil".toLowerCase())) {
                                 cityAdapter.clear();
                             }
                         }
                         editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, crossDrawable, null);
                         editText.setOnTouchListener(onCrossTouchListener);
-                        if (layout.getEditText() != null)layout.getEditText().setHint("");
+                        if (layout.getEditText() != null) layout.getEditText().setHint("");
                         layout.setHint(sb);
                     }
                 }
@@ -520,6 +524,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     public void clickCreateAccount() {
         boolean readyToRegister = validateFormClientSide();
         if (readyToRegister) {
+            disableButton(submitAccount);
             presenter.registerUser(
                     firstNameText.getEditableText().toString(),
                     lastNameText.getEditableText().toString(),
@@ -530,14 +535,26 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                     vPasswordText.getEditableText().toString(),
                     idInputText.getEditableText().toString(),
                     idTypeText.getEditableText().toString(),
-                    genderSpinner.getSelectedItem().toString().substring(0,1).toUpperCase(),
+                    genderSpinner.getSelectedItem().toString().substring(0, 1).toUpperCase(),
                     birthDateText.getText().toString());
 
-        /* get all input values and forward to presenter.requestNewAccount */}
-        else {
-            failedSnack.show();
+        /* get all input values and forward to presenter.requestNewAccount */
         }
 
+    }
+
+    private void disableButton(Button submitAccount) {
+        submitAccount.setEnabled(false);
+        submitAccount.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent200));
+        submitAccount.setText(getText(R.string.creating_account));
+        submitAccount.setTextColor(ContextCompat.getColor(this, R.color.colorTextColorLight));
+    }
+
+    private void enableButton(Button submitAccount) {
+        submitAccount.setEnabled(true);
+        submitAccount.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        submitAccount.setText(getText(R.string.create_account));
+        submitAccount.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
     }
 
     @Override
@@ -568,7 +585,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                         boolean matchFound = false;
                         ArrayAdapter<String> adapter = (ArrayAdapter<String>) cityText.getAdapter();
                         String city = cityText.getText().toString();
-                        if (adapter.getPosition(city) >= 0 ) matchFound = true;
+                        if (adapter.getPosition(city) >= 0) matchFound = true;
                         allFieldsValid = matchFound;
                         break;
                     case (R.id.forced_language_input):
@@ -577,6 +594,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                     case (R.id.forced_id_type_input):
                         allFieldsValid = StringUtils.stringInArray(textView.getEditableText().toString(), getResources().getStringArray(R.array.id_types));
                         break;
+                    case (R.id.id_input):
+                        if (idTypeText.equals(getText(R.string.CPF))) {
+                            allFieldsValid = StringUtils.isValidCPF(textView.getEditableText().toString());
+                            break;
+                        }
                     case (R.id.birth_date_input):
                         allFieldsValid = !textView.getText().toString().isEmpty();
                         break;
@@ -600,7 +622,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
      * Sets the starting / max date to the current date.
      */
     private void showDatePickerDialog() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSelectedListener, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSelectedListener, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
         datePickerDialog.show();
     }
@@ -615,7 +637,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                 clearText(textView);
                 focusText(textView);
             }
-        }, Snackbar.LENGTH_LONG + 350);
+        }, Snackbar.LENGTH_LONG + 1000);
     }
 
 
@@ -629,7 +651,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
                 clearText(textView);
                 focusText(textView);
             }
-        }, Snackbar.LENGTH_LONG + 750);
+        }, Snackbar.LENGTH_LONG + 1000);
 
         if (birthDateText.getText().toString().isEmpty()) {
             birthDateBtn.setBackgroundColor(ContextCompat.getColor(context, R.color.colorError));
@@ -652,17 +674,27 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     @Override
     public void showSuccessfulRegistration() {
-        setResult(RESULT_OK);
-        finish();
+        submitAccount.setText(getText(R.string.created_account));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                enableButton(submitAccount);
+                setResult(RESULT_OK);
+                finish();
+            }
+        }, 300);
+
     }
 
     @Override
     public void showUnsuccessfulRegistration() {
+        enableButton(submitAccount);
         failedSnack.show();
     }
 
     /**
      * Requests focus on a textView and scrolls to the bottom of the textView.
+     *
      * @param textView TextView object that needs to be focused.
      */
     private void focusText(TextView textView) {
@@ -673,6 +705,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     /**
      * Clears the text.
+     *
      * @param textView TextView object that needs to be cleared of text.
      */
     private void clearText(TextView textView) {

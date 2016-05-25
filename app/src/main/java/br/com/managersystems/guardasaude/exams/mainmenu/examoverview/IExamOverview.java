@@ -13,8 +13,9 @@ public interface IExamOverview {
     /**
      * The exam list was received successfully
      * @param exams = The list of exams
+     * @param total
      */
-    void showExamList(ArrayList<Exam> exams);
+    void showExamList(ArrayList<Exam> exams, Integer total);
 
     /**
      * The exam list was not received successfully
