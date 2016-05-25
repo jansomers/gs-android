@@ -48,7 +48,7 @@ public class ExamOverviewInteractor implements IExamListInteractor {
             @Override
             public void onResponse(Call<ExamList> call, Response<ExamList> response) {
                 if (response.body() != null) {
-                    listener.onSuccessGetExamList(response.body());
+                    listener.onSuccessGetFirstExamList(response.body());
                 } else {
                     listener.onFailureGetExamList();
                 }

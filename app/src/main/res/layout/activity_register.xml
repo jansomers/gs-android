@@ -289,7 +289,7 @@
                         android:drawablePadding="4dp"
                         android:hint="@string/id_type"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:inputType="textAutoComplete"
                         android:textSize="14sp" />
 
                 </android.support.design.widget.TextInputLayout>

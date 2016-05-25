@@ -152,6 +152,9 @@
     <string name="pdf_no_perm">The document could not be added to your download folder</string>
     <string name="pdf_no_reader">No PDF Reader was found on this phone. Please install one and try again.</string>
     <string name="searching_for_exam">Searching for the exam...</string>
+    <string name="creating_account">Creating your account</string>
+    <string name="created_account">Account created</string>
+    <string name="CPF">CPF</string>
 
     <!--Arrays-->
     <string-array name="genders">

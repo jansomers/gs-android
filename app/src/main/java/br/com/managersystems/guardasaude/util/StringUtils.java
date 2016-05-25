@@ -95,4 +95,9 @@ public class StringUtils {
     public static String tryReformatCPF(String identification) {
         return identification.replace(".", "").replace("-", "");
     }
+
+    public static boolean isValidCPF(String CPF) {
+        CPF = tryReformatCPF(CPF);
+        return  CPF.matches("\\d{3}.\\d{3}.\\d{3}-\\d{2}");
+    }
 }

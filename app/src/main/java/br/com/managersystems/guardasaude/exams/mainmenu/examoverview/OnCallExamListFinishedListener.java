@@ -9,7 +9,7 @@ public interface OnCallExamListFinishedListener {
      * The exam list was successfully retrieved and handed over to the presenter
      * @param examList: the list of exams for one user
      */
-    void onSuccessGetExamList(ExamList examList);
+    void onSuccessGetFirstExamList(ExamList examList);
 
     /**
      * The exam list was not successfully retrieved
