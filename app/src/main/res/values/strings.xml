@@ -130,7 +130,7 @@
     <string name="snack_doc_not_found">Anexos não encontrados!</string>
     <string name="opened">Aberto</string>
     <string name="loading">Carregando</string>
-    <string name="in_progress">Aguardando resultado</string>
+    <string name="in_progress">Em análise</string>
     <string name="register_failed">Erro ao registrar</string>
     <string name="register_success">Registro realizado.</string>
     <string name="future_login">Você agora pode se logar com seus dados.</string>
