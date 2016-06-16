@@ -216,6 +216,11 @@ public class ExamOverviewFragment extends Fragment implements IExamOverview, Sor
 
     @Override
     public void showExamList(ArrayList<Exam> exams, Integer total) {
+        // Line below added:
+        // Reason: without that, it runs NullPointerException on total...
+        // Added by Victor Simas
+        // 2016-06-16
+        if (total == null) { total = 0; }
         this.examListSize=total;
         progressBar.setVisibility(View.GONE);
         failText.setVisibility(View.GONE);
