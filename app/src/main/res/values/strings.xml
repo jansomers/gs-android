@@ -53,7 +53,7 @@
     <string name="executionDate">Data do exame</string>
     <string name="asc">ASC</string>
     <string name="desc">DESC</string>
-    <string name="identification">Identificação</string>
+    <string name="identification">Protocolo</string>
     <string name="test_wrong_password">wrongpassword</string>
     <string name="test_multi_role_password">admin</string>
     <string name="test_multi_role_user">doctor</string>
@@ -130,7 +130,7 @@
     <string name="snack_doc_not_found">Anexos não encontrados!</string>
     <string name="opened">Aberto</string>
     <string name="loading">Carregando</string>
-    <string name="in_progress">Em progresso</string>
+    <string name="in_progress">Aguardando resultado</string>
     <string name="register_failed">Erro ao registrar</string>
     <string name="register_success">Registro realizado.</string>
     <string name="future_login">Você agora pode se logar com seus dados.</string>
